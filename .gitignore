@@ -40,3 +40,5 @@ build/
 db_disk.vdi
 maposmatic.box
 
+# ignore OSM data files
+*.pbf
