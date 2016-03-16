@@ -66,11 +66,6 @@ Vagrant.configure(2) do |config|
     cd mapnik
     git checkout 2.3.x
 
-    # scons build defaults
-    export SCONSFLAGS="-j 2"
-    export CC="ccache gcc"
-    export CXX="ccache g++"
-
     # configure, build, install
     python scons/scons.py configure CXX="ccache g++" CC="ccache gcc" 
     python scons/scons.py
