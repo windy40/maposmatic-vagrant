@@ -34,3 +34,9 @@ build/
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
 .rvmrc
+
+# ignore Vagrant / Virtualbox related stuff
+.vagrant/
+db_disk.vdi
+maposmatic.box
+
