@@ -86,6 +86,10 @@ Vagrant.configure(2) do |config|
     sudo --user=maposmatic psql --dbname=gis --command="ALTER TABLE geometry_columns OWNER TO maposmatic"
     sudo --user=maposmatic psql --dbname=gis --command="ALTER TABLE spatial_ref_sys OWNER TO maposmatic"
 
+    # set up maposmatic admin table
+    sudo --user=maposmatic psql --dbname=gis --command="CREATE TABLE maposmatic_admin (last_update timestamp)"
+    sudo --user=maposmatic psql --dbname=gis --command="INSERT INTO maposmatic_admin VALUES ('1970-01-01 00:00:00')"
+
     # enable hstore extension
     sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION hstore"
 
@@ -122,6 +126,7 @@ Vagrant.configure(2) do |config|
 
     # import OSM data into database
     sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/openstreetmap-carto/openstreetmap-carto.style /vagrant/data.osm.pbf
+    sudo --user=maposmatic psql --dbname=gis --command="UPDATE maposmatic_admin SET last_update = NOW()"
 
     # get maposmatic web frontend
     cd /home/maposmatic

@@ -20,6 +20,4 @@ A minimum of 2GB available RAM for the VM
 
 * Nominatim integration doesn't really work as expected yet
 
-* The "render daemon not running" / "GIS database not running"
-  messages can be ignored
 
