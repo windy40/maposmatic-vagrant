@@ -114,6 +114,44 @@ Vagrant.configure(2) do |config|
     ./get-shapefiles.sh
     carto project.mml > osm.xml     
 
+    # add extra shape file needed by other carto based styles later
+    cd data
+    wget http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
+    unzip simplified-land-polygons-complete-3857.zip
+    wget http://data.openstreetmapdata.com/land-polygons-split-3857.zip
+    unzip land-polygons-split-3857.zip 
+    mkdir ne_10m_populated_places
+    cd ne_10m_populated_places
+    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
+    unzip ne_10m_populated_places.zip
+    ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
+    cd ..
+
+
+
+    # HikeBikeMap style
+    cd /home/maposmaic
+    wget -O - https://dl.dropboxusercontent.com/u/279938/hikebikemap-carto-0.9.tbz | tar -xjf -
+    
+    rm -rf data
+    ln -s ../openstreetmap-carto/data/ .
+    carto project.mml > osm.xml
+
+    # Humanitarian style
+    cd /home/maposmatic
+    git clone https://github.com/hotosm/HDM-CartoCSS.git
+    cd HDM-CartoCSS
+    cp -r ../openstreetmap-carto/scripts .
+    sed -e's/\/ybon\/Data\/geo\/shp\//\/maposmatic\/openstreetmap-carto\/data\//g' -e's/\/ybon\/Code\/maps\/hdm\//\/maposmatic\/HDM-CartoCSS\//g' -e's/dbname: hdm/dbname: gis/g' -e's/user: osm/user: maposmatic/g' < project.yml > project.yaml
+    ./scripts/yaml2mml.py
+    carto project.mml > osm.xml
+    cd DEM
+    mkdir -p data
+    ./fetch.sh 38,1,40,3
+    ./hillshade.sh
+    ./hillshade_to_vrt.sh
+    ./merge_contour.sh
+
     # install latest ocitysmap from git
     cd /home/maposmatic
     git clone -q https://github.com/hholzgra/ocitysmap.git
