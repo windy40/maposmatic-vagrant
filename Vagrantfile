@@ -101,6 +101,11 @@ Vagrant.configure(2) do |config|
     # for the maposmatic printable stylesheet later
     cd /home/maposmatic
     svn co -q http://svn.openstreetmap.org/applications/rendering/mapnik mapnik2-osm
+    cd mapnik2-osm
+    sh ./get-coastlines.sh
+    cd world_boundaries/
+    ln -s ne_110m_admin_0_boundary_lines_land.shp 110m_admin_0_boundary_lines_land.shp
+    ln -s ne_110m_admin_0_boundary_lines_land.dbf 110m_admin_0_boundary_lines_land.dbf
 
     # carto osm style
     cd /home/maposmatic
@@ -115,10 +120,8 @@ Vagrant.configure(2) do |config|
 
     # set up maposmatic printable stylesheet
     cp ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
-    cd mapnik2-osm 
+    cd ocitysmap/stylesheet/maposmatic-printable
     python /home/maposmatic/mapnik2-osm/generate_xml.py --dbname gis --host 'localhost' --user maposmatic --port 5432 --password 'secret' --world_boundaries  /home/maposmatic/mapnik2-osm/world_boundaries --symbols /home/maposmatic/mapnik2-osm/symbols 
-    cd mapnik2-osm/world_boundaries/
-    ln -s ne_110m_admin_0_boundary_lines_land.shp 110m_admin_0_boundary_lines_land.shp 
 
     # copy predefined ocitysmap config file to default locations
     cp /vagrant/ocitysmap.conf /home/maposmatic/.ocitysmap.conf
