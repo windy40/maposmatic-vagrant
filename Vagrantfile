@@ -4,7 +4,7 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/wily64"
 
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
+  config.vm.network "forwarded_port", guest: 80, host: 8000
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "2048"
@@ -53,10 +53,7 @@ Vagrant.configure(2) do |config|
     apt-get update --quiet
 
     # install needed extra pacakges
-    apt-get install --quiet --assume-yes git subversion unzip postgresql postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros ttf-indic-fonts-core fonts-taml-tscu ttf-kannada-fonts npm gdal-bin node-carto python-yaml
-
-    # install right version of Django
-    pip install django==1.3.7
+    apt-get install --quiet --assume-yes git subversion unzip postgresql postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros ttf-indic-fonts-core fonts-taml-tscu ttf-kannada-fonts npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django
 
     # build and install Mapik 2.3.x from git
     # older Mapnik versions have a bug that leads to Cairo null pointer exceptions
@@ -184,7 +181,7 @@ Vagrant.configure(2) do |config|
     cp /vagrant/maposmatic.wsgi www/maposmatic.wsgi
 
     # init MaposMatics housekeeping database
-    python www/manage.py syncdb
+    python manage.py syncdb
 
     # set up translations
     cd www
@@ -201,12 +198,17 @@ Vagrant.configure(2) do |config|
     chown -R maposmatic /home/maposmatic
     chmod -R a+w        /home/maposmatic
 
-    # set up render daemon and web server
-    cp /vagrant/maposmatic*.service /lib/systemd/system
-    chmod 644 /lib/systemd/system/maposmatic*.service
+    # set up render daemon
+    cp /vagrant/maposmatic-render.service /lib/systemd/system
+    chmod 644 /lib/systemd/system/maposmatic-render.service
     systemctl daemon-reload
-    systemctl enable maposmatic-render.service maposmatic-web.service
-    systemctl start maposmatic-render.service maposmatic-web.service
+    systemctl enable maposmatic-render.service
+    systemctl start maposmatic-render.service
+
+    # set up web server
+    service apache2 stop
+    cp /vagrant/000-default.conf /etc/apache2/sites-available
+    service apache2 start
 
   SHELL
 end
