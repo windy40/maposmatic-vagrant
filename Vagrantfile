@@ -119,7 +119,7 @@ Vagrant.configure(2) do |config|
     unzip land-polygons-split-3857.zip 
     mkdir ne_10m_populated_places
     cd ne_10m_populated_places
-    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
+    wget http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
     unzip ne_10m_populated_places.zip
     ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
     cd ..
@@ -129,7 +129,7 @@ Vagrant.configure(2) do |config|
     # HikeBikeMap style
     cd /home/maposmaic
     wget -O - https://dl.dropboxusercontent.com/u/279938/hikebikemap-carto-0.9.tbz | tar -xjf -
-    
+    cd hikebikemap-carto-0.9/ 
     rm -rf data
     ln -s ../openstreetmap-carto/data/ .
     carto project.mml > osm.xml
