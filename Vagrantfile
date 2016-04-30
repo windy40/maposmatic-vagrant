@@ -149,6 +149,19 @@ Vagrant.configure(2) do |config|
     ./hillshade_to_vrt.sh
     ./merge_contour.sh
 
+    # OpenTopoMap style
+    cd /home/maposmatic
+    git clone https://github.com/der-stefan/OpenTopoMap.git
+    cd OpenTopoMap
+    mkdir world_boundaries
+    wget http://tile.openstreetmap.org/shoreline_300.tar.bz2
+    wget http://tile.openstreetmap.org/processed_p.tar.bz2
+    tar xjf shoreline_300.tar.bz2 -C world_boundaries
+    tar xjf processed_p.tar.bz2 -C world_boundaries
+    mkdir data
+    cd data
+   
+
     # install latest ocitysmap from git
     cd /home/maposmatic
     git clone -q https://github.com/hholzgra/ocitysmap.git
@@ -163,7 +176,7 @@ Vagrant.configure(2) do |config|
     cp /vagrant/ocitysmap.conf /root/.ocitysmap.conf
 
     # import OSM data into database
-    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/openstreetmap-carto/openstreetmap-carto.style /vagrant/data.osm.pbf
+    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/OpenTopoMap/mapnik/osm2pgsql/opentopomap.style /vagrant/data.osm.pbf
     sudo --user=maposmatic psql --dbname=gis --command="UPDATE maposmatic_admin SET last_update = NOW()"
 
     # get maposmatic web frontend
