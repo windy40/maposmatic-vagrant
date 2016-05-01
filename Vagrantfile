@@ -20,6 +20,14 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_x11=true
 
   config.vm.provision "shell", inline: <<-SHELL
+
+#----------------------------------------------------
+#
+# Vagrant/Virtualbox environment preparations
+# (not really Ocitysmap specific yet)
+#
+#----------------------------------------------------
+
     # override language settings
     export LANG=en_US.utf8
     export LANGUAGE=en_US.utf8
@@ -52,8 +60,29 @@ Vagrant.configure(2) do |config|
     # bring apt package database up to date
     apt-get update --quiet
 
+
+#----------------------------------------------------
+#
+# Install all required packages 
+#
+#----------------------------------------------------
+
+    # bring apt package database up to date
+    apt-get update --quiet
+
     # install needed extra pacakges
     apt-get install --quiet --assume-yes git subversion unzip postgresql postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros ttf-indic-fonts-core fonts-taml-tscu ttf-kannada-fonts npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django
+
+
+#----------------------------------------------------
+#
+# Build Mapnik 2.3.x beta from source
+#
+# (Mapnik 2.2 has a bug that Ocitysmap runs into,
+#  this is also fixed in Mapnik 3.0, but that also
+#  changed the python API bindings ...
+#
+#----------------------------------------------------
 
     # build and install Mapik 2.3.x from git
     # older Mapnik versions have a bug that leads to Cairo null pointer exceptions
@@ -68,6 +97,12 @@ Vagrant.configure(2) do |config|
     python scons/scons.py
     python scons/scons.py install
     cd ..
+
+#----------------------------------------------------
+#
+# Set up PostgreSQL and PostGIS 
+#
+#----------------------------------------------------
 
     # add "maposmatic" system user that will own the database
     useradd -m maposmatic
@@ -93,9 +128,47 @@ Vagrant.configure(2) do |config|
     # set password for gis database user
     sudo --user=maposmatic psql --dbname=postgres --command="ALTER USER maposmatic WITH PASSWORD 'secret';"
 
-    # fetch and prepare default (old) mapnik OSM rendering style
-    # we won't really use it as it is outdated, but we need its symbol dir
-    # for the maposmatic printable stylesheet later
+
+
+#----------------------------------------------------
+#
+# Fetch OCitysMap from GitHub and configure it
+#
+#----------------------------------------------------
+
+    # install latest ocitysmap from git
+    cd /home/maposmatic
+    git clone -q https://github.com/hholzgra/ocitysmap.git
+
+    # copy predefined ocitysmap config file to default locations
+    cp /vagrant/ocitysmap.conf /home/maposmatic/.ocitysmap.conf
+    cp /vagrant/ocitysmap.conf /root/.ocitysmap.conf
+
+
+
+
+
+#----------------------------------------------------
+#----------------------------------------------------
+#
+# Set up various stylesheets 
+#
+# When adding stylesheets -> don't forget to register
+# them in the ocitysmap.conf file
+# 
+#----------------------------------------------------
+#----------------------------------------------------
+
+
+#----------------------------------------------------
+#
+# Fetch old pre-Carto OSM Mapnik stylesheed
+#
+# we won't really use it as it is outdated, but we need its symbol dir
+# for the maposmatic printable stylesheet later
+#
+#----------------------------------------------------
+
     cd /home/maposmatic
     svn co -q http://svn.openstreetmap.org/applications/rendering/mapnik mapnik2-osm
     cd mapnik2-osm
@@ -104,7 +177,14 @@ Vagrant.configure(2) do |config|
     ln -s ne_110m_admin_0_boundary_lines_land.shp 110m_admin_0_boundary_lines_land.shp
     ln -s ne_110m_admin_0_boundary_lines_land.dbf 110m_admin_0_boundary_lines_land.dbf
 
-    # carto osm style
+
+
+#----------------------------------------------------
+#
+# CartoOsm style sheet - the current OSM default style
+#
+#----------------------------------------------------
+
     cd /home/maposmatic
     git clone https://github.com/gravitystorm/openstreetmap-carto.git
     cd openstreetmap-carto
@@ -125,16 +205,26 @@ Vagrant.configure(2) do |config|
     cd ..
 
 
+#----------------------------------------------------
+#
+# HikeBikeMap style
+#
+#----------------------------------------------------
 
-    # HikeBikeMap style
-    cd /home/maposmaic
+    cd /home/maposmatic
     wget -O - https://dl.dropboxusercontent.com/u/279938/hikebikemap-carto-0.9.tbz | tar -xjf -
     cd hikebikemap-carto-0.9/ 
     rm -rf data
     ln -s ../openstreetmap-carto/data/ .
     carto project.mml > osm.xml
 
-    # Humanitarian style
+
+#----------------------------------------------------
+#
+# Humnaitarian "HOT" style
+#
+#----------------------------------------------------
+
     cd /home/maposmatic
     git clone https://github.com/hotosm/HDM-CartoCSS.git
     cd HDM-CartoCSS
@@ -144,47 +234,104 @@ Vagrant.configure(2) do |config|
     carto project.mml > osm.xml
     cd DEM
     mkdir -p data
+    # TODO - this only fetches a small part of Germany
     ./fetch.sh 38,1,40,3
     ./hillshade.sh
     ./hillshade_to_vrt.sh
     ./merge_contour.sh
 
-    # OpenTopoMap style
-    cd /home/maposmatic
-    git clone https://github.com/der-stefan/OpenTopoMap.git
-    cd OpenTopoMap
-    mkdir world_boundaries
-    wget http://tile.openstreetmap.org/shoreline_300.tar.bz2
-    wget http://tile.openstreetmap.org/processed_p.tar.bz2
-    tar xjf shoreline_300.tar.bz2 -C world_boundaries
-    tar xjf processed_p.tar.bz2 -C world_boundaries
-    mkdir data
-    cd data
-   
 
-    # install latest ocitysmap from git
-    cd /home/maposmatic
-    git clone -q https://github.com/hholzgra/ocitysmap.git
+#----------------------------------------------------
+#
+# MapOSMatic Printable stylesheet
+#
+#----------------------------------------------------
 
-    # set up maposmatic printable stylesheet
+    cd /home/maposmatic
+
+    # we need to add the MapOSMatic specific
+    # symbols to the "old" MapnikOSM symbol set
     cp ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
+
+    # configure the actual stylesheet
     cd ocitysmap/stylesheet/maposmatic-printable
-    python /home/maposmatic/mapnik2-osm/generate_xml.py --dbname gis --host 'localhost' --user maposmatic --port 5432 --password 'secret' --world_boundaries  /home/maposmatic/mapnik2-osm/world_boundaries --symbols /home/maposmatic/mapnik2-osm/symbols 
+    python /home/maposmatic/mapnik2-osm/generate_xml.py --dbname gis \
+      --host 'localhost' --user maposmatic --port 5432 --password 'secret' \
+      --world_boundaries  /home/maposmatic/mapnik2-osm/world_boundaries \
+      --symbols /home/maposmatic/mapnik2-osm/symbols 
 
-    # copy predefined ocitysmap config file to default locations
-    cp /vagrant/ocitysmap.conf /home/maposmatic/.ocitysmap.conf
-    cp /vagrant/ocitysmap.conf /root/.ocitysmap.conf
 
-    # import OSM data into database
+#----------------------------------------------------
+#
+# Mapquest EU Stylesheet
+#
+#----------------------------------------------------
+
+    cd /home/maposmatic
+
+    # fetch current stylesheet version
+    git clone git://github.com/MapQuest/MapQuest-Mapnik-Style.git
+
+    cd MapQuest-Mapnik-Style
+
+    # Mapquest stylesheets need the same boundary files as the old
+    # MapnikOSM style, so we can just reuse that here
+    ln -s /home/maposmatic/mapnik2-osm/world_boundaries world_boundaries
+
+    # fetch additional files required by this style
+    wget http://aweble.de/downloads/mercator_tiffs.tar.bz2
+    cd world_boundaries
+    tar -xvf ../mercator_tiffs.tar.bz2
+    cd ..
+
+    # generate stylesheet XML
+    python /home/maposmatic/mapnik2-osm/generate_xml.py --inc mapquest_inc \
+       --symbols mapquest_symbols \
+       --dbname gis \
+       --host 'localhost' \
+       --user maposmatic \
+       --port 5432 \
+       --password secret
+
+# 
+# END OF STYLESHEET SETUP
+#
+
+
+
+
+#----------------------------------------------------
+#
+# Import OSM data into database
+#
+# We can only do this now as we needed to fetch
+# the opentopomap style first. OpenTopoMap extends
+# the default osm2pgsql database schema with some
+# extra columns, but it is backwards compatible,
+# so this import can be used by all stylesheets above
+#
+#----------------------------------------------------
+
+    # import data
     sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/OpenTopoMap/mapnik/osm2pgsql/opentopomap.style /vagrant/data.osm.pbf
+
+    # update import timestamp
     sudo --user=maposmatic psql --dbname=gis --command="UPDATE maposmatic_admin SET last_update = NOW()"
+
+
+
+#----------------------------------------------------
+#
+# MapOSMatic web frontend installation & configuration
+#
+#----------------------------------------------------
 
     # get maposmatic web frontend
     cd /home/maposmatic
     git clone https://github.com/hholzgra/maposmatic.git
     cd maposmatic
 
-    # create needed directories
+    # create needed directories and tweak permissions
     mkdir -p logs rendering/results    
 
     # copy config files
@@ -198,7 +345,7 @@ Vagrant.configure(2) do |config|
 
     # set up translations
     cd www
-    django-admin.py compilemessages
+    django-admin compilemessages
     cd ..
 
     # install locales listed in MAP_LANGUAGES in settings.py
@@ -207,9 +354,10 @@ Vagrant.configure(2) do |config|
       locale-gen --no-purge --lang $lang
     done 
 
-    # FIXME: just make everything writable for now
+    # fix directory ownerships
     chown -R maposmatic /home/maposmatic
-    chmod -R a+w        /home/maposmatic
+    chgrp www-data www logs
+    chmod g+w www logs
 
     # set up render daemon
     cp /vagrant/maposmatic-render.service /lib/systemd/system
