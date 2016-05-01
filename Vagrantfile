@@ -279,9 +279,9 @@ Vagrant.configure(2) do |config|
     ln -s /home/maposmatic/mapnik2-osm/world_boundaries world_boundaries
 
     # fetch additional files required by this style
-    wget http://aweble.de/downloads/mercator_tiffs.tar.bz2
     cd world_boundaries
-    tar -xvf ../mercator_tiffs.tar.bz2
+    wget http://aweble.de/downloads/mercator_tiffs.tar.bz2
+    tar -xvf mercator_tiffs.tar.bz2
     cd ..
 
     # generate stylesheet XML
