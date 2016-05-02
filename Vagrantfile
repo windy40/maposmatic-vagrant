@@ -44,8 +44,24 @@ Vagrant.configure(2) do |config|
     export LC_TELEPHONE=en_US.UTF-8
     export LC_TIME=en_US.UTF-8
 
-    # create and mount file system on 2nd disk "db_disk"
+    # silence curl and wget progress reports
+    # as these just flood the vagrant output in an unreadable way
+    echo "--silent" > /root/.curlrc
+    echo "quiet = on" > /root/.wgetrc
 
+    # pre-seed apt cache to speed things up a bit
+    if test -d /vagrant/cache/apt/
+    then
+      cp -rn /vagrant/cache/apt/ /var/cache/
+    fi
+    
+    # pre-seed compiler cache
+    if test -d /vagrant/cache/.ccache/
+    then
+        cp -rn /vagrant/cache/.ccache/ ~/
+    fi
+    
+    # create and mount file system on 2nd disk "db_disk"
     if ! test -b /dev/sda1
     then
       parted /dev/sdb mklabel msdos 
@@ -229,7 +245,11 @@ Vagrant.configure(2) do |config|
     git clone https://github.com/hotosm/HDM-CartoCSS.git
     cd HDM-CartoCSS
     cp -r ../openstreetmap-carto/scripts .
-    sed -e's/\/ybon\/Data\/geo\/shp\//\/maposmatic\/openstreetmap-carto\/data\//g' -e's/\/ybon\/Code\/maps\/hdm\//\/maposmatic\/HDM-CartoCSS\//g' -e's/dbname: hdm/dbname: gis/g' -e's/user: osm/user: maposmatic/g' < project.yml > project.yaml
+    sed -e's|/ybon/Data/geo/shp/|/maposmatic/openstreetmap-carto/data/|g' \
+        -e's|/ybon/Code/maps/hdm/|/maposmatic/HDM-CartoCSS/|g' \
+        -e's|dbname: hdm|dbname: gis|g' \
+        -e's|user: osm|user: maposmatic|g' \
+        < project.yml > project.yaml
     ./scripts/yaml2mml.py
     carto project.mml > osm.xml
     cd DEM
@@ -364,6 +384,19 @@ Vagrant.configure(2) do |config|
     service apache2 stop
     cp /vagrant/000-default.conf /etc/apache2/sites-available
     service apache2 start
+
+#----------------------------------------------------
+#
+# cleanup
+#
+#-----------------------------------------------------
+
+    # write back apt cache
+    mkdir -p /vagrant/cache
+    cp -rn /var/cache/apt/ /vagrant/cache/ 
+
+    # pre-seed compiler cache
+    cp -rn /root/.ccache /vagrant/cache/
 
   SHELL
 end
