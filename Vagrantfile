@@ -100,7 +100,7 @@ Vagrant.configure(2) do |config|
     # build and install Mapik 2.3.x from git
     # older Mapnik versions have a bug that leads to Cairo null pointer exceptions
     # and Mapnik 3.0 doesn't have fully working python bindings yet
-    apt-get build-dep --quiet --assume-yes python-mapnik
+    apt-get build-dep --quiet=2 --assume-yes python-mapnik
     git clone https://github.com/mapnik/mapnik.git 
     cd mapnik
     git checkout 2.3.x
