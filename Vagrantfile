@@ -356,8 +356,8 @@ Vagrant.configure(2) do |config|
 
     # fix directory ownerships
     chown -R maposmatic /home/maposmatic
-    chgrp www-data www logs
-    chmod g+w www logs
+    chgrp www-data logs www www/datastore.sqlite3
+    chmod   g+w    logs www www/datastore.sqlite3
 
     # set up render daemon
     cp /vagrant/maposmatic-render.service /lib/systemd/system
