@@ -49,8 +49,19 @@ Vagrant.configure(2) do |config|
     echo "--silent" > /root/.curlrc
     echo "quiet = on" > /root/.wgetrc
 
+    # pre-seed apt cache to speed things up a bit
+    if test -d /vagrant/cache/apt/
+    then
+      cp -rn /vagrant/cache/apt/ /var/cache/
+    fi
+    
+    # pre-seed compiler cache
+    if test -d /vagrant/cache/.ccache/
+    then
+        cp -rn /vagrant/cache/.ccache/ ~/
+    fi
+    
     # create and mount file system on 2nd disk "db_disk"
-
     if ! test -b /dev/sda1
     then
       parted /dev/sdb mklabel msdos 
@@ -373,6 +384,19 @@ Vagrant.configure(2) do |config|
     service apache2 stop
     cp /vagrant/000-default.conf /etc/apache2/sites-available
     service apache2 start
+
+#----------------------------------------------------
+#
+# cleanup
+#
+#-----------------------------------------------------
+
+    # write back apt cache
+    mkdir -p /vagrant/cache
+    cp -rn /var/cache/apt/ /vagrant/cache/ 
+
+    # pre-seed compiler cache
+    cp -rn /root/.ccache /vagrant/cache/
 
   SHELL
 end
