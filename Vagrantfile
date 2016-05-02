@@ -46,7 +46,7 @@ Vagrant.configure(2) do |config|
 
     # create and mount file system on 2nd disk "db_disk"
 
-    if [ ! test -b /dev/sda1 ]
+    if ! test -b /dev/sda1
     then
       parted /dev/sdb mklabel msdos 
       parted /dev/sdb mkpart primary 512 100%
