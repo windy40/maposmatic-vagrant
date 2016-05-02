@@ -304,16 +304,10 @@ Vagrant.configure(2) do |config|
 #
 # Import OSM data into database
 #
-# We can only do this now as we needed to fetch
-# the opentopomap style first. OpenTopoMap extends
-# the default osm2pgsql database schema with some
-# extra columns, but it is backwards compatible,
-# so this import can be used by all stylesheets above
-#
 #----------------------------------------------------
 
     # import data
-    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/OpenTopoMap/mapnik/osm2pgsql/opentopomap.style /vagrant/data.osm.pbf
+    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/openstreetmap-carto/openstreetmap-carto.style /vagrant/data.osm.pbf
 
     # update import timestamp
     sudo --user=maposmatic psql --dbname=gis --command="UPDATE maposmatic_admin SET last_update = NOW()"
