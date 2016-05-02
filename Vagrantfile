@@ -221,7 +221,7 @@ Vagrant.configure(2) do |config|
 
 #----------------------------------------------------
 #
-# Humnaitarian "HOT" style
+# Humanitarian "HOT" style
 #
 #----------------------------------------------------
 
