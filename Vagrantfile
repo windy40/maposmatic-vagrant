@@ -46,7 +46,7 @@ Vagrant.configure(2) do |config|
 
     # create and mount file system on 2nd disk "db_disk"
 
-    if [ ! test -b /dev/sda1 ]
+    if ! test -b /dev/sda1
     then
       parted /dev/sdb mklabel msdos 
       parted /dev/sdb mkpart primary 512 100%
@@ -68,10 +68,10 @@ Vagrant.configure(2) do |config|
 #----------------------------------------------------
 
     # bring apt package database up to date
-    apt-get update --quiet
+    apt-get update --quiet=2
 
     # install needed extra pacakges
-    apt-get install --quiet --assume-yes git subversion unzip postgresql postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros ttf-indic-fonts-core fonts-taml-tscu ttf-kannada-fonts npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django
+    apt-get install --quiet=2 --assume-yes git subversion unzip postgresql postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros ttf-indic-fonts-core fonts-taml-tscu ttf-kannada-fonts npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django
 
 
 #----------------------------------------------------
@@ -221,7 +221,7 @@ Vagrant.configure(2) do |config|
 
 #----------------------------------------------------
 #
-# Humnaitarian "HOT" style
+# Humanitarian "HOT" style
 #
 #----------------------------------------------------
 
@@ -304,16 +304,10 @@ Vagrant.configure(2) do |config|
 #
 # Import OSM data into database
 #
-# We can only do this now as we needed to fetch
-# the opentopomap style first. OpenTopoMap extends
-# the default osm2pgsql database schema with some
-# extra columns, but it is backwards compatible,
-# so this import can be used by all stylesheets above
-#
 #----------------------------------------------------
 
     # import data
-    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/OpenTopoMap/mapnik/osm2pgsql/opentopomap.style /vagrant/data.osm.pbf
+    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/openstreetmap-carto/openstreetmap-carto.style /vagrant/data.osm.pbf
 
     # update import timestamp
     sudo --user=maposmatic psql --dbname=gis --command="UPDATE maposmatic_admin SET last_update = NOW()"
@@ -356,8 +350,8 @@ Vagrant.configure(2) do |config|
 
     # fix directory ownerships
     chown -R maposmatic /home/maposmatic
-    chgrp www-data www logs
-    chmod g+w www logs
+    chgrp www-data logs www www/datastore.sqlite3
+    chmod   g+w    logs www www/datastore.sqlite3
 
     # set up render daemon
     cp /vagrant/maposmatic-render.service /lib/systemd/system
