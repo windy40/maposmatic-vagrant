@@ -54,13 +54,13 @@ Vagrant.configure(2) do |config|
     then
       cp -rn /vagrant/cache/apt/ /var/cache/
     fi
-    
+  
     # pre-seed compiler cache
     if test -d /vagrant/cache/.ccache/
     then
         cp -rn /vagrant/cache/.ccache/ ~/
     fi
-    
+
     # create and mount file system on 2nd disk "db_disk"
     if ! test -b /dev/sda1
     then
@@ -106,7 +106,8 @@ Vagrant.configure(2) do |config|
     git checkout 2.3.x
 
     # configure, build, install
-    python scons/scons.py configure CXX="ccache g++" CC="ccache gcc" 
+    export SCONSFLAGS="-j 2"
+    python scons/scons.py configure CXX="ccache g++" CC="ccache gcc" SCONSFLAGS=$SCONSFLAGS
     python scons/scons.py
     python scons/scons.py install
     cd ..
@@ -175,6 +176,32 @@ Vagrant.configure(2) do |config|
 
 #----------------------------------------------------
 #
+# CartoOsm style sheet - the current OSM default style
+#
+#----------------------------------------------------
+
+    cd /home/maposmatic
+    git clone https://github.com/gravitystorm/openstreetmap-carto.git
+    cd openstreetmap-carto
+    ./get-shapefiles.sh
+    carto project.mml > osm.xml
+
+    # add extra shape file needed by other carto based styles later
+    cd data
+    wget http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
+    unzip simplified-land-polygons-complete-3857.zip
+    wget http://data.openstreetmapdata.com/land-polygons-split-3857.zip
+    unzip land-polygons-split-3857.zip
+    mkdir ne_10m_populated_places
+    cd ne_10m_populated_places
+    wget http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
+    unzip ne_10m_populated_places.zip
+    ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
+    cd ..
+
+
+#----------------------------------------------------
+#
 # Fetch old pre-Carto OSM Mapnik stylesheed
 #
 # we won't really use it as it is outdated, but we need its symbol dir
@@ -194,28 +221,22 @@ Vagrant.configure(2) do |config|
 
 #----------------------------------------------------
 #
-# CartoOsm style sheet - the current OSM default style
+# MapOSMatic Printable stylesheet
 #
 #----------------------------------------------------
 
     cd /home/maposmatic
-    git clone https://github.com/gravitystorm/openstreetmap-carto.git
-    cd openstreetmap-carto
-    ./get-shapefiles.sh
-    carto project.mml > osm.xml     
 
-    # add extra shape file needed by other carto based styles later
-    cd data
-    wget http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
-    unzip simplified-land-polygons-complete-3857.zip
-    wget http://data.openstreetmapdata.com/land-polygons-split-3857.zip
-    unzip land-polygons-split-3857.zip 
-    mkdir ne_10m_populated_places
-    cd ne_10m_populated_places
-    wget http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip
-    unzip ne_10m_populated_places.zip
-    ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
-    cd ..
+    # we need to add the MapOSMatic specific
+    # symbols to the "old" MapnikOSM symbol set
+    cp ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
+
+    # configure the actual stylesheet
+    cd ocitysmap/stylesheet/maposmatic-printable
+    python /home/maposmatic/mapnik2-osm/generate_xml.py --dbname gis \
+      --host 'localhost' --user maposmatic --port 5432 --password 'secret' \
+      --world_boundaries  /home/maposmatic/mapnik2-osm/world_boundaries \
+      --symbols /home/maposmatic/mapnik2-osm/symbols
 
 
 #----------------------------------------------------
@@ -241,7 +262,7 @@ Vagrant.configure(2) do |config|
     cd /home/maposmatic
     git clone https://github.com/hotosm/HDM-CartoCSS.git
     cd HDM-CartoCSS
-    cp -r ../openstreetmap-carto/scripts .
+    cp -r ../openstreetmap-carto/scripts/ .
     sed -e's|/ybon/Data/geo/shp/|/maposmatic/openstreetmap-carto/data/|g' \
         -e's|/ybon/Code/maps/hdm/|/maposmatic/HDM-CartoCSS/|g' \
         -e's|dbname: hdm|dbname: gis|g' \
@@ -251,31 +272,10 @@ Vagrant.configure(2) do |config|
     carto project.mml > osm.xml
     cd DEM
     mkdir -p data
-    # TODO - this only fetches a small part of Germany
-    ./fetch.sh 38,1,40,3
+    ./fetch.sh 38,1,40,3 # TODO - this only fetches a small part of Germany
     ./hillshade.sh
     ./hillshade_to_vrt.sh
     ./merge_contour.sh
-
-
-#----------------------------------------------------
-#
-# MapOSMatic Printable stylesheet
-#
-#----------------------------------------------------
-
-    cd /home/maposmatic
-
-    # we need to add the MapOSMatic specific
-    # symbols to the "old" MapnikOSM symbol set
-    cp ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
-
-    # configure the actual stylesheet
-    cd ocitysmap/stylesheet/maposmatic-printable
-    python /home/maposmatic/mapnik2-osm/generate_xml.py --dbname gis \
-      --host 'localhost' --user maposmatic --port 5432 --password 'secret' \
-      --world_boundaries  /home/maposmatic/mapnik2-osm/world_boundaries \
-      --symbols /home/maposmatic/mapnik2-osm/symbols 
 
 
 #----------------------------------------------------
@@ -302,7 +302,8 @@ Vagrant.configure(2) do |config|
     cd ..
 
     # generate stylesheet XML
-    python /home/maposmatic/mapnik2-osm/generate_xml.py --inc mapquest_inc \
+    python /home/maposmatic/mapnik2-osm/generate_xml.py \
+       --inc mapquest_inc \
        --symbols mapquest_symbols \
        --dbname gis \
        --host 'localhost' \
@@ -324,10 +325,14 @@ Vagrant.configure(2) do |config|
 #----------------------------------------------------
 
     # import data
-    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc --hstore --cache=1000 --style=/home/maposmatic/openstreetmap-carto/openstreetmap-carto.style /vagrant/data.osm.pbf
+    sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc \
+      --hstore --cache=1000 \
+      --style=/home/maposmatic/openstreetmap-carto/openstreetmap-carto.style \
+      /vagrant/data.osm.pbf
 
     # update import timestamp
-    sudo --user=maposmatic psql --dbname=gis --command="UPDATE maposmatic_admin SET last_update = NOW()"
+    sudo --user=maposmatic psql --dbname=gis \
+      --command="UPDATE maposmatic_admin SET last_update = NOW()"
 
 
 
