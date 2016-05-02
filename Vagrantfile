@@ -62,15 +62,15 @@ Vagrant.configure(2) do |config|
     fi
 
     # create and mount file system on 2nd disk "db_disk"
-    if ! test -b /dev/sda1
+    if ! test -b /dev/sdb1
     then
       parted /dev/sdb mklabel msdos 
       parted /dev/sdb mkpart primary 512 100%
-      mkfs.ext4 -l postgres /dev/sdb1
+      mkfs.ext4 -L postgres /dev/sdb1
     fi
 
     mkdir -p /var/lib/postgresql
-    echo `blkid /dev/sdb1 | awk '{print$2}' | sed -e 's/"//g'` /var/lib/postgresql   ext4   noatime,nobarrier   0   0 >> /etc/fstab
+    echo 'LABEL=postgres /var/lib/postgresql   ext4   noatime,nobarrier   0   0' >> /etc/fstab
     mount /var/lib/postgresql
 
 
