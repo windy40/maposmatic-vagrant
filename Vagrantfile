@@ -229,7 +229,11 @@ Vagrant.configure(2) do |config|
     git clone https://github.com/hotosm/HDM-CartoCSS.git
     cd HDM-CartoCSS
     cp -r ../openstreetmap-carto/scripts .
-    sed -e's/\/ybon\/Data\/geo\/shp\//\/maposmatic\/openstreetmap-carto\/data\//g' -e's/\/ybon\/Code\/maps\/hdm\//\/maposmatic\/HDM-CartoCSS\//g' -e's/dbname: hdm/dbname: gis/g' -e's/user: osm/user: maposmatic/g' < project.yml > project.yaml
+    sed -e's|/ybon/Data/geo/shp/|/maposmatic/openstreetmap-carto/data/|g' \
+        -e's|/ybon/Code/maps/hdm/|/maposmatic/HDM-CartoCSS/|g' \
+        -e's|dbname: hdm|dbname: gis|g' \
+        -e's|user: osm|user: maposmatic|g' \
+        < project.yml > project.yaml
     ./scripts/yaml2mml.py
     carto project.mml > osm.xml
     cd DEM
