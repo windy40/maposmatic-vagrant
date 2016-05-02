@@ -73,9 +73,6 @@ Vagrant.configure(2) do |config|
     echo `blkid /dev/sdb1 | awk '{print$2}' | sed -e 's/"//g'` /var/lib/postgresql   ext4   noatime,nobarrier   0   0 >> /etc/fstab
     mount /var/lib/postgresql
 
-    # bring apt package database up to date
-    apt-get update --quiet
-
 
 #----------------------------------------------------
 #
