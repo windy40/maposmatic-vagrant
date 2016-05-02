@@ -44,6 +44,11 @@ Vagrant.configure(2) do |config|
     export LC_TELEPHONE=en_US.UTF-8
     export LC_TIME=en_US.UTF-8
 
+    # silence curl and wget progress reports
+    # as these just flood the vagrant output in an unreadable way
+    echo "--silent" > /root/.curlrc
+    echo "quiet = on" > /root/.wgetrc
+
     # create and mount file system on 2nd disk "db_disk"
 
     if ! test -b /dev/sda1
