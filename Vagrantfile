@@ -29,14 +29,14 @@ Vagrant.configure(2) do |config|
 #----------------------------------------------------
 
     # override language settings
-    export LANG=en_US.utf8
-    export LANGUAGE=en_US.utf8
+    export LANG=en_US.UTF-8
+    export LANGUAGE=en_US.UTF-8
     export LC_ADDRESS=en_US.UTF-8
-    export LC_ALL=en_US.utf8
-    export LC_CTYPE=en_US.utf8
+    export LC_ALL=en_US.UTF-8
+    export LC_CTYPE=en_US.UTF-8
     export LC_IDENTIFICATION=en_US.UTF-8
     export LC_MEASUREMENT=en_US.UTF-8
-    export LC_MESSAGE=en_US.utf8
+    export LC_MESSAGE=en_US.UTF-8
     export LC_MONETARY=en_US.UTF-8
     export LC_NAME=en_US.UTF-8
     export LC_NUMERIC=en_US.UTF-8
