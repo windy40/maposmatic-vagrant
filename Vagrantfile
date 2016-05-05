@@ -367,7 +367,8 @@ find . -name osm.xml | xargs sed -i \
     cp /vagrant/maposmatic.wsgi www/maposmatic.wsgi
 
     # init MaposMatics housekeeping database
-    python manage.py syncdb
+    python manage.py makemigrations maposmatic
+    python manage.py migrate
 
     # set up translations
     cd www
