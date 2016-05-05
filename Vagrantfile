@@ -311,6 +311,16 @@ Vagrant.configure(2) do |config|
        --port 5432 \
        --password secret
 
+
+#----------------------------------------------------
+#
+# Postprocess all generated style sheets
+#
+#----------------------------------------------------
+
+find . -name osm.xml | xargs sed -i \
+  -e's/background-color="#......"/background-color="#FFFFFF"/g'
+
 # 
 # END OF STYLESHEET SETUP
 #
