@@ -143,7 +143,6 @@ Vagrant.configure(2) do |config|
     sudo --user=maposmatic psql --dbname=postgres --command="ALTER USER maposmatic WITH PASSWORD 'secret';"
 
 
-
 #----------------------------------------------------
 #
 # Fetch OCitysMap from GitHub and configure it
@@ -312,6 +311,7 @@ Vagrant.configure(2) do |config|
        --password secret
 
 
+
 #----------------------------------------------------
 #
 # Postprocess all generated style sheets
@@ -321,9 +321,8 @@ Vagrant.configure(2) do |config|
 find . -name osm.xml | xargs sed -i \
   -e's/background-color="#......"/background-color="#FFFFFF"/g'
 
-# 
-# END OF STYLESHEET SETUP
-#
+
+
 
 
 
@@ -336,13 +335,64 @@ find . -name osm.xml | xargs sed -i \
 
     # import data
     sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc \
-      --hstore --cache=1000 \
+      --hstore-all --hstore-match-only --cache=1000 \
       --style=/home/maposmatic/openstreetmap-carto/openstreetmap-carto.style \
       /vagrant/data.osm.pbf
 
     # update import timestamp
     sudo --user=maposmatic psql --dbname=gis \
       --command="UPDATE maposmatic_admin SET last_update = NOW()"
+
+
+
+
+
+
+#----------------------------------------------------
+#
+# German style
+#
+# We couldn't set this up earlier together with the
+# other stylesheets as it creates some database VIEWS
+# that can only be created after the osm2pgsql tables
+# have been created ...
+#
+#----------------------------------------------------
+   
+    # we share boundaries with the "classic" mapnik OSM style
+    # but need to add some extra shape files
+    cd /home/maposmatic/mapnik2-osm/world_boundaries
+    wget http://data.openstreetmapdata.com/land-polygons-split-3857.zip
+    unzip land-polygons-split-3857.zip
+    mv land-polygons-split-3857/* .
+    wget http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
+    unzip simplified-land-polygons-complete-3857.zip
+    mv simplified-land-polygons-complete-3857/* . 
+   
+    # check out current stylesheet source
+    cd /home/maposmatic
+    svn checkout http://svn.openstreetmap.org/applications/rendering/mapnik-german/
+    cd mapnik-german
+
+    # create some extra database views
+    for sql in views/*.sql
+    do
+      sudo -u maposmatic psql gis < $sql
+    done
+
+    # fix a SQL problem in the stylesheet:
+    sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
+
+    # set up the actual stylesheet
+    ../mapnik2-osm/generate_xml.py --host 'localhost' --port 5432 --dbname gis \
+          --prefix view_osmde --user maposmatic --password 'secret' \
+          --inc $(pwd)/inc-de \
+          --world_boundaries /home/maposmatic/mapnik2-osm/world_boundaries \
+          osm-de.xml > osm.xml
+
+
+
+
 
 
 
