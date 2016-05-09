@@ -314,6 +314,34 @@ Vagrant.configure(2) do |config|
 
 #----------------------------------------------------
 #
+# Golf overlay style 
+#
+# Original on https://github.com/rweait/Mapnik-golf-overlay
+#
+#----------------------------------------------------
+
+    cd /home/maposmatic/
+    git clone https://github.com/hholzgra/Mapnik-golf-overlay.git
+
+
+
+#----------------------------------------------------
+#
+# Fire/Emergency overlay
+#
+# Original on https://github.com/rweait/Mapnik-golf-overlay
+#
+#----------------------------------------------------
+
+    cd /home/maposmatic/
+    git clone https://github.com/hholzgra/Mapnik-fire-overlay.git
+
+
+
+
+
+#----------------------------------------------------
+#
 # Postprocess all generated style sheets
 #
 #----------------------------------------------------
