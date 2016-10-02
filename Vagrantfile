@@ -2,11 +2,13 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/wily64"
+  config.vm.box = "ubuntu/xenial64"
 
   config.vm.network "forwarded_port", guest: 80, host: 8000
 
   config.vm.provider "virtualbox" do |vb|
+    # vb.gui = true
+    vb.name = "maposmatic"
     vb.memory = "4096"
     vb.cpus   = "2"
 
@@ -14,7 +16,7 @@ Vagrant.configure(2) do |config|
     unless File.exist?('db_disk.vdi')
       vb.customize ['createhd', '--filename', 'db_disk', '--size', 100 * 1024] # 100GB
     end
-    vb.customize ['storageattach', :id, '--storagectl', 'SATAController', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', 'db_disk.vdi']
+    vb.customize ['storageattach', :id, '--storagectl', 'SCSI Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', 'db_disk.vdi']
   end
 
   config.ssh.forward_x11=true
@@ -62,15 +64,22 @@ Vagrant.configure(2) do |config|
     fi
 
     # create and mount file system on 2nd disk "db_disk"
-    if ! test -b /dev/sdb1
+    if ! test -b /dev/sdc2
     then
-      parted /dev/sdb mklabel msdos 
-      parted /dev/sdb mkpart primary 512 100%
-      mkfs.ext4 -L postgres /dev/sdb1
+      parted /dev/sdc rm 1
+      parted /dev/sdc mklabel msdos 
+      parted /dev/sdc mkpart primary 512 20G     # for /home/maposmatic
+      parted /dev/sdc mkpart primary 20G -- -1s  # for /var/lib/postgres
+      mkfs.ext4 -L maposmatic  /dev/sdc1
+      mkfs.ext4 -L postgres    /dev/sdc2
     fi
 
+    mkdir -p /home/maposmatic
+    echo 'LABEL=maposmatic   /home/maposmatic      ext4   noatime,nobarrier   0   0' >> /etc/fstab
+    mount /home/maposmatic
+
     mkdir -p /var/lib/postgresql
-    echo 'LABEL=postgres /var/lib/postgresql   ext4   noatime,nobarrier   0   0' >> /etc/fstab
+    echo 'LABEL=postgres     /var/lib/postgresql   ext4   noatime,nobarrier   0   0' >> /etc/fstab
     mount /var/lib/postgresql
 
 
@@ -84,7 +93,9 @@ Vagrant.configure(2) do |config|
     apt-get update --quiet=2
 
     # install needed extra pacakges
-    apt-get install --quiet=2 --assume-yes git subversion unzip postgresql postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros ttf-indic-fonts-core fonts-taml-tscu ttf-kannada-fonts npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django
+    apt-get install --quiet=2 --assume-yes git subversion unzip postgresql postgresql-server-dev-all postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid-fallback ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros fonts-taml-tscu npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django libkakasi2-dev pandoc libutf8proc-dev
+
+    pip install nik4
 
 
 #----------------------------------------------------
@@ -119,7 +130,8 @@ Vagrant.configure(2) do |config|
 #----------------------------------------------------
 
     # add "maposmatic" system user that will own the database
-    useradd -m maposmatic
+    useradd maposmatic
+    chown maposmatic /home/maposmatic
 
     # add "gis" database user
     sudo --user=postgres createuser --superuser --no-createdb --no-createrole maposmatic
