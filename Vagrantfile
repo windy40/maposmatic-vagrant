@@ -455,11 +455,15 @@ find . -name osm.xml | xargs sed -i \
     sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
 
     # set up the actual stylesheet
-    ../mapnik2-osm/generate_xml.py --host 'localhost' --port 5432 --dbname gis \
-          --prefix view_osmde --user maposmatic --password 'secret' \
+    /home/maposmatic/mapnik2-osm/generate_xml.py osm-de.xml osm.xml \
+          --host 'localhost' \
+          --port 5432 \
+          --dbname gis \
+          --prefix view_osmde \
+          --user maposmatic \
+          --password 'secret' \
           --inc $(pwd)/inc-de \
           --world_boundaries /home/maposmatic/mapnik2-osm/world_boundaries \
-          osm-de.xml > osm.xml
 
 
 
