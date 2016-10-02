@@ -157,6 +157,19 @@ Vagrant.configure(2) do |config|
 
 #----------------------------------------------------
 #
+# build osml10n extension for PostgreSQL
+#
+#----------------------------------------------------
+
+    cd /home/maposmatic
+    git clone https://github.com/giggls/mapnik-german-l10n.git
+    cd mapnik-german-l10n
+    make install
+    sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION osml10n"
+    cd ..
+
+#----------------------------------------------------
+#
 # Fetch OCitysMap from GitHub and configure it
 #
 #----------------------------------------------------
@@ -209,7 +222,6 @@ Vagrant.configure(2) do |config|
     unzip ne_10m_populated_places.zip
     ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
     cd ..
-
 
 #----------------------------------------------------
 #
@@ -386,16 +398,35 @@ find . -name osm.xml | xargs sed -i \
 
 
 
-
-
 #----------------------------------------------------
 #
-# German style
+# German CartoOsm style sheet - the current openstreetmap.de style
 #
 # We couldn't set this up earlier together with the
 # other stylesheets as it creates some database VIEWS
 # that can only be created after the osm2pgsql tables
 # have been created ...
+#
+#----------------------------------------------------
+#
+    cd /home/maposmatic
+    git clone https://github.com/hholzgra/openstreetmap-carto-de.git
+    cd openstreetmap-carto-de
+    git checkout maposmatic
+    touch project.yaml
+    make
+    ln -s ../openstreetmap-carto/data .
+    for sql_file in osm_tag2num.sql views_osmde/view-*.sql
+    do
+        sudo -u maposmatic psql -d gis -f $sql_file
+    done 
+    cd ..
+
+
+
+#----------------------------------------------------
+#
+# Old German style
 #
 #----------------------------------------------------
    
