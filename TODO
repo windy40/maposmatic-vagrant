@@ -1,0 +1,7 @@
+TODO
+====
+
+* HTTP cacheing (for couast lines, amdin boundaries, SRTM ...)
+* add back OpenTopoMap support
+* more integration tests
+
