@@ -95,7 +95,11 @@ Vagrant.configure(2) do |config|
     # install needed extra pacakges
     apt-get install --quiet=2 --assume-yes git subversion unzip postgresql postgresql-server-dev-all postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid-fallback ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros fonts-taml-tscu npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django libkakasi2-dev pandoc libutf8proc-dev osmosis php-cli libapache2-mod-php
 
-    pip install nik4
+    pip install colour geopy nik4
+
+    # add "maposmatic" system user that will own the database and all locally installed stuff
+    useradd maposmatic
+    chown maposmatic /home/maposmatic
 
 
 #----------------------------------------------------
@@ -107,6 +111,8 @@ Vagrant.configure(2) do |config|
 #  changed the python API bindings ...
 #
 #----------------------------------------------------
+
+    cd /home/maposmatic
 
     # build and install Mapik 2.3.x from git
     # older Mapnik versions have a bug that leads to Cairo null pointer exceptions
@@ -128,10 +134,6 @@ Vagrant.configure(2) do |config|
 # Set up PostgreSQL and PostGIS 
 #
 #----------------------------------------------------
-
-    # add "maposmatic" system user that will own the database
-    useradd maposmatic
-    chown maposmatic /home/maposmatic
 
     # add "gis" database user
     sudo --user=postgres createuser --superuser --no-createdb --no-createrole maposmatic
