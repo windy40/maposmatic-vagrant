@@ -199,6 +199,7 @@ Vagrant.configure(2) do |config|
 #----------------------------------------------------
 #----------------------------------------------------
 
+    mkdir /home/maposmatic/styles
 
 #----------------------------------------------------
 #
@@ -206,7 +207,7 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
     git clone https://github.com/gravitystorm/openstreetmap-carto.git
     cd openstreetmap-carto
     ./get-shapefiles.sh
@@ -234,7 +235,7 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
     svn co -q http://svn.openstreetmap.org/applications/rendering/mapnik mapnik2-osm
     cd mapnik2-osm
     sh ./get-coastlines.sh
@@ -250,7 +251,7 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
 
     # we need to add the MapOSMatic specific
     # symbols to the "old" MapnikOSM symbol set
@@ -270,7 +271,7 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
     wget -O - https://dl.dropboxusercontent.com/u/279938/hikebikemap-carto-0.9.tbz | tar -xjf -
     cd hikebikemap-carto-0.9/ 
     rm -rf data
@@ -284,7 +285,7 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
     git clone https://github.com/hotosm/HDM-CartoCSS.git
     cd HDM-CartoCSS
     cp -r ../openstreetmap-carto/scripts/ .
@@ -309,7 +310,7 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
 
     # fetch current stylesheet version
     git clone git://github.com/MapQuest/MapQuest-Mapnik-Style.git
@@ -318,7 +319,7 @@ Vagrant.configure(2) do |config|
 
     # Mapquest stylesheets need the same boundary files as the old
     # MapnikOSM style, so we can just reuse that here
-    ln -s /home/maposmatic/mapnik2-osm/world_boundaries world_boundaries
+    ln -s ../mapnik2-osm/world_boundaries world_boundaries
 
     # fetch additional files required by this style
     cd world_boundaries
@@ -346,7 +347,7 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic/
+    cd /home/maposmatic/styles
     git clone https://github.com/hholzgra/Mapnik-golf-overlay.git
 
 
@@ -359,10 +360,8 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic/
+    cd /home/maposmatic/styles
     git clone https://github.com/hholzgra/Mapnik-fire-overlay.git
-
-
 
 
 
@@ -372,12 +371,9 @@ Vagrant.configure(2) do |config|
 #
 #----------------------------------------------------
 
-find . -name osm.xml | xargs sed -i \
-  -e's/background-color="#......"/background-color="#FFFFFF"/g'
-
-
-
-
+    cd /home/maposmatic/styles
+    find . -name osm.xml | xargs sed -i \
+      -e's/background-color="#......"/background-color="#FFFFFF"/g'
 
 
 
@@ -411,7 +407,7 @@ find . -name osm.xml | xargs sed -i \
 #
 #----------------------------------------------------
 #
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
     git clone https://github.com/hholzgra/openstreetmap-carto-de.git
     cd openstreetmap-carto-de
     git checkout maposmatic
@@ -434,7 +430,7 @@ find . -name osm.xml | xargs sed -i \
    
     # we share boundaries with the "classic" mapnik OSM style
     # but need to add some extra shape files
-    cd /home/maposmatic/mapnik2-osm/world_boundaries
+    cd /home/maposmatic/styles/mapnik2-osm/world_boundaries
     wget http://data.openstreetmapdata.com/land-polygons-split-3857.zip
     unzip land-polygons-split-3857.zip
     mv land-polygons-split-3857/* .
@@ -443,7 +439,7 @@ find . -name osm.xml | xargs sed -i \
     mv simplified-land-polygons-complete-3857/* . 
    
     # check out current stylesheet source
-    cd /home/maposmatic
+    cd /home/maposmatic/styles
     svn checkout http://svn.openstreetmap.org/applications/rendering/mapnik-german/
     cd mapnik-german
 
@@ -457,7 +453,7 @@ find . -name osm.xml | xargs sed -i \
     sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
 
     # set up the actual stylesheet
-    /home/maposmatic/mapnik2-osm/generate_xml.py osm-de.xml osm.xml \
+    /home/maposmatic/styles/mapnik2-osm/generate_xml.py osm-de.xml osm.xml \
           --host 'localhost' \
           --port 5432 \
           --dbname gis \
@@ -466,10 +462,6 @@ find . -name osm.xml | xargs sed -i \
           --password 'secret' \
           --inc $(pwd)/inc-de \
           --world_boundaries /home/maposmatic/mapnik2-osm/world_boundaries \
-
-
-
-
 
 
 
