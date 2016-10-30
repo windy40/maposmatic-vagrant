@@ -93,7 +93,7 @@ Vagrant.configure(2) do |config|
     apt-get update --quiet=2
 
     # install needed extra pacakges
-    apt-get install --quiet=2 --assume-yes git subversion unzip postgresql postgresql-server-dev-all postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid-fallback ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros fonts-taml-tscu npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django libkakasi2-dev pandoc libutf8proc-dev
+    apt-get install --quiet=2 --assume-yes git subversion unzip postgresql postgresql-server-dev-all postgresql-contrib postgis osm2pgsql python-psycopg2 python-feedparser python-imaging gettext imagemagick ttf-unifont python-cairo python-cairo-dev python-shapely python-gtk2 python-gdal python-rsvg python-pip g++ ccache ttf-dejavu fonts-droid-fallback ttf-unifont fonts-sipa-arundina fonts-sil-padauk fonts-khmeros fonts-taml-tscu npm gdal-bin node-carto python-yaml apache2 libapache2-mod-wsgi python-django libkakasi2-dev pandoc libutf8proc-dev osmosis php-cli libapache2-mod-php
 
     pip install nik4
 
