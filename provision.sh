@@ -1,5 +1,15 @@
 #----------------------------------------------------
 #
+# putting some often used constants into variables
+#
+#----------------------------------------------------
+
+FILEDIR=/vagrant/files
+CACHEDIR=/vagrant/cache
+INCDIR=/vagrant/inc
+
+#----------------------------------------------------
+#
 # Vagrant/Virtualbox environment preparations
 # (not really Ocitysmap specific yet)
 #
@@ -27,15 +37,15 @@
     echo "quiet = on" > /root/.wgetrc
 
     # pre-seed apt cache to speed things up a bit
-    if test -d /vagrant/cache/apt/
+    if test -d $CACHEDIR/apt/
     then
-      cp -rn /vagrant/cache/apt/ /var/cache/
+      cp -rn $CACHEDIR/apt/ /var/cache/
     fi
   
     # pre-seed compiler cache
-    if test -d /vagrant/cache/.ccache/
+    if test -d $CACHEDIR/.ccache/
     then
-        cp -rn /vagrant/cache/.ccache/ ~/
+        cp -rn $CACHEDIR/.ccache/ ~/
     fi
 
     # create and mount file system on 2nd disk "db_disk"
@@ -156,8 +166,8 @@
     git clone -q https://github.com/hholzgra/ocitysmap.git
 
     # copy predefined ocitysmap config file to default locations
-    cp /vagrant/ocitysmap.conf /home/maposmatic/.ocitysmap.conf
-    cp /vagrant/ocitysmap.conf /root/.ocitysmap.conf
+    cp $FILEDIR/ocitysmap.conf /home/maposmatic/.ocitysmap.conf
+    cp $FILEDIR/ocitysmap.conf /root/.ocitysmap.conf
 
 
 
@@ -360,7 +370,7 @@
 
     # import data
     sudo --user=maposmatic osm2pgsql --slim --create --database=gis --merc \
-      --hstore-all --hstore-match-only --cache=1000 \
+      --hstore-all --hstore-match-only --cache=1000 --number-processes=2 \
       --style=/home/maposmatic/styles/openstreetmap-carto/openstreetmap-carto.style \
       /vagrant/data.osm.pbf
 
@@ -455,10 +465,10 @@
     mkdir -p logs rendering/results    
 
     # copy config files
-    cp /vagrant/config.py scripts/config.py
-    cp /vagrant/settings.py www/settings.py
-    cp /vagrant/settings_local.py www/settings_local.py
-    cp /vagrant/maposmatic.wsgi www/maposmatic.wsgi
+    cp $FILEDIR/config.py scripts/config.py
+    cp $FILEDIR/settings.py www/settings.py
+    cp $FILEDIR/settings_local.py www/settings_local.py
+    cp $FILEDIR/maposmatic.wsgi www/maposmatic.wsgi
 
     # init MaposMatics housekeeping database
     python manage.py makemigrations maposmatic
@@ -481,7 +491,7 @@
     chmod   g+w    logs www www/datastore.sqlite3
 
     # set up render daemon
-    cp /vagrant/maposmatic-render.service /lib/systemd/system
+    cp $FILEDIR/maposmatic-render.service /lib/systemd/system
     chmod 644 /lib/systemd/system/maposmatic-render.service
     systemctl daemon-reload
     systemctl enable maposmatic-render.service
@@ -489,7 +499,7 @@
 
     # set up web server
     service apache2 stop
-    cp /vagrant/000-default.conf /etc/apache2/sites-available
+    cp $FILEDIR/000-default.conf /etc/apache2/sites-available
     service apache2 start
 
 #----------------------------------------------------
@@ -499,9 +509,9 @@
 #-----------------------------------------------------
 
     # write back apt cache
-    mkdir -p /vagrant/cache
-    cp -rn /var/cache/apt/ /vagrant/cache/ 
+    mkdir -p $CACHEDIR
+    cp -rn /var/cache/apt/ $CACHEDIR 
 
     # pre-seed compiler cache
-    cp -rn /root/.ccache /vagrant/cache/
+    cp -rn /root/.ccache $CACHEDIR
 
