@@ -42,3 +42,9 @@ maposmatic.box
 
 # ignore OSM data files
 *.pbf
+
+# ignore test results
+test/*.csv
+test/*.log
+test/*.png
+test/*.err
