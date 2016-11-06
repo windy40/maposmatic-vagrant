@@ -48,3 +48,6 @@ test/*.csv
 test/*.log
 test/*.png
 test/*.err
+
+# ignore cache directory
+cache
