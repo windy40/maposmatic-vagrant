@@ -12,6 +12,7 @@ apt-get install --quiet=2 --assume-yes \
     apache2 \
     fonts-droid-fallback \
     fonts-khmeros \
+    fonts-noto \
     fonts-sil-padauk \
     fonts-sipa-arundina \
     fonts-taml-tscu \
@@ -24,7 +25,10 @@ apt-get install --quiet=2 --assume-yes \
     libapache2-mod-php \
     libapache2-mod-wsgi \
     libkakasi2-dev \
+    libmapnik3.0 \
+    libmapnik-dev \
     libutf8proc-dev \
+    mapnik-utils \
     node-carto \
     npm \
     osm2pgsql \
@@ -42,6 +46,7 @@ apt-get install --quiet=2 --assume-yes \
     python-gdal \
     python-gtk2 \
     python-imaging \
+    python-mapnik \
     python-pip \
     python-psycopg2 \
     python-rsvg \
@@ -50,6 +55,8 @@ apt-get install --quiet=2 --assume-yes \
     subversion \
     ttf-dejavu \
     ttf-unifont \
+    unifont \
+    unifont-bin \
     unzip \
 
 # install extra python packages 

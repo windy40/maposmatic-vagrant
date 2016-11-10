@@ -7,6 +7,9 @@
 # install latest ocitysmap from git
 cd /home/maposmatic
 git clone -q https://github.com/hholzgra/ocitysmap.git
+cd ocitysmap
+git checkout mapnik3
+cd ..
 
 # copy predefined ocitysmap config file to default locations
 cp $FILEDIR/ocitysmap.conf /home/maposmatic/.ocitysmap.conf
