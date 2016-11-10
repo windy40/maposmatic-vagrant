@@ -74,7 +74,7 @@ mount /var/lib/postgresql
 useradd maposmatic
 chown maposmatic /home/maposmatic
 
-. $INCDIR/maposmatic.sh
+. $INCDIR/mapnik-from-source.sh
 
 . $INCDIR/database-setup.sh
     
