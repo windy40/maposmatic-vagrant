@@ -44,10 +44,7 @@ maposmatic.box
 *.pbf
 
 # ignore test results
-test/*.csv
-test/*.log
-test/*.png
-test/*.err
+test/test-*
 
 # ignore cache directory
 cache
