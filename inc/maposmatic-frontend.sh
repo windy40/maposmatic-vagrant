@@ -27,12 +27,6 @@ cd www
 django-admin compilemessages
 cd ..
 
-# install locales listed in MAP_LANGUAGES in settings.py
-for lang in ar ast by es ca ce da de en es gr hr id it ja fr nl no pl pt ru sk tr uk
-do 
-    locale-gen --no-purge --lang $lang
-done 
-
 # fix directory ownerships
 chown -R maposmatic /home/maposmatic
 chgrp www-data logs www www/datastore.sqlite3

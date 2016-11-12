@@ -86,6 +86,7 @@ mkdir /home/maposmatic/styles
 
 . $INCDIR/ocitysmap.sh
 
+. $INCDIR/locales.sh
 
 #----------------------------------------------------
 #
