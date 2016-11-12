@@ -9,6 +9,7 @@ cd /home/maposmatic
 git clone -q https://github.com/hholzgra/ocitysmap.git
 cd ocitysmap
 git checkout mapnik3
+./i18n.py --compile-mo
 cd ..
 
 # copy predefined ocitysmap config file to default locations
