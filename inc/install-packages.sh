@@ -7,9 +7,12 @@
 # bring apt package database up to date
 apt-get update --quiet=2
 
+
 # install needed extra deb pacakges
 apt-get install --quiet=2 --assume-yes \
     apache2 \
+    cabextract \
+    fonts-arkpandora \
     fonts-droid-fallback \
     fonts-khmeros \
     fonts-noto \
@@ -64,3 +67,10 @@ pip install \
     colour \
     geopy \
     nik4 \
+
+# this package is currently broken in Ubuntu, see e.g. 
+# https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535
+# so we need to use the working upstream Debian package
+
+dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb
+
