@@ -32,7 +32,6 @@ apt-get install --quiet=2 --assume-yes \
     libmapnik-dev \
     libutf8proc-dev \
     mapnik-utils \
-    node-carto \
     npm \
     osm2pgsql \
     osmosis \
@@ -67,6 +66,12 @@ pip install \
     colour \
     geopy \
     nik4 \
+
+# install extra npm packages
+npm install -g \
+    @mapbox/carto \
+
+(cd /usr/local/bin; ln -s /usr/bin/nodejs node)
 
 # this package is currently broken in Ubuntu, see e.g. 
 # https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535
