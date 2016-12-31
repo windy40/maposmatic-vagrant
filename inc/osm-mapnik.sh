@@ -14,6 +14,7 @@
     sh ./get-coastlines.sh
     cd world_boundaries/
     ln -s ne_110m_admin_0_boundary_lines_land.shp 110m_admin_0_boundary_lines_land.shp
+    ln -s ne_110m_admin_0_boundary_lines_land.shx 110m_admin_0_boundary_lines_land.shx
     ln -s ne_110m_admin_0_boundary_lines_land.dbf 110m_admin_0_boundary_lines_land.dbf
 
     cd ..
