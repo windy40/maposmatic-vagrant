@@ -7,8 +7,8 @@
 cd /home/maposmatic/styles
 git clone https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
-./get-shapefiles.sh
-carto project.mml > osm.xml
+./scripts/get-shapefiles.py
+carto -a 3.0.0 project.mml > osm.xml
 
 # add extra shape file needed by other carto based styles later
 cd data
