@@ -74,7 +74,8 @@ mount /var/lib/postgresql
 useradd maposmatic
 chown maposmatic /home/maposmatic
 
-. $INCDIR/mapnik-from-source.sh
+# no longer needed with yakkety
+# . $INCDIR/mapnik-from-source.sh
 
 . $INCDIR/database-setup.sh
     
