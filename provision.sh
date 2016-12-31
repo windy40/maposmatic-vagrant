@@ -74,6 +74,9 @@ mount /var/lib/postgresql
 useradd maposmatic
 chown maposmatic /home/maposmatic
 
+# add host entry for gis-db
+sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
+
 # no longer needed with yakkety
 # . $INCDIR/mapnik-from-source.sh
 
