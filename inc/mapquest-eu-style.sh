@@ -7,7 +7,7 @@
 cd /home/maposmatic/styles
 
 # fetch current stylesheet version
-git clone git://github.com/MapQuest/MapQuest-Mapnik-Style.git
+git clone git://github.com/hholzgra/MapQuest-Mapnik-Style.git
 
 cd MapQuest-Mapnik-Style
 
