@@ -23,7 +23,7 @@ python manage.py makemigrations maposmatic
 python manage.py migrate
 
 # set up translations
-cd www
+cd www/maposmatic
 django-admin compilemessages
 cd ..
 
