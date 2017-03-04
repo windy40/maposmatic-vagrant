@@ -25,7 +25,7 @@ python manage.py migrate
 # set up translations
 cd www/maposmatic
 django-admin compilemessages
-cd ..
+cd ../..
 
 # fix directory ownerships
 chown -R maposmatic /home/maposmatic
