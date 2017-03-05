@@ -11,6 +11,10 @@ git checkout v3.1.0
 ./scripts/get-shapefiles.py
 carto -a 3.0.0 project.mml > osm.xml
 
+# create color-reduced variant of generated style
+
+php /vagrant/files/bw.php
+
 # add extra shape file needed by other carto based styles later
 cd data
 wget http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
