@@ -108,6 +108,7 @@ mkdir /home/maposmatic/styles
 . $INCDIR/mapquest-eu-style.sh
 . $INCDIR/german-style.sh
 . $INCDIR/old-german-style.sh
+. $INCDIR/pistemap-style.sh
 
 . $INCDIR/golf-overlay.sh
 . $INCDIR/fire-overlay.sh
