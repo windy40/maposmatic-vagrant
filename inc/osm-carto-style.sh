@@ -7,6 +7,7 @@
 cd /home/maposmatic/styles
 git clone https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
+git checkout v3.1.0
 ./scripts/get-shapefiles.py
 carto -a 3.0.0 project.mml > osm.xml
 
@@ -23,3 +24,4 @@ unzip ne_10m_populated_places.zip
 ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
 
 cd ..
+
