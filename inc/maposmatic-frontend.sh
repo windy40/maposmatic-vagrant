@@ -14,7 +14,6 @@ mkdir -p logs rendering/results
 
 # copy config files
 cp $FILEDIR/config.py scripts/config.py
-cp $FILEDIR/settings.py www/settings.py
 cp $FILEDIR/settings_local.py www/settings_local.py
 cp $FILEDIR/maposmatic.wsgi www/maposmatic.wsgi
 
