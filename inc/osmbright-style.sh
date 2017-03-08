@@ -1,5 +1,7 @@
 #! /bin/bash
 
+cd /home/maposmatic/styles
+
 git clone https://github.com/mapbox/osm-bright.git
 
 cd osm-bright
@@ -33,7 +35,7 @@ cp /vagrant/files/configure.py .
 
 ./make.py
 
-cd OSMbright
+cd OSMBright
 carto project.mml  > osm.xml
 
 
