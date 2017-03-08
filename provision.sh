@@ -109,6 +109,8 @@ mkdir /home/maposmatic/styles
 . $INCDIR/german-style.sh
 . $INCDIR/old-german-style.sh
 . $INCDIR/pistemap-style.sh
+. $INCDIR/osmbright-style.sh
+. $INCDIR/empty-style.sh
 
 . $INCDIR/golf-overlay.sh
 . $INCDIR/fire-overlay.sh
