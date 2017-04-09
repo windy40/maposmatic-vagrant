@@ -25,24 +25,3 @@ sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION hstore"
 # set password for gis database user
 sudo --user=maposmatic psql --dbname=postgres --command="ALTER USER maposmatic WITH PASSWORD 'secret';"
 
-#----------------------------------------------------
-#
-# build osml10n extension for PostgreSQL
-#
-#----------------------------------------------------
-
-cd /home/maposmatic
-git clone https://github.com/giggls/mapnik-german-l10n.git
-cd mapnik-german-l10n
-make install
-sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION osml10n"
-
-#-------------------------------------------------------
-#
-# some more contrib extensions required by german style
-#
-#--------------------------------------------------------
-
-sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION fuzzystrmatch"
-sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION unaccent"
-
