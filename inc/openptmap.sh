@@ -26,13 +26,13 @@ sed -ie '/<Parameter name="dbname/d' mapnik_pt.xml
 
 # make style work with standard osm2pgsql style 
 
-sed -ie "s/,bus/,tags->'bus'/" mapnik_pt.xml
+sed -ie "s/,bus/,tags->'bus' as bus/" mapnik_pt.xml
 sed -ie "s/ bus=/ tags->'bus'=/" mapnik_pt.xml
 
-sed -ie "s/,line/,tags->'line'/" mapnik_pt.xml
+sed -ie "s/,line/,tags->'line' as line/" mapnik_pt.xml
 sed -ie "s/ line=/ tags->'line'=/" mapnik_pt.xml
 
-sed -ie "s/,train/,tags->'train'/" mapnik_pt.xml
+sed -ie "s/,train/,tags->'train' as train/" mapnik_pt.xml
 sed -ie "s/ train=/ tags->'train'=/" mapnik_pt.xml
 
 sed -ie "s/ state=/ tags->'state'=/" mapnik_pt.xml
