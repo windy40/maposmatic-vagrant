@@ -20,6 +20,14 @@ cd /home/maposmatic/styles
 svn checkout http://svn.openstreetmap.org/applications/rendering/mapnik-german/
 cd mapnik-german
 
+# build transliterate function
+
+cd utf8translit
+make install
+sudo -u maposmatic psql gis --command "CREATE FUNCTION transliterate(text) RETURNS text AS '$libdir/utf8translit', 'transliterate' LANGUAGE C STRICT;" 
+
+cd ..
+
 # create some extra database views
 for sql in views/*.sql
 do
