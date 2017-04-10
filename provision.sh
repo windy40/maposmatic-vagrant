@@ -103,7 +103,7 @@ mkdir /home/maposmatic/styles
 
 . $INCDIR/osm-mapnik.sh
 . $INCDIR/maposmatic-style.sh
-# . $INCDIR/hikebike-style.sh
+. $INCDIR/hikebike-style.sh
 . $INCDIR/humanitarian-style.sh
 . $INCDIR/mapquest-eu-style.sh
 . $INCDIR/german-style.sh
