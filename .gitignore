@@ -53,3 +53,7 @@ cache
 *~
 .*.swp 
 \#*#
+
+# test result
+test/test-*
+test/thumbnails/test-*
