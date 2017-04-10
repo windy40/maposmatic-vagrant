@@ -115,6 +115,7 @@ mkdir /home/maposmatic/styles
 . $INCDIR/golf-overlay.sh
 . $INCDIR/fire-overlay.sh
 . $INCDIR/maxspeed-overlay.sh
+. $INCDIR/openptmap.sh
 
 #----------------------------------------------------
 #
