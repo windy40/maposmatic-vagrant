@@ -46,6 +46,8 @@ fi
 if test -d $CACHEDIR/.ccache/
 then
     cp -rn $CACHEDIR/.ccache/ ~/
+else
+    mkdir -p ~/.ccache
 fi
 
 # create and mount file system on 2nd disk "db_disk"
