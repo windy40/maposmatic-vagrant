@@ -24,7 +24,7 @@ cd mapnik-german
 
 cd utf8translit
 make install
-sudo -u maposmatic psql gis --command "CREATE FUNCTION transliterate(text) RETURNS text AS '$libdir/utf8translit', 'transliterate' LANGUAGE C STRICT;" 
+sudo -u maposmatic psql gis --command "CREATE FUNCTION transliterate(text) RETURNS text AS 'utf8translit', 'transliterate' LANGUAGE C STRICT;" 
 
 cd ..
 
