@@ -12,6 +12,7 @@ apt-get update --quiet=2
 apt-get install --quiet=2 --assume-yes \
     apache2 \
     cabextract \
+    cmake \
     fonts-arkpandora \
     fonts-droid-fallback \
     fonts-khmeros \
@@ -27,13 +28,14 @@ apt-get install --quiet=2 --assume-yes \
     imagemagick \
     libapache2-mod-php \
     libapache2-mod-wsgi \
+    libbz2-dev \
     libkakasi2-dev \
+    liblua5.3-dev \
     libmapnik3.0 \
     libmapnik-dev \
     libutf8proc-dev \
     mapnik-utils \
     npm \
-    osm2pgsql \
     osmosis \
     pandoc \
     php-cli \
@@ -66,6 +68,8 @@ pip install \
     colour \
     geopy \
     nik4 \
+    pluginbase \
+    qrcode \
 
 # install extra npm packages
 npm install -g \
@@ -78,4 +82,6 @@ npm install -g \
 # so we need to use the working upstream Debian package
 
 dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb
+
+
 

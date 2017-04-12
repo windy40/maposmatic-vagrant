@@ -83,6 +83,8 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 # . $INCDIR/mapnik-from-source.sh
 
 . $INCDIR/database-setup.sh
+
+. $INCDIR/osm2pgsql-build.sh
     
 mkdir /home/maposmatic/styles
 
