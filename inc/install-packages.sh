@@ -29,6 +29,7 @@ apt-get install --quiet=2 --assume-yes \
     libapache2-mod-php \
     libapache2-mod-wsgi \
     libbz2-dev \
+    libgdal-dev \
     libkakasi2-dev \
     liblua5.3-dev \
     libmapnik3.0 \
@@ -43,6 +44,7 @@ apt-get install --quiet=2 --assume-yes \
     postgresql \
     postgresql-contrib \
     postgresql-server-dev-all \
+    python-beautifulsoup \
     python-cairo \
     python-cairo-dev \
     python-django \
@@ -51,6 +53,7 @@ apt-get install --quiet=2 --assume-yes \
     python-gtk2 \
     python-imaging \
     python-mapnik \
+    python-matplotlib \
     python-pip \
     python-psycopg2 \
     python-rsvg \
@@ -66,6 +69,7 @@ apt-get install --quiet=2 --assume-yes \
 # install extra python packages 
 pip install \
     colour \
+    django-bootstrap3 \
     geopy \
     nik4 \
     pluginbase \
@@ -73,6 +77,7 @@ pip install \
 
 # install extra npm packages
 npm install -g \
+    bower \
     @mapbox/carto \
 
 (cd /usr/local/bin; ln -s /usr/bin/nodejs node)
