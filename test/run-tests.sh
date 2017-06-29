@@ -6,7 +6,7 @@ CONFIG="$PROJECT/.ocitysmap.conf"
 LAYOUT="single_page_index_side"
 ORIENTATION="landscape"
 
-BBOX="52.0306,8.5122 52.0260,8.5432"
+BBOX="52.0100,8.5122 52.0300,8.5432"
 PAPER="A1"
 
 BASE_FOR_OVERLAY="CartoOsmBW"
