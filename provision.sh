@@ -86,10 +86,6 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 
 . $INCDIR/osm2pgsql-build.sh
     
-mkdir /home/maposmatic/styles
-
-. $INCDIR/osm-carto-style.sh
-
 . $INCDIR/osm2pgsql-import.sh
 
 . $INCDIR/ocitysmap.sh
@@ -98,13 +94,16 @@ mkdir /home/maposmatic/styles
 
 #----------------------------------------------------
 #
-# Set up various additional stylesheets 
+# Set up various stylesheets 
 #
 # When adding stylesheets -> don't forget to register
 # them in the ocitysmap.conf file
 # 
 #----------------------------------------------------
 
+mkdir /home/maposmatic/styles
+
+. $INCDIR/osm-carto-style.sh
 . $INCDIR/osm-mapnik.sh
 . $INCDIR/maposmatic-style.sh
 . $INCDIR/hikebike-style.sh
@@ -114,6 +113,7 @@ mkdir /home/maposmatic/styles
 . $INCDIR/old-german-style.sh
 . $INCDIR/pistemap-style.sh
 . $INCDIR/osmbright-style.sh
+. $INCDIR/opentopomap-style.sh
 . $INCDIR/empty-style.sh
 
 . $INCDIR/golf-overlay.sh

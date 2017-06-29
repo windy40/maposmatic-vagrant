@@ -4,6 +4,15 @@
 #
 #----------------------------------------------------
 
+cd /home/maposmatic
+
+# get style file
+
+if ! test -f opentopomap.style
+then
+  wget https://raw.githubusercontent.com/der-stefan/OpenTopoMap/master/mapnik/osm2pgsql/opentopomap.style
+fi
+
 # import data
 sudo --user=maposmatic osm2pgsql \
      --create \
@@ -14,7 +23,7 @@ sudo --user=maposmatic osm2pgsql \
      --hstore-match-only \
      --cache=1000 \
      --number-processes=2 \
-     --style=/home/maposmatic/styles/openstreetmap-carto/openstreetmap-carto.style \
+     --style=opentopomap.style \
      /vagrant/data.osm.pbf
 
 # update import timestamp
