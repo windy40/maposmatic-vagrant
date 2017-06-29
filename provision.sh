@@ -114,6 +114,7 @@ mkdir /home/maposmatic/styles
 . $INCDIR/pistemap-style.sh
 . $INCDIR/osmbright-style.sh
 . $INCDIR/opentopomap-style.sh
+. $INCDIR/openriverboat-style.sh
 . $INCDIR/empty-style.sh
 
 . $INCDIR/golf-overlay.sh
