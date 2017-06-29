@@ -32,7 +32,7 @@ do
   unzip $zip
 done
 
-for file in **/*.hgt
+for file in $(ls **/*.hgt | sort)
 do
     base=$(basename $file .hgt)
 
