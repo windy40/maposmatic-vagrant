@@ -55,8 +55,8 @@ if ! test -b /dev/sdc2
 then
     parted /dev/sdc rm 1
     parted /dev/sdc mklabel msdos 
-    parted /dev/sdc mkpart primary 512 30G     # for /home/maposmatic
-    parted /dev/sdc mkpart primary 30G -- -1s  # for /var/lib/postgres
+    parted /dev/sdc mkpart primary 512 40G     # for /home/maposmatic
+    parted /dev/sdc mkpart primary 40G -- -1s  # for /var/lib/postgres
     mkfs.ext4 -L maposmatic  /dev/sdc1
     mkfs.ext4 -L postgres    /dev/sdc2
 fi
