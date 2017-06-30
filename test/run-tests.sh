@@ -62,3 +62,7 @@ do
   convert -thumbnail 200 test-overlay-$overlay-png.png thumbnails/test-overlay-$overlay-png.jpg
 done
 
+php index.php > index.html
+cd thumbnails
+php index.php > index.html
+
