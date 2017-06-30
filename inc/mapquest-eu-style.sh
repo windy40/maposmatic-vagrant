@@ -17,7 +17,7 @@ ln -s ../mapnik2-osm/world_boundaries world_boundaries
 
 # fetch additional files required by this style
 cd world_boundaries
-wget http://aweble.de/downloads/mercator_tiffs.tar.bz2
+wget http://osm-baustelle.de/mercator_tiffs.tar.bz2
 tar -xvf mercator_tiffs.tar.bz2
 cd ..
 
