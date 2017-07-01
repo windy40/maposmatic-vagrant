@@ -35,6 +35,8 @@ cd ../..
 chown -R maposmatic /home/maposmatic
 chgrp www-data logs www www/datastore.sqlite3
 chmod   g+w    logs www www/datastore.sqlite3
+mkdir media
+chgrp www-data media
 
 # set up render daemon
 cp $FILEDIR/maposmatic-render.service /lib/systemd/system
