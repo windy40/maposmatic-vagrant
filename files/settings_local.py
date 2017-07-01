@@ -123,11 +123,11 @@ MAPOSMATIC_RSS_FEED = 'http://blog.osm-baustelle.de/index.php/feed/?cat=2'
 # # Settings for exception emails: the from email address, and the list of
 # # receipient email addresses. No emails are sent if the SMTP host is not
 # # defined.
-# DAEMON_ERRORS_SMTP_HOST = None
-# DAEMON_ERRORS_SMTP_PORT = 25
-# DAEMON_ERRORS_EMAIL_FROM = 'daemon@domain.com'
-# DAEMON_ERRORS_EMAIL_REPLY_TO = 'noreply@domain.com'
-# DAEMON_ERRORS_JOB_URL = 'http://domain.com/jobs/%d'
+DAEMON_ERRORS_SMTP_HOST = None
+DAEMON_ERRORS_SMTP_PORT = 25
+DAEMON_ERRORS_EMAIL_FROM = 'daemon@domain.com'
+DAEMON_ERRORS_EMAIL_REPLY_TO = 'noreply@domain.com'
+DAEMON_ERRORS_JOB_URL = 'http://domain.com/jobs/%d'
 
 # # Show a link to donate to the MapOSMatic team
 MAPOSMATIC_DONATION = False
@@ -145,3 +145,6 @@ FRONT_PAGE_FEED = "https://blog.osm-baustelle.de/index.php/feed/"
 # # displayed
 MAPOSMATIC_FORK_URL = "https://github.com/hholzgra/maposmatic"
 OCITYSMAP_FORK_URL = "https://githib.com/hholzgra/ocitysmap"
+
+# root directory for uploaded files etc.
+MEDIA_ROOT = '/home/maposmatic/maposmatic/media'
