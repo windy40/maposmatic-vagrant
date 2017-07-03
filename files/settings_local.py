@@ -69,14 +69,13 @@ ADMINS = (
 #
 # }
 DATABASES = {
-    # For SQLite:
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/maposmatic/maposmatic/www/datastore.sqlite3',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': ''
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gis',
+        'USER': 'maposmatic',
+        'PASSWORD': 'secret',
+        'HOST': 'gis-db',
+        'PORT': '5432'
         },
 }
 
