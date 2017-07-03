@@ -79,6 +79,7 @@ pip install \
 npm install -g \
     bower \
     @mapbox/carto \
+    millstone \
 
 (cd /usr/local/bin; ln -s /usr/bin/nodejs node)
 
