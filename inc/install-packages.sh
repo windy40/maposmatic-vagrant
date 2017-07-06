@@ -13,6 +13,7 @@ apt-get install --quiet=2 --assume-yes \
     apache2 \
     cabextract \
     cmake \
+    emacs \
     fonts-arkpandora \
     fonts-droid-fallback \
     fonts-khmeros \
