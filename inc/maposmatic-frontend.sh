@@ -33,8 +33,11 @@ cd ../..
 
 # fix directory ownerships
 chown -R maposmatic /home/maposmatic
-chgrp www-data logs www www/datastore.sqlite3
-chmod   g+w    logs www www/datastore.sqlite3
+if test -f www/datastore.sqlite3
+then
+  chgrp www-data logs www www/datastore.sqlite3
+  chmod   g+w    logs www www/datastore.sqlite3
+fi
 mkdir media
 chgrp www-data media
 
