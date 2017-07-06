@@ -113,6 +113,7 @@ mkdir /home/maposmatic/styles
 . $INCDIR/opentopomap-style.sh
 . $INCDIR/openriverboat-style.sh
 . $INCDIR/veloroad-style.sh
+. $INCDIR/blossom.sh
 . $INCDIR/empty-style.sh
 
 . $INCDIR/golf-overlay.sh
