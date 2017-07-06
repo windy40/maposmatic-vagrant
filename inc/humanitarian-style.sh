@@ -27,3 +27,14 @@ carto project.mml > osm.xml
 # ./hillshade.sh
 # ./hillshade_to_vrt.sh
 # ./merge_contour.sh
+
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[humanitarian]
+name: Humanitarian
+description: HOT Humanitarian style
+path: /home/maposmatic/styles/HDM-CartoCSS/osm.xml
+
+EOF
+
+echo "  humanitarian," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+

@@ -31,3 +31,14 @@ python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
        --port 5432 \
        --password secret
 
+
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[mapquest_eu]
+name: MapQuestEU
+description: MapQuest Europe stylesheet
+path: /home/maposmatic/styles/MapQuest-Mapnik-Style/mapquest-eu.xml
+
+EOF
+
+echo "  mapquest_eu," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+

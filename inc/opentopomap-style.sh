@@ -63,3 +63,14 @@ gdaldem hillshade -z 2 -co compress=lzw -co predictor=2 -co bigtiff=yes -compute
 sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql
 sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql
 
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[opentopomap]
+name: OpenTopoMap
+description: OpenTopoMap
+path: /home/maposmatic/styles/OpenTopoMap/mapnik/opentopomap.xml
+
+EOF
+
+echo "  humanitarian," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+
+

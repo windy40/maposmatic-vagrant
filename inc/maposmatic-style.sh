@@ -22,3 +22,12 @@ python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
        --world_boundaries /home/maposmatic/styles/mapnik2-osm/world_boundaries \
        --symbols /home/maposmatic/styles/mapnik2-osm/symbols
 
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[maposmatic]
+name: Maposmatic
+description: The Maposmatic printable stylesheet
+path: /home/maposmatic/ocitysmap/stylesheet/maposmatic-printable/osm.xml
+
+EOF
+
+echo "  maposmatic," >> /home/maposmatic/ocitysmap/ocitysmap.styles

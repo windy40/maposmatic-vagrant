@@ -10,3 +10,14 @@ git checkout hstore
 
 carto project.mml > veloroad.xml
 
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[veloroad]
+name: Veloroad
+description: Veloroad by Ilya Zverev
+path: /home/maposmatic/styles/veloroad/veloroad.xml
+
+EOF
+
+echo "  veloroad," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+
+

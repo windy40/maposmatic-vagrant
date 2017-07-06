@@ -19,3 +19,13 @@ sed -i '/name:/d' project.mml
 # convert CartoCSS to Mapnil XML
 carto project.mml > osm.xml
 
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[hikebikemap]
+name: HikeBikeMap
+description: HikeBikeMap style
+path: /home/maposmatic/styles/hikebikemap-carto/osm.xml
+
+EOF
+
+echo "  hikebikemap," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+

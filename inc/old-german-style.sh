@@ -48,4 +48,14 @@ sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
           --inc $(pwd)/inc-de \
           --world_boundaries /home/maposmatic/styles/mapnik2-osm/world_boundaries
 
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[german_osm]
+name: GermanOSM
+description: Old openstreetmap.de style
+path: /home/maposmatic/styles/mapnik-german/osm-de.xml
+
+EOF
+
+echo "  german_osm," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+
 

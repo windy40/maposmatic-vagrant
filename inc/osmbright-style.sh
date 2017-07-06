@@ -38,4 +38,13 @@ cp /vagrant/files/configure.py .
 cd OSMBright
 carto project.mml  > osm.xml
 
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[osmbright]
+name: OsmBright
+description: Mapbox OSM Bright style
+path: /home/maposmatic/styles/osm-bright/OSMBright/osm.xml
+
+EOF
+
+echo "  osmbright," >> /home/maposmatic/ocitysmap/ocitysmap.styles
 

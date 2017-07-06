@@ -10,3 +10,13 @@ cd /home/maposmatic/styles
 
 git clone https://github.com/hholzgra/Mapnik-fire-overlay.git
 
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[fire_overlay]
+name: FireOverlay
+description: Fire Hydrant Overlay
+path: /home/maposmatic/styles/Mapnik-fire-overlay/fire.xml
+
+EOF
+
+echo "  fire_overlay," >> /home/maposmatic/ocitysmap/ocitysmap.overlays
+

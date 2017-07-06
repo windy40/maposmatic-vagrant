@@ -96,15 +96,12 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 #
 # Set up various stylesheets 
 #
-# When adding stylesheets -> don't forget to register
-# them in the ocitysmap.conf file
-# 
 #----------------------------------------------------
 
 mkdir /home/maposmatic/styles
 
 . $INCDIR/osm-carto-style.sh
-. $INCDIR/osm-mapnik.sh
+. $INCDIR/osm-mapnik-style.sh
 . $INCDIR/maposmatic-style.sh
 . $INCDIR/hikebike-style.sh
 . $INCDIR/humanitarian-style.sh
@@ -121,13 +118,15 @@ mkdir /home/maposmatic/styles
 . $INCDIR/golf-overlay.sh
 . $INCDIR/fire-overlay.sh
 . $INCDIR/maxspeed-overlay.sh
-. $INCDIR/openptmap.sh
+. $INCDIR/ptmap-overlay.sh
 
 #----------------------------------------------------
 #
 # Postprocess all generated style sheets
 #
 #----------------------------------------------------
+
+. $INCDIR/ocitysmap-conf.sh
 
 cd /home/maposmatic/styles
 find . -name osm.xml | xargs \

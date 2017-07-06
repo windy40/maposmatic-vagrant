@@ -43,3 +43,14 @@ sed -e 's/"dbname": "osm"/"dbname": "gis"/g' \
 
 carto openriverboatmap.mml > openriverboatmap.xml
 
+
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[openriverboatmap]
+name: OpenRiverboatMap
+description: OpenRiverboatMap style 
+path: /home/maposmatic/styles/OpenRiverboatMap/openriverboatmap/openriverboatmap.xml
+
+EOF
+
+echo "  openriverboatmap," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+

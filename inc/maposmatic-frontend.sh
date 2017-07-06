@@ -26,6 +26,9 @@ cp $FILEDIR/maposmatic.wsgi www/maposmatic.wsgi
 python manage.py makemigrations maposmatic
 python manage.py migrate
 
+# set up admin user
+./manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'secret')"
+
 # set up translations
 cd www/maposmatic
 django-admin compilemessages
