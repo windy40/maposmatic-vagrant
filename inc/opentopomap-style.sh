@@ -71,6 +71,6 @@ path: /home/maposmatic/styles/OpenTopoMap/mapnik/opentopomap.xml
 
 EOF
 
-echo "  humanitarian," >> /home/maposmatic/ocitysmap/ocitysmap.styles
+echo "  opentopomap," >> /home/maposmatic/ocitysmap/ocitysmap.styles
 
 
