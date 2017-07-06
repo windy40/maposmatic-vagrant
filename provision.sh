@@ -114,6 +114,7 @@ mkdir /home/maposmatic/styles
 . $INCDIR/openriverboat-style.sh
 . $INCDIR/veloroad-style.sh
 . $INCDIR/blossom.sh
+. $INCDIR/pencil.sh
 . $INCDIR/empty-style.sh
 
 . $INCDIR/golf-overlay.sh
