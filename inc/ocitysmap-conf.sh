@@ -34,7 +34,7 @@ path: /home/maposmatic/styles/empty/empty.xml
 
 EOF
 
-rm -f /home/maposmatic/.ocitysmap.conf /root/.ocitysmap.conf
+rm -f /root/.ocitysmap.conf
 cat /home/maposmatic/ocitysmap/ocitysmap.styledefs >> /home/maposmatic/.ocitysmap.conf
 ln -s /home/maposmatic/.ocitysmap.conf /root/.ocitysmap.conf
 
