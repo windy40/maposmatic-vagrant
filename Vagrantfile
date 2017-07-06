@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     # vb.gui = true
     vb.name = "maposmatic"
-    vb.memory = "8192"
+    vb.memory = "4096"
     vb.cpus   = "2"
 
     # create a 2nd virtual disk as the base box file system isn't large enough
