@@ -19,9 +19,11 @@ cd ..
 mkdir srtm
 cd srtm
 
-for x in L M N
+# see http://www.viewfinderpanoramas.org/Coverage%20map%20viewfinderpanoramas_org3.htm for letters/numbers
+
+for x in N # L M N
 do
-  for y in 31 32 33
+  for y in 32 # 31 32 33
   do
     wget http://viewfinderpanoramas.org/dem3/$x$y.zip
   done
@@ -42,4 +44,14 @@ do
 
     gdaldem hillshade -q $a ${base}_warped.tif ${base}_hillshade.tif
 done
+
+cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
+[pistemap]
+name: PisteMap
+description: PisteMap style by Michael von Glasow
+path: /home/maposmatic/styles/pistemap/pistemap.xml
+
+EOF
+
+echo "  pistemap," >> /home/maposmatic/ocitysmap/ocitysmap.styles
 
