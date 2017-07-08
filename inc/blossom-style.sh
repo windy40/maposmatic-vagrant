@@ -7,7 +7,7 @@ git clone https://github.com/stekhn/blossom
 cd blossom 
 
 cp ../osm-bright/OSMbright/project.mml .
-carto project.mml  > osm.xml
+carto -a 3.0.12 -l project.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [blossom]
