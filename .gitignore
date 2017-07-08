@@ -39,12 +39,15 @@ build/
 .vagrant/
 db_disk.vdi
 maposmatic.box
+*-console.log
 
 # ignore OSM data files
 *.pbf
 
 # ignore test results
 test/test-*
+test/index.html
+test/thumbnails/index.html
 
 # ignore cache directory
 cache
