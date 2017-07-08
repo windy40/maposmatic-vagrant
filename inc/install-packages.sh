@@ -77,10 +77,10 @@ pip install \
     qrcode \
 
 # install extra npm packages
-npm install -g \
-    bower \
-    @mapbox/carto \
-    millstone \
+for pkg in bower @mapbox/carto millstone
+do
+  npm install -g $pkg
+done
 
 (cd /usr/local/bin; ln -s /usr/bin/nodejs node)
 
