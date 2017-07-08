@@ -124,6 +124,7 @@ mkdir /home/maposmatic/styles
 . $INCDIR/maxspeed-overlay.sh
 . $INCDIR/ptmap-overlay.sh
 . $INCDIR/schwarzkarte-overlay.sh
+. $INCDIR/contour-overlay.sh
 
 #----------------------------------------------------
 #
