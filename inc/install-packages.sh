@@ -35,6 +35,8 @@ apt-get install --quiet=2 --assume-yes \
     liblua5.3-dev \
     libmapnik3.0 \
     libmapnik-dev \
+    libosmium2-dev \
+    libpython3-dev \
     libutf8proc-dev \
     mapnik-utils \
     npm \
@@ -56,10 +58,14 @@ apt-get install --quiet=2 --assume-yes \
     python-mapnik \
     python-matplotlib \
     python-pip \
+    python3-pip \
     python-psycopg2 \
     python-rsvg \
     python-shapely \
     python-yaml \
+    python3-psycopg2 \
+    python3-shapely \
+    python3-sqlalchemy \
     subversion \
     ttf-dejavu \
     ttf-unifont \
@@ -75,6 +81,10 @@ pip install \
     nik4 \
     pluginbase \
     qrcode \
+
+pip3 install \
+     geoalchemy2 \
+     sqlalchemy-utils \
 
 # install extra npm packages
 for pkg in bower @mapbox/carto millstone
