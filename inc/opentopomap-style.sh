@@ -60,6 +60,11 @@ gdaldem hillshade -z 7 -compute_edges -co BIGTIFF=YES -co TILED=YES -co COMPRESS
 gdaldem hillshade -z 4 -compute_edges -co BIGTIFF=YES -co TILED=YES -co COMPRESS=JPEG warp-500.tif hillshade-500.tif
 gdaldem hillshade -z 2 -co compress=lzw -co predictor=2 -co bigtiff=yes -compute_edges warp-90.tif hillshade-90.tif && gdal_translate -co compress=JPEG -co bigtiff=yes -co tiled=yes hillshade-90.tif hillshade-90-jpeg.tif
 
+cd ..
+
+sudo -u maposmatic psql gis < tools/stationdirection.sql
+sudo -u maposmatic psql gis < tools/viewpointdirection.sql
+
 sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql
 sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql
 
