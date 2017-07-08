@@ -145,6 +145,7 @@ find . -name osm.xml | xargs \
 #-----------------------------------------------------
 
 cd /vagrant/test
+rm -f test-* thumbnails/test-*
 ./run-tests.sh
 
 #----------------------------------------------------
