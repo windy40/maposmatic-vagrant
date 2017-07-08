@@ -108,13 +108,15 @@ mkdir /home/maposmatic/styles
 . $INCDIR/mapquest-eu-style.sh
 . $INCDIR/german-style.sh
 . $INCDIR/old-german-style.sh
+. $INCDIR/french-style.sh
 . $INCDIR/pistemap-style.sh
 . $INCDIR/osmbright-style.sh
 . $INCDIR/opentopomap-style.sh
 . $INCDIR/openriverboat-style.sh
 . $INCDIR/veloroad-style.sh
-. $INCDIR/blossom.sh
-. $INCDIR/pencil.sh
+. $INCDIR/blossom-style.sh
+. $INCDIR/pencil-style.sh
+. $INCDIR/spacestation-style.sh
 . $INCDIR/empty-style.sh
 
 . $INCDIR/golf-overlay.sh
