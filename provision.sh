@@ -53,8 +53,6 @@ fi
 
 # create and mount file system on 2nd disk "db_disk"
 
-banner "preparing filesystem"
-
 if ! test -b /dev/sdc2
 then
     parted /dev/sdc rm 1
@@ -74,8 +72,6 @@ echo 'LABEL=postgres     /var/lib/postgresql   ext4   noatime,nobarrier   0   0'
 mount /var/lib/postgresql
 
 # installing apt, pip and npm packages
-
-banner "installing packages"
 
 . $INCDIR/install-packages.sh
 
@@ -118,7 +114,7 @@ styles="
   maposmatic 
   hikebike 
   humanitarian
-  mapquest
+  mapquest-eu
   german
   old-german
   french
