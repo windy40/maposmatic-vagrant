@@ -67,6 +67,7 @@ apt-get install --quiet=2 --assume-yes \
     python3-shapely \
     python3-sqlalchemy \
     subversion \
+    sysvbanner \
     ttf-dejavu \
     ttf-unifont \
     unifont \
