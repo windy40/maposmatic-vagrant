@@ -50,7 +50,11 @@ else
     mkdir -p ~/.ccache
 fi
 
+
 # create and mount file system on 2nd disk "db_disk"
+
+banner "preparing filesystem"
+
 if ! test -b /dev/sdc2
 then
     parted /dev/sdc rm 1
@@ -69,6 +73,9 @@ mkdir -p /var/lib/postgresql
 echo 'LABEL=postgres     /var/lib/postgresql   ext4   noatime,nobarrier   0   0' >> /etc/fstab
 mount /var/lib/postgresql
 
+# installing apt, pip and npm packages
+
+banner "installing packages"
 
 . $INCDIR/install-packages.sh
 
@@ -82,14 +89,19 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 # no longer needed with yakkety
 # . $INCDIR/mapnik-from-source.sh
 
+banner "db setup"
 . $INCDIR/database-setup.sh
 
+banner "building osm2pgsql"
 . $INCDIR/osm2pgsql-build.sh
-    
+   
+banner "db import" 
 . $INCDIR/osm2pgsql-import.sh
 
+banner "renderer setup"
 . $INCDIR/ocitysmap.sh
 
+banner "locales"
 . $INCDIR/locales.sh
 
 #----------------------------------------------------
@@ -100,31 +112,47 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 
 mkdir /home/maposmatic/styles
 
-. $INCDIR/osm-carto-style.sh
-. $INCDIR/osm-mapnik-style.sh
-. $INCDIR/maposmatic-style.sh
-. $INCDIR/hikebike-style.sh
-. $INCDIR/humanitarian-style.sh
-. $INCDIR/mapquest-eu-style.sh
-. $INCDIR/german-style.sh
-. $INCDIR/old-german-style.sh
-. $INCDIR/french-style.sh
-. $INCDIR/pistemap-style.sh
-. $INCDIR/osmbright-style.sh
-. $INCDIR/opentopomap-style.sh
-. $INCDIR/openriverboat-style.sh
-. $INCDIR/veloroad-style.sh
-. $INCDIR/blossom-style.sh
-. $INCDIR/pencil-style.sh
-. $INCDIR/spacestation-style.sh
-. $INCDIR/empty-style.sh
+styles="
+  osm-carto 
+  osm-mapnik 
+  maposmatic 
+  hikebike 
+  humanitarian
+  mapquest
+  german
+  old-german
+  french
+  pistemap
+  osmbright
+  opentopomap
+  openriverboat
+  veloroad
+  blossom
+  pencil
+  spacestation
+  empty
+"
 
-. $INCDIR/golf-overlay.sh
-. $INCDIR/fire-overlay.sh
-. $INCDIR/maxspeed-overlay.sh
-. $INCDIR/ptmap-overlay.sh
-. $INCDIR/schwarzkarte-overlay.sh
-. $INCDIR/contour-overlay.sh
+for style in $styles
+do
+  banner "$style style"
+  . $INCDIR/$style-style.sh
+done
+
+overlays="
+  golf
+  fire
+  maxspeed
+  ptmap
+  schwarzkarte
+  contour
+"
+
+for overlay in $overlays
+do
+  banner "$overlay overlay"
+  . $INCDIR/$overlay-overlay.sh
+done
 
 #----------------------------------------------------
 #
@@ -132,12 +160,21 @@ mkdir /home/maposmatic/styles
 #
 #----------------------------------------------------
 
+banner "postprocessing styles"
+
 . $INCDIR/ocitysmap-conf.sh
 
 cd /home/maposmatic/styles
 find . -name osm.xml | xargs \
     sed -i -e's/background-color="#......"/background-color="#FFFFFF"/g'
 
+#----------------------------------------------------
+#
+# Setting up Django fronted
+#
+#----------------------------------------------------
+
+banner "django frontend"
 
 . $INCDIR/maposmatic-frontend.sh
 
@@ -146,6 +183,8 @@ find . -name osm.xml | xargs \
 # tests
 #
 #-----------------------------------------------------
+
+banner "running tests"
 
 cd /vagrant/test
 rm -f test-* thumbnails/test-*
@@ -156,6 +195,8 @@ rm -f test-* thumbnails/test-*
 # cleanup
 #
 #-----------------------------------------------------
+
+banner "cleanup"
 
 # write back apt cache
 mkdir -p $CACHEDIR
