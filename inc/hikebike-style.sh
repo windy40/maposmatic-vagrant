@@ -14,7 +14,7 @@ cd hikebikemap-carto/
 ln -s ../openstreetmap-carto/data/ .
 
 # remove deprecated name attributes from layers to silence carto warnings
-sed -i '/name:/d' project.mml
+sed -i '/"name":/d' project.mml
 
 # convert CartoCSS to Mapnil XML
 carto project.mml > osm.xml

@@ -6,7 +6,8 @@ git clone https://github.com/stekhn/blossom
 
 cd blossom 
 
-carto -a 3.0.12 -l project.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
+sed '/"name":/d' < project.mml > osm.mml
+carto -a 3.0.12 -l osm.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [blossom]

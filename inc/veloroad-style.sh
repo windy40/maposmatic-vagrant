@@ -8,7 +8,8 @@ git checkout hstore
 
 ./get-shapefiles.sh
 
-carto project.mml > veloroad.xml
+sed '/"name":/d' < project.mml > osm.mml
+carto osm.mml > veloroad.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [veloroad]

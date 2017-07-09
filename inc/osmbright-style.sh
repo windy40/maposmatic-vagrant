@@ -36,7 +36,8 @@ cp /vagrant/files/configure.py .
 ./make.py
 
 cd OSMBright
-carto project.mml  > osm.xml
+sed '/"name":/d' < project.mml > osm.mml
+carto osm.mml  > osm.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [osmbright]

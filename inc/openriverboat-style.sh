@@ -39,6 +39,7 @@ sed -e 's/"dbname": "osm"/"dbname": "gis"/g' \
     -e 's|http://tilemill-data.s3.amazonaws.com/osm/shoreline_300.zip|data/shoreline_300.shp|' \
     -e 's|http://mapbox-geodata.s3.amazonaws.com/natural-earth-1.3.0/physical/10m-land.zip|data/10m-land.shp|' \
     -e 's|http://tilemill-data.s3.amazonaws.com/osm/coastline-good.zip|data/coastlines-split-3857/lines.shp|' \
+    -e '/"name":/d' \
     -i openriverboatmap.mml
 
 carto openriverboatmap.mml > openriverboatmap.xml

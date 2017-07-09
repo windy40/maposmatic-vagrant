@@ -9,7 +9,9 @@ git clone https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
 git checkout v3.1.0
 ./scripts/get-shapefiles.py
-carto -a 3.0.0 project.mml > osm.xml
+
+sed '/\sname:/d' < project.mml > osm.mml
+carto -a 3.0.0 osm.mml > osm.xml
 
 # create color-reduced variant of generated style
 
