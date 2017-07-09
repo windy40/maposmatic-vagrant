@@ -75,6 +75,7 @@ apt-get install --quiet=2 --assume-yes \
     unzip \
 
 # install extra python packages 
+banner "pip packages"
 pip install \
     colour \
     django-bootstrap3 \
@@ -88,17 +89,20 @@ pip3 install \
      sqlalchemy-utils \
 
 # install extra npm packages
-for pkg in bower @mapbox/carto millstone
-do
-  npm install -g $pkg
-done
-
+banner "npm packages"
 (cd /usr/local/bin; ln -s /usr/bin/nodejs node)
+npm config set loglevel warn
+
+npm install -g \
+    bower \
+    @mapbox/carto \
+    millstone
 
 # this package is currently broken in Ubuntu, see e.g. 
 # https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535
 # so we need to use the working upstream Debian package
 
+banner "ms fonts"
 dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb
 
 
