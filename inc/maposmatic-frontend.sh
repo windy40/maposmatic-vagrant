@@ -15,7 +15,7 @@ bower --allow-root install
 wget -O www/static/js/leaflet-omnivore.min.js http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js
 
 # create needed directories and tweak permissions
-mkdir -p logs rendering/results    
+mkdir -p logs rendering/results media
 
 # copy config files
 cp $FILEDIR/config.py scripts/config.py
@@ -41,8 +41,7 @@ then
   chgrp www-data logs www www/datastore.sqlite3
   chmod   g+w    logs www www/datastore.sqlite3
 fi
-mkdir media
-chgrp www-data media
+chgrp www-data media logs
 
 # set up render daemon
 cp $FILEDIR/maposmatic-render.service /lib/systemd/system
