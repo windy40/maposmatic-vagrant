@@ -42,6 +42,7 @@ then
   chmod   g+w    logs www www/datastore.sqlite3
 fi
 chgrp www-data media logs
+chmod g+w media logs
 
 # set up render daemon
 cp $FILEDIR/maposmatic-render.service /lib/systemd/system
