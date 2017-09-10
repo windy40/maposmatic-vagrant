@@ -5,10 +5,12 @@
 
 $results = [];
 $types   = [];
-$format_names = ["png", "pdf", "svgz"];
 
+$format_names = ["multi", "pdf", "png", "svgz"];
 
-foreach (glob("test*.time") as $test) {
+$time_files = glob("test*.time");
+sort($time_files);
+foreach ($time_files as $test) {
     preg_match('|test-(\w+)-(\w+)-(\w+).time|', $test, $m);
 
     $type   = $m[1];
@@ -38,6 +40,7 @@ foreach ($types as $type) {
     echo "<tr><td>$style</td>";
 
     foreach($formats as $format => $base) {
+      if ($format === "multi") $format="pdf";
       echo "<td ";
       if(file_exists("$base.$format")) {
         echo "bgcolor='lightgreen' align='right'>";
