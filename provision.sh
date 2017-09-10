@@ -124,6 +124,7 @@ styles="
   openriverboat
   veloroad
   blossom
+  pandonia
   pencil
   spacestation
   empty
