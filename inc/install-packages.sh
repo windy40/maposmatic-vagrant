@@ -22,6 +22,8 @@ apt-get install --quiet=2 --assume-yes \
     fonts-sipa-arundina \
     fonts-taml-tscu \
     g++ \
+    gir1.2-pango-1.0 \
+    gir1.2-rsvg-2.0 \
     ccache \
     gdal-bin \
     gettext \
@@ -43,6 +45,7 @@ apt-get install --quiet=2 --assume-yes \
     osmosis \
     pandoc \
     php-cli \
+    pngquant \
     postgis \
     postgresql \
     postgresql-contrib \
@@ -52,17 +55,21 @@ apt-get install --quiet=2 --assume-yes \
     python-cairo-dev \
     python-django \
     python-feedparser \
+    python-future \
     python-gdal \
     python-gtk2 \
     python-imaging \
     python-mapnik \
     python-matplotlib \
     python-pip \
-    python3-pip \
     python-psycopg2 \
     python-rsvg \
     python-shapely \
     python-yaml \
+    python3-future \
+    python3-gdal \
+    python3-mapnik \
+    python3-pip \
     python3-psycopg2 \
     python3-shapely \
     python3-sqlalchemy \
@@ -85,7 +92,11 @@ pip install \
     qrcode \
 
 pip3 install \
+     colour \
      geoalchemy2 \
+     geopy \
+     pluginbase \
+     qrcode \
      sqlalchemy-utils \
 
 # install extra npm packages
