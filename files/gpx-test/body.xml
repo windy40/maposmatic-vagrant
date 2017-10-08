@@ -1,0 +1,33 @@
+  <Style name="route">
+    <Rule>
+      <LineSymbolizer stroke-width="6" stroke="#ffff00" stroke-linejoin="round" stroke-linecap="round" stroke-opacity="0.5" />
+    </Rule>
+    <Rule>
+      <LineSymbolizer stroke-width="2" stroke="#ff0000" stroke-linejoin="round" stroke-linecap="round" />
+    </Rule>
+  </Style>
+
+  <Layer name="route" status="on" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    <StyleName>route</StyleName>
+    <Datasource>
+      <Parameter name="type">ogr</Parameter>
+      <Parameter name="file">&gpxfile;</Parameter>
+      <Parameter name="layer">tracks</Parameter>
+    </Datasource>
+  </Layer>
+
+  <Style name="point">
+    <Rule>
+      <Filter>not ([name] = null or [name] = '')</Filter>
+      <PointSymbolizer file="/home/maposmatic/gpx-test/cross.svg" allow-overlap="true"/> 
+    </Rule>
+  </Style>
+
+  <Layer name="point" status="on" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+    <StyleName>point</StyleName>
+    <Datasource>
+       <Parameter name="type">ogr</Parameter>
+       <Parameter name="file">&gpxfile;</Parameter>
+       <Parameter name="layer">waypoints</Parameter>
+    </Datasource>
+  </Layer>

@@ -30,7 +30,7 @@ apt-get install --quiet=2 --assume-yes \
     git \
     imagemagick \
     libapache2-mod-php \
-    libapache2-mod-wsgi \
+    libapache2-mod-wsgi-py3 \
     libbz2-dev \
     libgdal-dev \
     libkakasi2-dev \
@@ -53,7 +53,6 @@ apt-get install --quiet=2 --assume-yes \
     python-beautifulsoup \
     python-cairo \
     python-cairo-dev \
-    python-django \
     python-feedparser \
     python-future \
     python-gdal \
@@ -66,8 +65,11 @@ apt-get install --quiet=2 --assume-yes \
     python-rsvg \
     python-shapely \
     python-yaml \
+    python3-django \
     python3-future \
+    python3-feedparser \
     python3-gdal \
+    python3-gi-cairo \
     python3-mapnik \
     python3-pip \
     python3-psycopg2 \
@@ -95,6 +97,7 @@ pip3 install \
      colour \
      geoalchemy2 \
      geopy \
+     pillow \
      pluginbase \
      qrcode \
      sqlalchemy-utils \

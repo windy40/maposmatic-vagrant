@@ -12,7 +12,7 @@ carto -a 3.0.12 -l osm.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [blossom]
 name: Blossom
-description: Blossom style by Steffen Kühne
+description: Blossom style by Steffen Kuehne
 path: /home/maposmatic/styles/blossom/osm.xml
 
 EOF

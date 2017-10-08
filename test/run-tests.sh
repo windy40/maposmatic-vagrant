@@ -6,13 +6,14 @@ CONFIG="$PROJECT/.ocitysmap.conf"
 LAYOUT="single_page_index_side"
 ORIENTATION="landscape"
 
-BBOX="52.0100,8.5122 52.0300,8.5432"
+#BBOX="52.0100,8.5122 52.0300,8.5432"
+BBOX="52.5959,13.3201 52.5870,13.34132"
 PAPER="Din A1"
 
 BASE_FOR_OVERLAY="CartoOsmBW"
 
-PYTHON="python"
-#PYTHON="pythoni3"
+# PYTHON="python"
+PYTHON="python3"
 
 if test $# -gt 0
 then

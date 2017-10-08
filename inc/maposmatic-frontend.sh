@@ -8,7 +8,7 @@
 cd /home/maposmatic
 git clone https://github.com/hholzgra/maposmatic.git
 cd maposmatic
-git checkout site-osm-baustelle
+git checkout site-osm-baustelle-py3
 
 # install dependencies
 bower --allow-root install
@@ -23,11 +23,11 @@ cp $FILEDIR/settings_local.py www/settings_local.py
 cp $FILEDIR/maposmatic.wsgi www/maposmatic.wsgi
 
 # init MaposMatics housekeeping database
-python manage.py makemigrations maposmatic
-python manage.py migrate
+python3 manage.py makemigrations maposmatic
+python3 manage.py migrate
 
 # set up admin user
-./manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'secret')"
+python3 manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'secret')"
 
 # set up translations
 cd www/maposmatic

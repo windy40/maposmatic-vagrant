@@ -127,6 +127,9 @@ DAEMON_ERRORS_SMTP_PORT = 25
 DAEMON_ERRORS_EMAIL_FROM = 'daemon@domain.com'
 DAEMON_ERRORS_EMAIL_REPLY_TO = 'noreply@domain.com'
 DAEMON_ERRORS_JOB_URL = 'http://domain.com/jobs/%d'
+DAEMON_ERRORS_SMTP_ENCRYPT = False
+DAEMON_ERRORS_SMTP_USER = ''
+DAEMON_ERRORS_SMTP_PASSWORD = ''
 
 # # Show a link to donate to the MapOSMatic team
 MAPOSMATIC_DONATION = False
