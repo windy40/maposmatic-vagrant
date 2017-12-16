@@ -6,12 +6,6 @@ git clone https://github.com/hholzgra/waymarked-trails-site.git
 cd waymarked-trails-site
 git checkout svg-symbols
 
-git clone https://github.com/osmcode/pyosmium.git
-cd pyosmium
-python3 setup.py install
-cd ..
-
-
 git clone https://github.com/lonvia/osgende.git
 cd osgende
 python3 setup.py install

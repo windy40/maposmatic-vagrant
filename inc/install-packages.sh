@@ -31,6 +31,7 @@ apt-get install --quiet=2 --assume-yes \
     imagemagick \
     libapache2-mod-php \
     libapache2-mod-wsgi-py3 \
+    libboost-python-dev \
     libbz2-dev \
     libgdal-dev \
     libkakasi2-dev \
@@ -90,6 +91,7 @@ pip install \
     django-bootstrap3 \
     geopy \
     nik4 \
+    osmium \
     pluginbase \
     qrcode \
 
@@ -99,6 +101,7 @@ pip3 install \
      geopy \
      pillow \
      pluginbase \
+     osmium \
      qrcode \
      sqlalchemy-utils \
 
