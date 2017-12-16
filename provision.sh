@@ -88,8 +88,8 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 banner "db setup"
 . $INCDIR/database-setup.sh
 
-banner "building osm2pgsql"
-. $INCDIR/osm2pgsql-build.sh
+# banner "building osm2pgsql"
+# . $INCDIR/osm2pgsql-build.sh
    
 banner "db import" 
 . $INCDIR/osm2pgsql-import.sh
