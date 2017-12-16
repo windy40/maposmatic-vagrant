@@ -7,6 +7,7 @@ cd OpenTopoMap
 git checkout hartmut-dev
 cd mapnik
 
+
 ln -s ../../mapnik2-osm/world_boundaries .
 
 mkdir -p data 
@@ -21,6 +22,8 @@ cd tools
 
 cc -o saddledirection saddledirection.c -lm -lgdal
 install saddledirection /usr/local/bin
+cc -Wall -o isolation isolation.c -lgdal -lm -O2
+install isolation /usr/local/bin
 
 wget http://katze.tfiu.de/projects/phyghtmap/phyghtmap_1.71.orig.tar.gz
 tar -xvf phyghtmap_1.71.orig.tar.gz
@@ -29,6 +32,8 @@ python setup.py install
 cd ..
 
 sudo -u maposmatic ./update_lowzoom.sh
+sudo -u maposmatic ./update_saddles.sh
+sudo -u maposmatic ./update_isolations.sh
 
 cd ..
 
@@ -44,6 +49,8 @@ do
 done
 
 gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -o raw.tif *.hgt.tif
+
+ln -s raw.tif dem_srtm.tiff
 
 interpolation=cubicspline
 for r in 90 500 1000 5000
@@ -64,6 +71,7 @@ cd ..
 
 sudo -u maposmatic psql gis < tools/stationdirection.sql
 sudo -u maposmatic psql gis < tools/viewpointdirection.sql
+sudo -u maposmatic psql gis < tools/pitchicon.sql
 
 sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql
 sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql
