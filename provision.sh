@@ -106,6 +106,9 @@ banner "locales"
 #
 #----------------------------------------------------
 
+banner "shapefiles"
+. $INCDIR/get-shapefiles.sh
+
 mkdir /home/maposmatic/styles
 
 styles="

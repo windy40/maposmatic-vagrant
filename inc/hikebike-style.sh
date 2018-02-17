@@ -10,8 +10,7 @@ git clone https://github.com/cmarqu/hikebikemap-carto.git
 
 cd hikebikemap-carto/
 
-# we can share the shapefiles with the OSM Carto style
-ln -s ../openstreetmap-carto/data/ .
+ln -s /home/maposmatic/shapefiles data
 
 # remove deprecated name attributes from layers to silence carto warnings
 sed -i '/"name":/d' project.mml

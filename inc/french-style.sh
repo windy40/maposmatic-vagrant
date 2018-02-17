@@ -6,7 +6,7 @@ git clone https://github.com/cquest/osmfr-cartocss.git
 cd osmfr-cartocss
 git checkout v2.8.0
 
-./get-shapefiles.sh
+ln -s /home/maposmatic/shapefiles data
 
 sed '/"name":/d' < project.mml > osm.mml
 carto -a 3.0.12 osm.mml > osm.xml

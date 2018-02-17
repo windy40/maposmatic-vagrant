@@ -7,8 +7,8 @@ cd OpenTopoMap
 git checkout hartmut-dev
 cd mapnik
 
-
-ln -s ../../mapnik2-osm/world_boundaries .
+ln -s /home/maposmatic/shapefiles data
+ln -s /home/maposmatic/shapefiles/world_boundaries .
 
 mkdir -p data 
 cd data
