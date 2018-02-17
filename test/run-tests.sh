@@ -8,6 +8,7 @@ ORIENTATION="landscape"
 
 BBOX="52.0100,8.5122 52.0300,8.5432"
 PAPER="Din A1"
+THUMB_WIDTH="400"
 
 BASE_FOR_OVERLAY="CartoOsmBW"
 
@@ -52,7 +53,7 @@ do
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
   convert test-base-$style-png.png test-base-$style-jpg.jpg
-  convert -thumbnail 200 test-base-$style-png.png thumbnails/test-base-$style-png.jpg
+  convert -thumbnail $THUMB_WIDTH test-base-$style-png.png thumbnails/test-base-$style-png.jpg
 done
 
 for overlay in $OVERLAYS
@@ -75,7 +76,7 @@ do
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
   convert test-overlay-$overlay-png.png test-overlay-$overlay-jpg.jpg
-  convert -thumbnail 200 test-overlay-$overlay-png.png thumbnails/test-overlay-$overlay-png.jpg
+  convert -thumbnail $THUMB_WIDTH test-overlay-$overlay-png.png thumbnails/test-overlay-$overlay-png.jpg
 done
 
 php index.php > index.html
