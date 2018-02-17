@@ -43,6 +43,7 @@ apt-get install --quiet=2 --assume-yes \
     libutf8proc-dev \
     mapnik-utils \
     npm \
+    osm2pgsql \
     osmosis \
     pandoc \
     php-cli \

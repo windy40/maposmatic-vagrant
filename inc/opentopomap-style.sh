@@ -31,9 +31,6 @@ cd phyghtmap-1.71
 python setup.py install
 cd ..
 
-sudo -u maposmatic ./update_lowzoom.sh
-sudo -u maposmatic ./update_saddles.sh
-sudo -u maposmatic ./update_isolations.sh
 
 cd ..
 
@@ -49,6 +46,7 @@ do
 done
 
 gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -o raw.tif *.hgt.tif
+ln -s raw.tif dem-srtm.tiff
 
 ln -s raw.tif dem_srtm.tiff
 
@@ -71,7 +69,11 @@ cd ..
 
 sudo -u maposmatic psql gis < tools/stationdirection.sql
 sudo -u maposmatic psql gis < tools/viewpointdirection.sql
-sudo -u maposmatic psql gis < tools/pitchicon.sql
+sudo -u maposmatic psql gis < mapnik/tools/pitchicon.sql
+
+sudo -u maposmatic ./update_lowzoom.sh
+sudo -u maposmatic ./update_saddles.sh
+sudo -u maposmatic ./update_isolations.sh
 
 sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql
 sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql
