@@ -127,6 +127,7 @@ styles="
   pandonia
   pencil
   spacestation
+  toner
   empty
 "
 
