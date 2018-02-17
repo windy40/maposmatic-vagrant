@@ -27,8 +27,8 @@ then
     shift
   done
 else
-  STYLES=$(grep name: $CONFIG | grep -v '#' | grep -vi 'Overlay' | sed -e 's/name://g')
-  OVERLAYS=$(grep name: $CONFIG | grep -v '#' | grep -i Overlay | sed -e 's/name://g')
+  STYLES=$(grep name: $CONFIG | grep -vi 'Overlay' | sed -e 's/name://g')
+  OVERLAYS=$(grep name: $CONFIG | grep -i Overlay | sed -e 's/name://g')
   rm -rf test-* thumbnails/test-*
 fi
 
