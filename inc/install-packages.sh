@@ -78,7 +78,9 @@ apt-get install --quiet=2 --assume-yes \
     python3-pip \
     python3-psycopg2 \
     python3-shapely \
+    python3-slugify \
     python3-sqlalchemy \
+    python3-urllib3 \
     subversion \
     sysvbanner \
     ttf-dejavu \
