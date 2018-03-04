@@ -147,6 +147,7 @@ overlays="
   ptmap
   schwarzkarte
   contour
+  openrailway
 "
 
 for overlay in $overlays
