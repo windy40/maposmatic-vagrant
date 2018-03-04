@@ -11,14 +11,16 @@ git clone git://github.com/hholzgra/MapQuest-Mapnik-Style.git
 
 cd MapQuest-Mapnik-Style
 
-# Mapquest stylesheets need the same boundary files as the old
-# MapnikOSM style, so we can just reuse that here
-ln -s ../mapnik2-osm/world_boundaries world_boundaries
-
 # fetch additional files required by this style
+mkdir world_boundaries
 cd world_boundaries
-wget http://osm-baustelle.de/mercator_tiffs.tar.bz2
-tar -xvf mercator_tiffs.tar.bz2
+for base in shoreline_300 mercator_tiffs world_boundaries processed_p  
+do
+	for file in /home/maposmatic/shapefiles/$base/*
+	do
+		ln -s $file .
+	done
+done
 cd ..
 
 # generate stylesheet XML

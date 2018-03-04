@@ -7,7 +7,19 @@ git clone https://gitlab.com/hholzgra/pistemap.git
 cd pistemap
 git checkout maposmatic
 
-ln -s ../mapnik2-osm/world_boundaries .
+# fetch additional files required by this style
+mkdir world_boundaries
+cd world_boundaries
+for base in shoreline_300 mercator_tiffs world_boundaries processed_p
+do
+  for file in /home/maposmatic/shapefiles/$base/*
+  do
+    ln -s $file .
+  done
+done
+cd ..
+
+
 
 cd pistemap_symbols
 ln -s ../../MapQuest-Mapnik-Style/mapquest_symbols/small-city.svg .
