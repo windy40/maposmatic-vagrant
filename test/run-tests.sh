@@ -7,10 +7,11 @@ LAYOUT="single_page_index_side"
 ORIENTATION="landscape"
 
 BBOX="52.0100,8.5122 52.0300,8.5432"
-PAPER="Din A1"
+PAPER="Din A4"
 THUMB_WIDTH="400"
 
 BASE_FOR_OVERLAY="CartoOsmBW"
+PREVIEW_DIR=/home/maposmatic/maposmatic/www/static/img/
 
 # PYTHON="python"
 PYTHON="python3"
@@ -20,7 +21,11 @@ then
   STYLES=""
   OVERLAYS=""
   while [ $1 ] ; do
-    if ( echo $1 | grep -qi Overlay); then
+    if ( echo $1 | egrep -q '\s*#' ); then
+      echo "Ignoring $1"
+      shift
+      continue
+    elif ( echo $1 | grep -qi Overlay); then
       OVERLAYS="$OVERLAYS $1"
     else
       STYLES="$STYLES $1"
@@ -28,8 +33,8 @@ then
     shift
   done
 else
-  STYLES=$(grep name: $CONFIG | grep -vi 'Overlay' | sed -e 's/name://g')
-  OVERLAYS=$(grep name: $CONFIG | grep -i Overlay | sed -e 's/name://g')
+  STYLES=$(grep name: $CONFIG | grep -v '#' | grep -vi 'Overlay' | sed -e 's/name://g')
+  OVERLAYS=$(grep name: $CONFIG | grep -v '#' | grep -i Overlay | sed -e 's/name://g')
   rm -rf test-* thumbnails/test-*
 fi
 
@@ -54,6 +59,10 @@ do
   cat $base.time
   convert test-base-$style-png.png test-base-$style-jpg.jpg
   convert -thumbnail $THUMB_WIDTH test-base-$style-png.png thumbnails/test-base-$style-png.jpg
+  if test -n "$PREVIEW_DIR"
+  then
+    cp thumbnails/test-base-$style-png.jpg $PREVIEW_DIR/style/$style.jpg
+  fi
 done
 
 for overlay in $OVERLAYS
@@ -77,6 +86,11 @@ do
   cat $base.time
   convert test-overlay-$overlay-png.png test-overlay-$overlay-jpg.jpg
   convert -thumbnail $THUMB_WIDTH test-overlay-$overlay-png.png thumbnails/test-overlay-$overlay-png.jpg
+  convert -thumbnail $THUMB_WIDTH test-base-$style-png.png thumbnails/test-base-$style-png.jpg
+  if test -n "$PREVIEW_DIR"
+  then
+    cp thumbnails/test-base-$overlay-png.jpg $PREVIEW_DIR/overlay/$overlay.jpg
+  fi
 done
 
 php index.php > index.html
