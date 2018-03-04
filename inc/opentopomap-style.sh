@@ -69,11 +69,13 @@ cd ..
 
 sudo -u maposmatic psql gis < tools/stationdirection.sql
 sudo -u maposmatic psql gis < tools/viewpointdirection.sql
-sudo -u maposmatic psql gis < mapnik/tools/pitchicon.sql
+sudo -u maposmatic psql gis < tools/pitchicon.sql
 
-sudo -u maposmatic ./update_lowzoom.sh
-sudo -u maposmatic ./update_saddles.sh
-sudo -u maposmatic ./update_isolations.sh
+cd ..
+
+sudo -u maposmatic mapnik/tools/update_lowzoom.sh
+sudo -u maposmatic mapnik/tools/update_saddles.sh
+sudo -u maposmatic mapnik/tools/update_isolations.sh
 
 sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql
 sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql
