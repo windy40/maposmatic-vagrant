@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
     unless File.exist?('db_disk.vdi')
       vb.customize ['createhd', '--filename', 'db_disk', '--size', 100 * 1024] # 100GB
     end
-    vb.customize ['storageattach', :id, '--storagectl', 'SCSI Controller', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', 'db_disk.vdi']
+    vb.customize ['storageattach', :id, '--storagectl', 'SCSI', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', 'db_disk.vdi']
   end
 
   config.ssh.forward_x11=true
