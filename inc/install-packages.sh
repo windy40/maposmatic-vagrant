@@ -4,6 +4,8 @@
 #
 #----------------------------------------------------
 
+sed -i -e's/archive/old-releases/g' /etc/apt/sources.list
+
 # bring apt package database up to date
 apt-get update --quiet=2
 
