@@ -86,10 +86,9 @@ do
   cat $base.time
   convert test-overlay-$overlay-png.png test-overlay-$overlay-jpg.jpg
   convert -thumbnail $THUMB_WIDTH test-overlay-$overlay-png.png thumbnails/test-overlay-$overlay-png.jpg
-  convert -thumbnail $THUMB_WIDTH test-base-$style-png.png thumbnails/test-base-$style-png.jpg
   if test -n "$PREVIEW_DIR"
   then
-    cp thumbnails/test-base-$overlay-png.jpg $PREVIEW_DIR/overlay/$overlay.jpg
+    cp thumbnails/test-overlay-$overlay-png.jpg $PREVIEW_DIR/overlay/$overlay.jpg
   fi
 done
 
