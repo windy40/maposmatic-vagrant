@@ -51,33 +51,12 @@ else
 fi
 
 
-# create and mount file system on 2nd disk "db_disk"
-
-if ! test -b /dev/sdc2
-then
-    parted /dev/sdc rm 1
-    parted /dev/sdc mklabel msdos 
-    parted /dev/sdc mkpart primary 512 40G     # for /home/maposmatic
-    parted /dev/sdc mkpart primary 40G -- -1s  # for /var/lib/postgres
-    mkfs.ext4 -L maposmatic  /dev/sdc1
-    mkfs.ext4 -L postgres    /dev/sdc2
-fi
-
-mkdir -p /home/maposmatic
-echo 'LABEL=maposmatic   /home/maposmatic      ext4   noatime,nobarrier   0   0' >> /etc/fstab
-mount /home/maposmatic
-
-mkdir -p /var/lib/postgresql
-echo 'LABEL=postgres     /var/lib/postgresql   ext4   noatime,nobarrier   0   0' >> /etc/fstab
-mount /var/lib/postgresql
-
 # installing apt, pip and npm packages
 
 . $INCDIR/install-packages.sh
 
 # add "maposmatic" system user that will own the database and all locally installed stuff
-useradd maposmatic
-chown maposmatic /home/maposmatic
+useradd --create-home maposmatic
 
 # add host entry for gis-db
 sed -ie 's/localhost/localhost gis-db/g' /etc/hosts

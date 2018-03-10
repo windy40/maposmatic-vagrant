@@ -11,13 +11,12 @@ Vagrant.configure(2) do |config|
     vb.name = "maposmatic"
     vb.memory = "4096"
     vb.cpus   = "2"
-
-    # create a 2nd virtual disk as the base box file system isn't large enough
-    unless File.exist?('db_disk.vdi')
-      vb.customize ['createhd', '--filename', 'db_disk', '--size', 100 * 1024] # 100GB
-    end
-    vb.customize ['storageattach', :id, '--storagectl', 'SCSI', '--port', 2, '--device', 0, '--type', 'hdd', '--medium', 'db_disk.vdi']
   end
+
+  unless Vagrant.has_plugin?("vagrant-disksize")
+    raise 'disksize plugin is not installed - run "vagrant plugin install vagrant-disksize" first'
+  end
+  config.disksize.size = '150GB'
 
   config.ssh.forward_x11=true
 
