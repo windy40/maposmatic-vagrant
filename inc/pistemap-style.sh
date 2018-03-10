@@ -68,7 +68,7 @@ do
 
     gdalwarp -q -multi -of GTiff -co "TILED=YES" -srcnodata 32767 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m" -rcs -order 3 -tr 30 30 -multi ${base}_adapted.tif ${base}_warped.tif
 
-    gdaldem hillshade -q $a ${base}_warped.tif ${base}_hillshade.tif
+    gdaldem hillshade -q $file ${base}_warped.tif ${base}_hillshade.tif
 
     cat << EOF >> ../pistemap_inc/layer-hillshade.xml.inc
 <Layer name="dem-${base}" status="on">
