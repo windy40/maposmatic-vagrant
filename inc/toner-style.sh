@@ -8,7 +8,8 @@ cd toner
 
 ln -s toner.mml project.mml
 
-scripts/get-shapefiles.py 
+rm -rf data
+ln -s /home/maposmatic/shapefiles data
 
 carto -a $(mapnik-config -v) toner.mml > toner.xml
 
