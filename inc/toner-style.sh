@@ -16,7 +16,7 @@ sudo -u maposmatic psql gis < sql/functions/highroad.sql
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [toner]
-name: Toner style 
+name: Toner
 description: Toner style by Stamen / GeoFabrik
 path: /home/maposmatic/styles/toner/toner.xml
 
