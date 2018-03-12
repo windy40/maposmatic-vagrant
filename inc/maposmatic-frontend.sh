@@ -8,7 +8,7 @@
 cd /home/maposmatic
 git clone https://github.com/hholzgra/maposmatic.git
 cd maposmatic
-git checkout site-osm-baustelle-py3
+git checkout site-osm-baustelle-work-gpx
 
 # install dependencies
 bower --allow-root install
