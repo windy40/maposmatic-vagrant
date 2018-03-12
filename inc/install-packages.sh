@@ -83,6 +83,7 @@ apt-get install --quiet=2 --assume-yes \
     python3-urllib3 \
     subversion \
     sysvbanner \
+    transifex-client \
     ttf-dejavu \
     ttf-unifont \
     unifont \
