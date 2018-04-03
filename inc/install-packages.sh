@@ -113,6 +113,8 @@ pip3 install \
      osmium \
      qrcode \
      sqlalchemy-utils \
+     natsort \
+     fastnumbers \
 
 # install extra npm packages
 banner "npm packages"
