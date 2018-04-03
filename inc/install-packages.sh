@@ -44,12 +44,14 @@ apt-get install --quiet=2 --assume-yes \
     libpython3-dev \
     libutf8proc-dev \
     mapnik-utils \
+    mc \
     npm \
     osm2pgsql \
     osmosis \
     pandoc \
     php-cli \
     pngquant \
+    poedit \
     postgis \
     postgresql \
     postgresql-contrib \
@@ -84,6 +86,7 @@ apt-get install --quiet=2 --assume-yes \
     subversion \
     sysvbanner \
     transifex-client \
+    tree \
     ttf-dejavu \
     ttf-unifont \
     unifont \
