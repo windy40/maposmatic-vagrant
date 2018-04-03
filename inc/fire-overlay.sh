@@ -10,6 +10,13 @@ cd /home/maposmatic/styles
 
 git clone https://github.com/hholzgra/Mapnik-fire-overlay.git
 
+cd Mapnik-fire-overlay
+for f in sql-functions
+do
+    sudo -u maposmatic psql gis < $f
+done
+cd ..
+
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [fire_overlay]
 name: FireOverlay
