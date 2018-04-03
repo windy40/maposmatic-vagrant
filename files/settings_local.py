@@ -150,3 +150,8 @@ OCITYSMAP_FORK_URL = "https://githib.com/hholzgra/ocitysmap"
 
 # root directory for uploaded files etc.
 MEDIA_ROOT = '/home/maposmatic/maposmatic/media'
+
+# we changed encoding of map titles in file names at some point, this is the
+# last ID using the old scheme so that links to old files still work
+# for fresh setups it can always be zero
+LAST_OLD_ID = 0
