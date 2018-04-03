@@ -1,9 +1,11 @@
 #! /bin/bash
 
-
 SD=/vagrant/files/shapefiles
+WD=/home/maposmatic/shapefiles
+
 mkdir -p $SD
-cd $SD
+mkdir -p $WD
+
 for url in \
     http://www.naturalearthdata.com/download/10m/physical/ne_10m_coastline.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_ocean.zip \
@@ -44,53 +46,59 @@ for url in \
     http://www.osm-baustelle.de/mercator_tiffs.tar.bz2 \
 
 do
-    wget -N $url
-done    
-
-cd /home/maposmatic
-mkdir -p shapefiles
-cd shapefiles
-
-for ext in zip tgz tar.xz tar.bz2
-do
-    for archive in $SD/*.$ext 
-    do
-        echo $archive
-        base=$(basename $archive .$ext)
-        mkdir tmp
+    cd $SD
+    archive=$(basename $url)
+    ext=${archive#*.}
+    archbase=$(basename $archive .$ext)
+    echo -n "downloading $archive"
+    rm -f $archive.1
+    wget -N --backups=1 $url
+    if [ \( -f $SD/$archive.1 \) -o \( ! -d $WD/$archbase \) ]
+    then
+	echo -n " ... unpacking"
+        rm -f $archive.1    
+        cd $WD
+        rm -rf tmp
+	mkdir tmp
         cd tmp
         if [ $ext = 'zip' ]
         then
-            unzip -q $archive
+            unzip -q $SD/$archive
         else
-	    tar -xf $archive
+	    tar -xf $SD/$archive
         fi
         if [ $(ls | wc -l) -eq 1 ]
         then
-            mv * ..
+	    base=$(ls)
+	    rm -rf ../$archbase 
+	    mv $base ../$archbase
 	    cd ..
-	    rmdir tmp 
+	    rm -rf tmp 
         else
             cd ..
-	    mv tmp $base
+	    rm -rf $archbase
+	    mv tmp $archbase
         fi
-    done
+	cd $archbase
+	echo -n " ... indexing"
+	for a in *.shp
+	do
+	    shapeindex --shape_files $a >/dev/null 2>/dev/null
+	done
+	echo
+    else
+	echo "... unchanged"
+    fi
 done
 
-cd ne_10m_populated_places
+cd $WD/ne_10m_populated_places
 ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
-cd ..
 
-for file in $(find /home/maposmatic/shapefiles -name *.shp)
-do
-    pushd $(dirname $file)
-    shapeindex --shape_files $(basename $file)
-    popd
-done
-
+cd $WD
 for a in mercator_tiffs/*.tif
 do 
+    rm -f $(basename $a)
     ln -s $a .
 done
 
-
+ln -s world_boundaries-spherical world_boundaries
