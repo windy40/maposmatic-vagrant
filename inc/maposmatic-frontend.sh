@@ -8,7 +8,8 @@
 cd /home/maposmatic
 git clone https://github.com/hholzgra/maposmatic.git
 cd maposmatic
-git checkout site-osm-baustelle-work-gpx
+git checkout site-osm-baustelle-django-1.11
+
 
 # install dependencies
 bower --allow-root install

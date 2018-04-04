@@ -4,11 +4,11 @@
 #
 #----------------------------------------------------
 
-sed -i -e's/[a-z.]*archive/old-releases/g' /etc/apt/sources.list
+# uncomment this when using an old Ubuntu release no longer supported
+# sed -i -e's/archive/old-releases/g' /etc/apt/sources.list
 
 # bring apt package database up to date
 apt-get update --quiet=2
-
 
 # install needed extra deb pacakges
 apt-get install --quiet=2 --assume-yes \
@@ -21,6 +21,7 @@ apt-get install --quiet=2 --assume-yes \
     fonts-droid-fallback \
     fonts-khmeros \
     fonts-noto \
+    fonts-noto-color-emoji \
     fonts-sil-padauk \
     fonts-sipa-arundina \
     fonts-taml-tscu \
@@ -57,21 +58,6 @@ apt-get install --quiet=2 --assume-yes \
     postgresql \
     postgresql-contrib \
     postgresql-server-dev-all \
-    python-beautifulsoup \
-    python-cairo \
-    python-cairo-dev \
-    python-feedparser \
-    python-future \
-    python-gdal \
-    python-gtk2 \
-    python-imaging \
-    python-mapnik \
-    python-matplotlib \
-    python-pip \
-    python-psycopg2 \
-    python-rsvg \
-    python-shapely \
-    python-yaml \
     python3-django \
     python3-future \
     python3-feedparser \
@@ -94,17 +80,6 @@ apt-get install --quiet=2 --assume-yes \
     unifont \
     unifont-bin \
     unzip \
-
-# install extra python packages 
-banner "pip packages"
-pip install \
-    colour \
-    django-bootstrap3 \
-    geopy \
-    nik4 \
-    osmium \
-    pluginbase \
-    qrcode \
 
 pip3 install \
      colour \
