@@ -42,7 +42,7 @@ for url in \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_geography_marine_polys.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_lakes.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_land.zip \
-    http://zverik.osm.rambler.ru/gmted25.tar.xz \
+    http://zverik.openstreetmap.ru/gmted25.tar.xz
     http://www.osm-baustelle.de/mercator_tiffs.tar.bz2 \
 
 do
