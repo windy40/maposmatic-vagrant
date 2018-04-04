@@ -4,7 +4,7 @@
 #
 #----------------------------------------------------
 
-sed -i -e's/archive/old-releases/g' /etc/apt/sources.list
+sed -i -e's/[a-z.]*archive/old-releases/g' /etc/apt/sources.list
 
 # bring apt package database up to date
 apt-get update --quiet=2
@@ -15,6 +15,7 @@ apt-get install --quiet=2 --assume-yes \
     apache2 \
     cabextract \
     cmake \
+    curl \
     emacs \
     fonts-arkpandora \
     fonts-droid-fallback \
@@ -85,6 +86,7 @@ apt-get install --quiet=2 --assume-yes \
     python3-urllib3 \
     subversion \
     sysvbanner \
+    time \
     transifex-client \
     tree \
     ttf-dejavu \
