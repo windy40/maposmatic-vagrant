@@ -7,22 +7,16 @@ mkdir -p $SD
 mkdir -p $WD
 
 for url in \
-    http://www.naturalearthdata.com/download/10m/physical/ne_10m_coastline.zip \
-    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_ocean.zip \
     http://data.openstreetmapdata.com/antarctica-icesheet-outlines-3857.zip \
     http://data.openstreetmapdata.com/antarctica-icesheet-polygons-3857.zip \
+    http://data.openstreetmapdata.com/coastlines-split-3857.zip \
     http://data.openstreetmapdata.com/land-polygons-split-3857.zip \
     http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip \
     http://data.openstreetmapdata.com/water-polygons-generalized-3857.zip \
     http://data.openstreetmapdata.com/water-polygons-split-3857.zip \
-    http://data.openstreetmapdata.com/antarctica-icesheet-outlines-3857.zip \
-    http://data.openstreetmapdata.com/antarctica-icesheet-polygons-3857.zip \
-    http://data.openstreetmapdata.com/land-polygons-split-3857.zip \
-    http://data.openstreetmapdata.com/coastlines-split-3857.zip \
     http://planet.openstreetmap.org/historical-shapefiles/world_boundaries-spherical.tgz \
     http://tile.openstreetmap.org/processed_p.tar.bz2 \
     http://tile.openstreetmap.org/shoreline_300.tar.bz2 \
-    http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_boundary_lines_map_units.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries_lakes.zip \
@@ -30,10 +24,11 @@ for url in \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_airports.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_populated_places.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_roads.zip \
-    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_geography_marine_polys.zip \
-    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip \
-    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_lakes.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_coastline.zip \
+    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_geography_marine_polys.zip \
+    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_lakes.zip \
+    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_land.zip \
+    http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/physical/ne_10m_ocean.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_boundary_lines_land.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/ne_110m_geography_marine_polys.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip \
@@ -42,8 +37,8 @@ for url in \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_geography_marine_polys.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_lakes.zip \
     http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/50m/physical/ne_50m_land.zip \
-    http://zverik.openstreetmap.ru/gmted25.tar.xz
     http://www.osm-baustelle.de/mercator_tiffs.tar.bz2 \
+    http://zverik.openstreetmap.ru/gmted25.tar.xz \
 
 do
     cd $SD
