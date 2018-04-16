@@ -6,12 +6,11 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/hholzgra/openstreetmap-carto-de.git
+git clone https://github.com/giggls/openstreetmap-carto-de.git
 
 cd openstreetmap-carto-de
-git checkout maposmatic
 
-touch project.yaml
+sed -i -e's/dbname: "osm"/dbname: "gis"/' project.mml
 make
 ln -s /home/maposmatic/shapefiles data
 
