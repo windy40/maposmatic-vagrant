@@ -163,7 +163,7 @@
 		<StyleName>contours</StyleName>
 		<Datasource>
 			<Parameter name="type">postgis</Parameter>
-                        <Parameter name="table">(SELECT wkb_geometry,height FROM contours) AS contours</Parameter>
+                        <Parameter name="table">(SELECT way,ele FROM contours) AS contours</Parameter>
 			<Parameter name="dbname">contours</Parameter>
 			<Parameter name="host">gis-db</Parameter>
 			<Parameter name="user">maposmatic</Parameter>

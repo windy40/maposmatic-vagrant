@@ -73,8 +73,8 @@ SET default_with_oids = false;
 CREATE TABLE contours (
     gid integer NOT NULL,
     id integer,
-    height double precision,
-    wkb_geometry geometry(MultiLineString,3857)
+    ele double precision,
+    way geometry(MultiLineString,3857)
 );
 
  
