@@ -58,11 +58,14 @@ apt-get install --quiet=2 --assume-yes \
     postgresql \
     postgresql-contrib \
     postgresql-server-dev-all \
+    python-gdal \
+    python-setuptools \
     python3-django \
     python3-future \
     python3-feedparser \
     python3-gdal \
     python3-gi-cairo \
+    python3-gpxpy \
     python3-mapnik \
     python3-pip \
     python3-psycopg2 \
@@ -98,10 +101,9 @@ banner "npm packages"
 (cd /usr/local/bin; ln -s /usr/bin/nodejs node)
 npm config set loglevel warn
 
-npm install -g \
-    bower \
-    @mapbox/carto \
-    millstone
+npm install -g bower 
+npm install -g @mapbox/carto 
+npm install -g --unsafe-perm millstone
 
 # this package is currently broken in Ubuntu, see e.g. 
 # https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535
