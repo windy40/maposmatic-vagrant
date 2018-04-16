@@ -37,12 +37,8 @@ SECRET_KEY = 'tm+wb)lp5q%br=p0d2toz&km_-w)cmcelv!7inons&^v9(q!d2'
 # # If you want to provide extra information in the footer put it in EXTRA_FOOTER
 # EXTRA_FOOTER = ""
 
-# # Optional: if you need to extend the Python search path, for example to
-# # include your OCitySMap installation, then write something like the
-# # following:
-# import sys
-# sys.path.append('/path/to/ocitysmap')
-# sys.path.append('/path/to/lib/python/site-packages')
+import sys
+sys.path.append('/home/maposmatic/ocitysmap')
 
 # # Debug mode. Set to False on a production environnement
 DEBUG = True
