@@ -101,3 +101,4 @@ do
 done
 
 ln -s world_boundaries-spherical world_boundaries
+ln -s gmted25 gmted
