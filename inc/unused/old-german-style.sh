@@ -29,10 +29,10 @@ sudo -u maposmatic psql gis --command "CREATE FUNCTION transliterate(text) RETUR
 cd ..
 
 # create some extra database views
-for sql in views/*.sql
-do
-    sudo -u maposmatic psql gis < $sql
-done
+# for sql in views/*.sql
+# do
+#     sudo -u maposmatic psql gis < $sql
+# done
 
 # fix a SQL problem in the stylesheet:
 sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
@@ -42,7 +42,7 @@ sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
           --host 'localhost' \
           --port 5432 \
           --dbname gis \
-          --prefix view_osmde \
+          --prefix planet_osm \
           --user maposmatic \
           --password 'secret' \
           --inc $(pwd)/inc-de \
