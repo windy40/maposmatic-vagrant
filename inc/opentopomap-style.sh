@@ -10,14 +10,6 @@ cd mapnik
 ln -s /home/maposmatic/shapefiles data
 ln -s /home/maposmatic/shapefiles/world_boundaries .
 
-mkdir -p data 
-cd data
-wget http://data.openstreetmapdata.com/water-polygons-generalized-3857.zip
-unzip water-polygons-generalized-3857.zip
-wget http://data.openstreetmapdata.com/water-polygons-split-3857.zip
-unzip water-polygons-split-3857.zip
-cd ..
-
 cd tools
 
 cc -o saddledirection saddledirection.c -lm -lgdal
