@@ -10,8 +10,12 @@ for url in \
     http://data.openstreetmapdata.com/antarctica-icesheet-outlines-3857.zip \
     http://data.openstreetmapdata.com/antarctica-icesheet-polygons-3857.zip \
     http://data.openstreetmapdata.com/coastlines-split-3857.zip \
+    http://data.openstreetmapdata.com/lakes-polygons-reduced-3857.zip \
     http://data.openstreetmapdata.com/land-polygons-split-3857.zip \
+    http://data.openstreetmapdata.com/ocean-polygons-reduced-3857.zip \
+    http://data.openstreetmapdata.com/river-polygons-reduced-3857.zip \
     http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip \
+    http://data.openstreetmapdata.com/simplified-water-polygons-complete-3857.zip \
     http://data.openstreetmapdata.com/water-polygons-generalized-3857.zip \
     http://data.openstreetmapdata.com/water-polygons-split-3857.zip \
     http://planet.openstreetmap.org/historical-shapefiles/world_boundaries-spherical.tgz \
