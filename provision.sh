@@ -69,11 +69,17 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 banner "db setup"
 . $INCDIR/database-setup.sh
 
+banner "db l10n"
+. $INCDIR/mapnik-german-l10n.sh
+
+banner "building osgende"
+. $INCDIR/osgende.sh
+
 # banner "building osm2pgsql"
 # . $INCDIR/osm2pgsql-build.sh
    
 banner "db import" 
-. $INCDIR/osm2pgsql-import.sh
+. $INCDIR/osm2pgsql-import.sh-v4
 
 banner "renderer setup"
 . $INCDIR/ocitysmap.sh
@@ -100,7 +106,6 @@ styles="
   humanitarian
   mapquest-eu
   german
-  old-german
   french
   pistemap
   osmbright
@@ -129,6 +134,7 @@ overlays="
   schwarzkarte
   contour
   openrailway
+  waymarked
 "
 
 for overlay in $overlays
