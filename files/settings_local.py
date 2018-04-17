@@ -28,6 +28,9 @@ to your needs. You can add specific Django settings if needed:
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
+# # Allow to contact under this address
+ALLOWED_HOSTS = ['*']
+
 # # Contact email
 CONTACT_EMAIL = "hartmut@php.net"
 
