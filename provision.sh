@@ -79,7 +79,7 @@ banner "building osgende"
 # . $INCDIR/osm2pgsql-build.sh
    
 banner "db import" 
-. $INCDIR/osm2pgsql-import.sh-v4
+. $INCDIR/osm2pgsql-import.sh
 
 banner "renderer setup"
 . $INCDIR/ocitysmap.sh
