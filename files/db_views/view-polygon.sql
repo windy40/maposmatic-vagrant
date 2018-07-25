@@ -79,7 +79,8 @@ tags->'communication:television' AS "communication:television",
 tags->'site_type' AS "site_type",
 tags->'abandoned' AS "abandoned",
 tags->'office' AS "office",
-tags->'harbour' AS "harbour"
+tags->'harbour' AS "harbour",
+tags->'covered' AS "covered"
 FROM planet_osm_hstore_polygon;
 
 GRANT select ON planet_osm_polygon TO public;
