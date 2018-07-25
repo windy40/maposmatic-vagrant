@@ -62,6 +62,7 @@ cd ..
 sudo -u maposmatic psql gis < tools/stationdirection.sql
 sudo -u maposmatic psql gis < tools/viewpointdirection.sql
 sudo -u maposmatic psql gis < tools/pitchicon.sql
+sudo -u maposmatic psql gis < tools/stationdirection.sql
 
 cd ..
 
