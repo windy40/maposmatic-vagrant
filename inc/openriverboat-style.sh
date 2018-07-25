@@ -25,7 +25,7 @@ sed -e 's/"dbname": "osm"/"dbname": "gis"/g' \
     -e '/"name":/d' \
     -i openriverboatmap.mml
 
-carto openriverboatmap.mml > openriverboatmap.xml
+carto $(mapnik-config -v) processed.mml > openriverboatmap.xml
 
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
