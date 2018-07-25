@@ -14,7 +14,7 @@ cp /vagrant/files/osmbright-configure.py configure.py
 
 cd OSMBright
 sed '/"name":/d' < project.mml > osm.mml
-carto osm.mml  > osm.xml
+carto -a $(mapnik-config -v) osm.mml  > osm.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [osmbright]

@@ -8,7 +8,7 @@ cd Pandonia
 cp ../blossom/project.mml .
 
 sed '/"name":/d' < project.mml > osm.mml
-carto -a 3.0.12 -l osm.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
+carto -a $(mapnik-config -v) -l osm.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [pandonia]

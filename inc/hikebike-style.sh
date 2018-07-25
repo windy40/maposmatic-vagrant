@@ -16,7 +16,7 @@ ln -s /home/maposmatic/shapefiles data
 sed -i '/"name":/d' project.mml
 
 # convert CartoCSS to Mapnil XML
-carto project.mml > osm.xml
+carto -a $(mapnik-config -v) project.mml > osm.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [hikebikemap]
