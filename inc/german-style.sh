@@ -12,6 +12,13 @@ cd openstreetmap-carto-de
 
 sed -i -e's/dbname: "osm"/dbname: "gis"/' project.mml
 make
+
+for a in *.xml
+do
+    php /vagrant/files/fontsplit.php < $a > tmp.xml
+    mv tmp.xml $a
+done
+
 ln -s /home/maposmatic/shapefiles data
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs

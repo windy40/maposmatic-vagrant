@@ -12,7 +12,7 @@ git checkout v4.9.0
 ln -s /home/maposmatic/shapefiles data
 
 sed '/\sname:/d' < project.mml > osm.mml
-carto -a 3.0.0 osm.mml > osm.xml
+carto -a $(mapnik-config -v) osm.mml | php /vagrant/files/fontsplit.php > osm.xml
 
 # create color-reduced variant of generated style
 

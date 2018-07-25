@@ -6,7 +6,7 @@ git clone https://github.com/Nakaner/OpenRailwayMap-webmap-styles
 
 cd OpenRailwayMap-webmap-styles
 
-carto -a $(mapnik-config -v) project.mml | sed -e 's/comp-op="screen"//g' >  railmap.xml 2>/dev/null
+carto -a $(mapnik-config -v) project.mml | php /vagrant/files/fontsplit.php | sed -e 's/comp-op="screen"//g' >  railmap.xml 2>/dev/null
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [rail_overlay]

@@ -11,7 +11,7 @@ ln -s toner.mml project.mml
 rm -rf data
 ln -s /home/maposmatic/shapefiles data
 
-carto -a $(mapnik-config -v) toner.mml > toner.xml
+carto -a $(mapnik-config -v) toner.mml | php /vagrant/files/fontsplit.php  > toner.xml
 
 sudo -u maposmatic psql gis < sql/functions/highroad.sql 
 
