@@ -13,8 +13,6 @@ EOF
 
 cat /home/maposmatic/ocitysmap/ocitysmap.styles >> /home/maposmatic/.ocitysmap.conf
 
-echo "  empty" >> /home/maposmatic/.ocitysmap.conf
-
 echo "available_overlays:" >> /home/maposmatic/.ocitysmap.conf
 
 cat /home/maposmatic/ocitysmap/ocitysmap.overlays >> /home/maposmatic/.ocitysmap.conf
@@ -26,11 +24,6 @@ cat <<EOF >> /home/maposmatic/.ocitysmap.conf
 name: Surveillance_Overlay
 description: Surveillance Cameras
 path: internal:surveillance
-
-[empty]
-name: Empty
-description: Empty basemap for overlay testing
-path: /home/maposmatic/styles/empty/empty.xml
 
 EOF
 
