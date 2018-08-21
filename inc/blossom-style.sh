@@ -7,7 +7,7 @@ git clone https://github.com/stekhn/blossom
 cd blossom 
 
 sed '/"name":/d' < project.mml > osm.mml
-carto $(mapnik-config -v) -l osm.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
+carto -a $(mapnik-config -v) -l osm.mml | sed -e 's/\[osm\]/\[gis\]/g' > osm.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [blossom]
