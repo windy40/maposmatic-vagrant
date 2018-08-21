@@ -107,6 +107,8 @@ styles="
   mapquest-eu
   german
   french
+  belgian
+  swiss
   pistemap
   osmbright
   opentopomap
