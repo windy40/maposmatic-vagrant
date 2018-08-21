@@ -20,6 +20,8 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: Toner
 description: Toner style by Stamen / GeoFabrik
 path: /home/maposmatic/styles/toner/toner.xml
+annotation: Toner style © Stamen, Geofabrik
+url: http://www.osm-baustelle.de/dokuwiki/style:toner
 
 EOF
 

@@ -40,6 +40,8 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: Humanitarian
 description: HOT Humanitarian style
 path: /home/maposmatic/styles/HDM-CartoCSS/osm.xml
+annotation: Humanitarian style © Humanitarian OpenStreetMap Team (HOT)
+url: http://www.osm-baustelle.de/dokuwiki/style:humanitarian
 
 EOF
 

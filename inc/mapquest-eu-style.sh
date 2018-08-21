@@ -39,6 +39,7 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: MapQuestEU
 description: MapQuest Europe stylesheet
 path: /home/maposmatic/styles/MapQuest-Mapnik-Style/mapquest-eu.xml
+annotation: European style © MapQuest
 
 EOF
 

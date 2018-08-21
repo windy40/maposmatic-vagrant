@@ -26,6 +26,8 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: GermanCartoOSM
 description: German CartoCSS OSM style
 path: /home/maposmatic/styles/openstreetmap-carto-de/osm-de.xml
+annotation: German OSM style
+url: http://www.osm-baustelle.de/dokuwiki/doku.php?id=style:german
 
 EOF
 

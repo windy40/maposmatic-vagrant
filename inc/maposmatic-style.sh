@@ -27,6 +27,8 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: Maposmatic
 description: The Maposmatic printable stylesheet
 path: /home/maposmatic/ocitysmap/stylesheet/maposmatic-printable/osm.xml
+url: http://www.osm-baustelle.de/dokuwiki/style:maposmatic
+annotation: MapOSMatic printable style © MapOSMatic developers
 
 EOF
 

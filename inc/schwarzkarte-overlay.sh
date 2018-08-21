@@ -13,6 +13,8 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: SchwarzkarteOverlay
 description: Schwarzkarte Overlay - showing building polygons only
 path: /home/maposmatic/styles/Mapnik-schwarzkarte-overlay/schwarzkarte.xml
+annotation: Schwarzplan overlay
+url: http://www.osm-baustelle.de/dokuwiki/overlay:schwarzplan
 
 EOF
 

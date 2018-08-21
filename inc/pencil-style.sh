@@ -11,6 +11,8 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: Pencil
 description: Pencil style - originally by AH Ashton of Mabpox 
 path: /home/maposmatic/styles/mapbox-studio-pencil.tm2/osm.xml
+annotation: Pencil style by AH Ashton of Mabpox
+url: http://www.osm-baustelle.de/dokuwiki/style:pencil
 
 EOF
 

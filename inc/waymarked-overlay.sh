@@ -41,6 +41,7 @@ do
 name: WayMarked${style^}_Overlay
 description: Way Marked Trails - ${style^}
 path: /home/maposmatic/styles/waymarked-trails-site/maps/styles/${style}map.xml
+url=http://www.osm-baustelle.de/dokuwiki/doku.php?id=overlay:waymarked
 
 EOF
 

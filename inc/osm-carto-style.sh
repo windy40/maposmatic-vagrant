@@ -23,11 +23,15 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: CartoOSM
 description: Current CartoCSS OSM style
 path: /home/maposmatic/styles/openstreetmap-carto/osm.xml
+url: http://www.osm-baustelle.de/dokuwiki/style:cartoosm
+annotation: OpenStreetMap Carto standard style
 
 [cartobw]
 name: CartoOsmBW
 description: B&W Variant of CartoCSS OSM style
 path: /home/maposmatic/styles/openstreetmap-carto/osm-bw.xml
+url: http://www.osm-baustelle.de/dokuwiki/style:cartoosm
+annotation: OpenStreetMap Carto with colors reduced to grayscale
 
 EOF
 

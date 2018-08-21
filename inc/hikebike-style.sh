@@ -23,6 +23,8 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 name: HikeBikeMap
 description: HikeBikeMap style
 path: /home/maposmatic/styles/hikebikemap-carto/osm.xml
+annotation: HikeBikeMap style © Colin Marquardt
+url: http://www.osm-baustelle.de/dokuwiki/style:hikebikemap
 
 EOF
 
