@@ -26,8 +26,35 @@ while (!feof($in)) {
 
   $line = preg_replace_callback('|#[0-9a-f]+|i', "reduce_color", $line);
 
+  $line = str_replace('symbols/shields/', 'symbols/shields-bw/', $line);
+
   fwrite($out, $line);
 }
 
-?>
+fclose($in);
+fclose($out);
+
+if (!isdir("symbols/shields-bw")) {
+  mkdir("symbols/shields-bw");
+}
+
+foreach (glob("symbols/shields/*.svg") as $svg) {
+  $base = basename($svg);
+
+  $in = fopen($svg, "r");
+  $out = fopen("symbols/shields-bw/$base", "w");
+
+  while (!feof($in)) {
+    $line = fgets($in);
+
+    $line = preg_replace_callback('|#[0-9a-f]+|i', "reduce_color", $line);
+
+    fwrite($out, $line);
+  }
+
+  fclose($in);
+  fclose($out);
+}
+
+
 
