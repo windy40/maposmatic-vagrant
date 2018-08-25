@@ -132,6 +132,7 @@ overlays="
   golf
   fire
   maxspeed
+  gaslight
   ptmap
   schwarzkarte
   contour
