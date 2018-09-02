@@ -59,18 +59,31 @@ gdaldem hillshade -z 2 -co compress=lzw -co predictor=2 -co bigtiff=yes -compute
 
 cd ..
 
+echo "station direction"
 sudo -u maposmatic psql gis < tools/stationdirection.sql
+
+echo "view point direction"
 sudo -u maposmatic psql gis < tools/viewpointdirection.sql
+
+echo "pitchicon"
 sudo -u maposmatic psql gis < tools/pitchicon.sql
-sudo -u maposmatic psql gis < tools/stationdirection.sql
+
 
 cd ..
 
+echo "update lowzoom"
 sudo -u maposmatic mapnik/tools/update_lowzoom.sh
+
+echo "update saddles"
 sudo -u maposmatic mapnik/tools/update_saddles.sh
+
+echo "update isolations"
 sudo -u maposmatic mapnik/tools/update_isolations.sh
 
+echo "contours schema"
 sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql
+
+echo "countours data"
 sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
