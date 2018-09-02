@@ -15,4 +15,4 @@ path: /home/maposmatic/styles/empty/empty.xml
 
 EOF
 
-echo "  empty" >> home/maposmatic/ocitysmap/ocitysmap.styles
+echo "  empty" >> /home/maposmatic/ocitysmap/ocitysmap.styles
