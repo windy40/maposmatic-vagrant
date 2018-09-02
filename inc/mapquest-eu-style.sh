@@ -24,7 +24,7 @@ done
 cd ..
 
 # generate stylesheet XML
-python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
+python3 /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
        --inc mapquest_inc \
        --symbols mapquest_symbols \
        --dbname gis \
