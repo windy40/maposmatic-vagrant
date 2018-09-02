@@ -7,12 +7,12 @@
 cd /home/maposmatic/styles
 git clone https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
-git checkout v4.9.0
+git checkout v4.13.0
 
 ln -s /home/maposmatic/shapefiles data
 
 sed '/\sname:/d' < project.mml > osm.mml
-carto -a $(mapnik-config -v) osm.mml | php /vagrant/files/fontsplit.php > osm.xml
+carto -a $(mapnik-config -v) osm.mml | sed -e's/comp-op="[^"]*"//g' | php /vagrant/files/fontsplit.php > osm.xml
 
 # create color-reduced variant of generated style
 
