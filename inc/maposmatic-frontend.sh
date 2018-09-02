@@ -8,7 +8,7 @@
 cd /home/maposmatic
 git clone https://github.com/hholzgra/maposmatic.git
 cd maposmatic
-git checkout site-osm-baustelle-django-1.11
+git checkout site-osm-baustelle-newform
 
 
 # install dependencies
