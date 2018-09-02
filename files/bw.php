@@ -34,7 +34,7 @@ while (!feof($in)) {
 fclose($in);
 fclose($out);
 
-if (!isdir("symbols/shields-bw")) {
+if (!is_dir("symbols/shields-bw")) {
   mkdir("symbols/shields-bw");
 }
 
