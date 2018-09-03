@@ -59,6 +59,7 @@ apt-get install --quiet=2 --assume-yes \
     postgresql-contrib \
     postgresql-server-dev-all \
     python-gdal \
+    python-mapnik \
     python-setuptools \
     python3-django \
     python3-future \
