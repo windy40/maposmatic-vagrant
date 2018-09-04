@@ -52,6 +52,7 @@ apt-get install --quiet=2 --assume-yes \
     osmosis \
     pandoc \
     php-cli \
+    php7.2-xml \
     pngquant \
     poedit \
     postgis \
