@@ -105,7 +105,6 @@ npm config set loglevel warn
 
 npm install -g bower 
 npm install -g carto
-npm install -g --unsafe-perm millstone
 
 # this package is currently broken in Ubuntu, see e.g. 
 # https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535
