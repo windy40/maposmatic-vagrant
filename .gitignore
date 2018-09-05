@@ -47,16 +47,15 @@ maposmatic.box
 # ignore test results
 test/test-*
 test/index.html
+test/thumbnails/test-*
 test/thumbnails/index.html
 
 # ignore cache directory
 cache
+files/shapefiles
 
 # editor backup file patterns
 *~
 .*.swp 
 \#*#
 
-# test result
-test/test-*
-test/thumbnails/test-*
