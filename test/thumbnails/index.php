@@ -1,12 +1,13 @@
 <html>
 <head><title>Test Results</title></head>
 <body>
+<a href="../">Back to tests</a><hr/>
 <?php
 
 $results = [];
 $types   = [];
 
-foreach (glob("test*.png") as $test) {
+foreach (glob("../test*.png") as $test) {
     preg_match('|test-(\w+)-(\w+)-(\w+).png|', $test, $m);
 
     $type   = $m[1];
@@ -26,18 +27,14 @@ foreach ($types as $type) {
 
   echo "<table>\n";
 
-  echo "<tr><th>$type</th>";
-  foreach($format_names as $format) {
-    echo "<th>$format</th>";
-  }
-  echo "</tr>\n";
+  echo "<tr><th>Name</th><th>Thumbnail</th></tr>\n";
 
   foreach($results[$type] as $style => $formats) {
     echo "<tr><td>$style</td>";
 
     foreach($formats as $format => $base) {
       echo "<td>";
-      echo "<a href='../$base.png'><img src='$base.png'/></a>";
+      echo "<a href='../$base.png'><img src='$base.jpg'/></a>";
       echo "</td>";
     }
 
