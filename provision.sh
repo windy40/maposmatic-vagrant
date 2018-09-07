@@ -170,6 +170,18 @@ banner "django frontend"
 
 . $INCDIR/maposmatic-frontend.sh
 
+
+#----------------------------------------------------
+#
+# Setting up "Umgebungsplaene" alternative frontend
+#
+#----------------------------------------------------
+
+banner "umgebungsplaene"
+
+. $INCDIR/umgebungsplaene.sh
+
+
 #----------------------------------------------------
 #
 # tests
