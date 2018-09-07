@@ -52,6 +52,7 @@ apt-get install --quiet=2 --assume-yes \
     osmosis \
     pandoc \
     php-cli \
+    php7.2-xml \
     pngquant \
     poedit \
     postgis \
@@ -59,6 +60,7 @@ apt-get install --quiet=2 --assume-yes \
     postgresql-contrib \
     postgresql-server-dev-all \
     python-gdal \
+    python-mapnik \
     python-setuptools \
     python3-django \
     python3-future \
@@ -102,8 +104,7 @@ banner "npm packages"
 npm config set loglevel warn
 
 npm install -g bower 
-npm install -g @mapbox/carto 
-npm install -g --unsafe-perm millstone
+npm install -g carto
 
 # this package is currently broken in Ubuntu, see e.g. 
 # https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535

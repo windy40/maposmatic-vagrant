@@ -15,8 +15,7 @@ make
 
 for a in *.xml
 do
-    php /vagrant/files/fontsplit.php < $a > tmp.xml
-    mv tmp.xml $a
+    php /vagrant/files/postprocess-style.php $a
 done
 
 ln -s /home/maposmatic/shapefiles data

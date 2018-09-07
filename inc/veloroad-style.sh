@@ -19,7 +19,7 @@ curl -z data/ptsans/DroidSansFallback.ttf -L -o data/ptsans/DroidSansFallback.tt
 
 
 sed '/"name":/d' < project.mml > osm.mml
-carto -a $(mapnik-config -v) osm.mml > veloroad.xml
+carto -q -a $(mapnik-config -v) osm.mml > veloroad.xml
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [veloroad]

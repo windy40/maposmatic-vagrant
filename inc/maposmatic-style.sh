@@ -13,7 +13,7 @@ cp ../ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
 # configure the actual stylesheet
 cd ../ocitysmap/stylesheet/maposmatic-printable
 
-python3 /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
+python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
        --dbname gis \
        --host 'localhost' \
        --user maposmatic \

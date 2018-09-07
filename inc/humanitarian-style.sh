@@ -23,7 +23,7 @@ sed -e's|/ybon/Data/geo/shp/|/maposmatic/shapefiles/|g' \
     -e'/password:/d' \
     < project.yml > project.mml
 
-carto -a $(mapnik-config -v) project.mml > osm.xml
+carto -q -a $(mapnik-config -v) project.mml > osm.xml
 
 # -e's|user: hot|user: maposmatic|g' \
 

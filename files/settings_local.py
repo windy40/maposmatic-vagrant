@@ -154,3 +154,25 @@ MEDIA_ROOT = '/home/maposmatic/maposmatic/media'
 # last ID using the old scheme so that links to old files still work
 # for fresh setups it can always be zero
 LAST_OLD_ID = 0
+
+# put a PayPal "hosted_button_id" here to enable the donation page
+# see also: https://developer.paypal.com/docs/integration/web/
+# e.g.   PAYPAL_ID = 'YQPBAUM3JW8T2'  # original MapOSMatic doation ID
+PAYPAL_ID = ''
+
+# Piwik base URL - enable tracking if set
+# exclude http:/https:, this will be added dynamically
+# example: PIWIK_BASE_URL = '//stats.maposmatic.org/piwik/'
+
+PIWIK_BASE_URL = ''
+
+# contact information, to be displayed in page footer if set
+CONTACT_EMAIL = 'hartmut@php.net'
+CONTACT_CHAT  = 'irc://irc.freenode.net/#maposmatic'
+
+# custom footer text
+EXTRA_FOOTER = ''
+
+# show this in a warning box on top of the page when set
+MAINTENANCE_NOTICE = ''
+
