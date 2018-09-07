@@ -2,6 +2,6 @@
 
 cd /home/maposmatic
 git clone https://github.com/hholzgra/umgebungsplaene
-cd umgebungsplaene
+cd umgebungsplaene/www
 bower --allow-root install
 
