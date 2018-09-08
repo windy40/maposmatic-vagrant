@@ -100,6 +100,7 @@ mkdir /home/maposmatic/styles
 
 styles="
   osm-carto 
+  alternative-colors
   osm-mapnik 
   maposmatic 
   hikebike 
