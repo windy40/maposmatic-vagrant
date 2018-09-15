@@ -106,7 +106,7 @@ ln -s gmted25 gmted
 rm -rf world_boundaries
 mkdir world_boundaries
 
-for d in world_boundaries-spherical shoreline_300 ne_10m_populated_places ne_110m_admin_0_boundary_lines_land mercator_tiffs land-polygons-split-3857 simplified-land-polygons-complete-3857
+for d in world_boundaries-spherical shoreline_300 ne_10m_populated_places ne_110m_admin_0_boundary_lines_land mercator_tiffs land-polygons-split-3857 simplified-land-polygons-complete-3857 processed_p
 do
 	for f in $d/*
 	do
