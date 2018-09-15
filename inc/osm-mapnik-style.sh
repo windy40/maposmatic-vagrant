@@ -11,11 +11,7 @@
 
     svn co -q http://svn.openstreetmap.org/applications/rendering/mapnik mapnik2-osm
     cd mapnik2-osm
-    sh ./get-coastlines.sh
-    cd world_boundaries/
-    ln -s ne_110m_admin_0_boundary_lines_land.shp 110m_admin_0_boundary_lines_land.shp
-    ln -s ne_110m_admin_0_boundary_lines_land.shx 110m_admin_0_boundary_lines_land.shx
-    ln -s ne_110m_admin_0_boundary_lines_land.dbf 110m_admin_0_boundary_lines_land.dbf
+    ln -s /home/maposmatic/shapefiles/world_boundaries .
 
     cd ..
 

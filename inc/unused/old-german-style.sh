@@ -5,15 +5,7 @@
 #----------------------------------------------------
    
 # we share boundaries with the "classic" mapnik OSM style
-# but need to add some extra shape files
-cd /home/maposmatic/styles/mapnik2-osm/world_boundaries
-
-wget http://data.openstreetmapdata.com/land-polygons-split-3857.zip
-unzip land-polygons-split-3857.zip
-mv land-polygons-split-3857/* .
-wget http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip
-unzip simplified-land-polygons-complete-3857.zip
-mv simplified-land-polygons-complete-3857/* . 
+ln -s /home/maposmatic/shapefiles/world_boundaries/ .
    
 # check out current stylesheet source
 cd /home/maposmatic/styles

@@ -6,7 +6,7 @@ mkdir openptmap
 
 cd openptmap
 
-ln -s ../mapnik2-osm/world_boundaries/ .
+ln -s /home/maposmatic/shapefiles/world_boundaries/ .
 
 wget -r -l 1 -nd -A \*.png -P symbols http://openptmap.org/f/symbols/
 

@@ -19,7 +19,7 @@ python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
        --user maposmatic \
        --port 5432 \
        --password 'secret' \
-       --world_boundaries /home/maposmatic/styles/mapnik2-osm/world_boundaries \
+       --world_boundaries /home/maposmatic/shapefiles/world_boundaries \
        --symbols /home/maposmatic/styles/mapnik2-osm/symbols
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs

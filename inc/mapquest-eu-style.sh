@@ -12,16 +12,7 @@ git clone git://github.com/hholzgra/MapQuest-Mapnik-Style.git
 cd MapQuest-Mapnik-Style
 
 # fetch additional files required by this style
-mkdir world_boundaries
-cd world_boundaries
-for base in shoreline_300 mercator_tiffs world_boundaries processed_p  
-do
-	for file in /home/maposmatic/shapefiles/$base/*
-	do
-		ln -s $file .
-	done
-done
-cd ..
+ln -s /home/maposmatic/shapefiles/world_boundaries/ .
 
 # generate stylesheet XML
 python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \

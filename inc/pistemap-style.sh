@@ -8,17 +8,7 @@ cd pistemap
 git checkout maposmatic
 
 # fetch additional files required by this style
-mkdir world_boundaries
-cd world_boundaries
-for base in shoreline_300 mercator_tiffs world_boundaries processed_p
-do
-  for file in /home/maposmatic/shapefiles/$base/*
-  do
-    ln -s $file .
-  done
-done
-cd ..
-
+ln -s /home/maposmatic/shapefiles/world_boundaries .
 
 
 cd pistemap_symbols
