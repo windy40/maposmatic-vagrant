@@ -4,7 +4,6 @@ cd /home/maposmatic/styles/
 
 git clone https://github.com/hholzgra/veloroad.git
 cd veloroad
-git checkout hstore
 
 mkdir -p data
 ln -s /home/maposmatic/shapefiles/water-polygons-split-3857 data
