@@ -11,6 +11,7 @@ git clone https://github.com/giggls/openstreetmap-carto-de.git
 cd openstreetmap-carto-de
 
 sed -i -e's/dbname: "osm"/dbname: "gis"/' project.mml
+sed -i -e's/carto /carto -q /g' Makefile
 make
 
 for a in *.xml
