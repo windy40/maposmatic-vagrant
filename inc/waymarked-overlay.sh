@@ -14,7 +14,7 @@ sed -ie 's/www-data/maposmatic/g' config/defaults.py
 
 chown -R maposmatic .
 
-sudo -u maposmatic dropdb $DBNAME
+sudo -u maposmatic dropdb --if-exists $DBNAME
 
 echo "Importing main DB"
 time sudo -u maposmatic python3 makedb.py -d $DBNAME -j 8 -f $FILE db import
