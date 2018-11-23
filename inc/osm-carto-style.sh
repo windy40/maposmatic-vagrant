@@ -7,7 +7,7 @@
 cd /home/maposmatic/styles
 git clone https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
-git checkout v4.13.0
+git checkout v4.17.0
 
 ln -s /home/maposmatic/shapefiles data
 
