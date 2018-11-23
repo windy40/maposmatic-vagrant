@@ -98,6 +98,7 @@ pip3 install \
      sqlalchemy-utils \
      natsort \
      fastnumbers \
+     django-maintenance-mode \
 
 # install extra npm packages
 banner "npm packages"
