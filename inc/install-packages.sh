@@ -11,10 +11,13 @@
 apt-get update --quiet=2
 
 # install needed extra deb pacakges
+banner "apt packages"
 apt-get install --quiet=2 --assume-yes \
     apache2 \
+    asciidoctor \
     cabextract \
     cmake \
+    coderay \
     curl \
     emacs \
     fonts-arkpandora \
@@ -87,6 +90,7 @@ apt-get install --quiet=2 --assume-yes \
     unifont-bin \
     unzip \
 
+banner "python packages"
 pip3 install \
      colour \
      geoalchemy2 \
@@ -99,6 +103,10 @@ pip3 install \
      natsort \
      fastnumbers \
      django-maintenance-mode \
+
+banner "ruby packages"
+gem install --pre asciidoctor-pdf
+
 
 # install extra npm packages
 banner "npm packages"
