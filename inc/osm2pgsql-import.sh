@@ -4,6 +4,8 @@
 #
 #----------------------------------------------------
 
+OSM_EXTRACT="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
+
 cd /home/maposmatic
 
 # get style file
@@ -29,7 +31,7 @@ sudo --user=maposmatic osm2pgsql \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
-     /vagrant/data.osm.pbf
+     $OSM_EXTRACT
 
 # install views to provide expected table layouts from hstore-only bas tables
 

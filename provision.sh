@@ -10,6 +10,27 @@ INCDIR=/vagrant/inc
 
 #----------------------------------------------------
 #
+# check for an OSM PBF extract to import
+#
+# if there are more than one: take the first one found
+# if there are none: exit
+#
+#----------------------------------------------------
+
+export OSM_EXTRACT=$(ls /vagrant/*.pbf | head -1)
+
+if test -f "$OSM_EXTRACT"
+then
+	echo "Using $OSM_EXTRACT for OSM data import"
+else
+	echo "No OSM .pbf data file found for import!"
+	exit 3
+fi
+
+
+
+#----------------------------------------------------
+#
 # Vagrant/Virtualbox environment preparations
 # (not really Ocitysmap specific yet)
 #
@@ -56,6 +77,9 @@ fi
 # installing apt, pip and npm packages
 
 . $INCDIR/install-packages.sh
+
+# initial git configuration
+. $INCDIR/git-setup.sh
 
 # add "maposmatic" system user that will own the database and all locally installed stuff
 useradd --create-home maposmatic
@@ -203,6 +227,9 @@ rm -f test-* thumbnails/test-*
 #-----------------------------------------------------
 
 banner "cleanup"
+
+# some necessary security tweaks
+. $INCDIR/security-quirks.sh
 
 # write back apt cache
 mkdir -p $CACHEDIR

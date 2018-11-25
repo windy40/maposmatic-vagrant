@@ -21,22 +21,19 @@ The following components will be installed into the VM:
 
 ## Requirements
 
-* A working Vagrant setup
+* A working Vagrant / Virtualbox setup
 
 * A minimum of 2GB available RAM for the VM and a working internet connection 
 
 ## Installation and useage
 
-* copy a OSM PBF extract of your choice into this directory and rename it to +data.osm.pbf+
-
-* run "vagrant up"
-
-* be patient ...
- * first build can take quite a while as it needs to compile Mapnik from scratch, this step gets much faster as Ccache is used and its cache files are preserved outside the VM 
- * the stylesheets require quite some extra downloads, and some processing on these (shape files, height information, ...)
- * importing the provided OSM PBF file can take some time, too, depending on its size ...
-
-* once the VM is fully started and provisioned you can use your 
+* Copy a OSM PBF extract of your choice into this directory. If multiple files with ending '.pbf' are found only the first one is used. 
+* Run "vagrant up"
+* Be patient ...
+ * First build can take quite a while as it needs to compile Mapnik from scratch, this step gets much faster as Ccache is used and its cache files are preserved outside the VM 
+ * The stylesheets require quite some extra downloads, and some processing on these (shape files, height information, ...). The downloads are cached localy, so this only happens on the first start mostly.
+ * Importing the provided OSM PBF file can take some time, too, depending on its size ...
+* Once the VM is fully started and provisioned you can use your 
   MapOsMatic instance on http://localhost:8000/
 
 

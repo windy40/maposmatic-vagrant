@@ -118,6 +118,7 @@ cd world_boundaries
 for f in ne_110m_admin_0_boundary_lines_land.*
 do
 	f2=$(echo $f | sed -e's/ne_110/110/g')
+	rm -f $f2
 	ln -s $f $f2
 done
 

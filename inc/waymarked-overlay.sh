@@ -1,7 +1,7 @@
 #! /bin/bash
 
 DBNAME=planet
-FILE=/vagrant/data.osm.pbf
+FILE="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 FILEDATE=$(date -r $FILE "+%Y-%m-%d %H:%M:%S")
 STYLES="hiking cycling mtb riding skating slopes"
  

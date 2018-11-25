@@ -11,7 +11,6 @@
 apt-get update --quiet=2
 
 # install needed extra deb pacakges
-banner "apt packages"
 apt-get install --quiet=2 --assume-yes \
     apache2 \
     asciidoctor \
@@ -69,6 +68,7 @@ apt-get install --quiet=2 --assume-yes \
     python3-django \
     python3-future \
     python3-feedparser \
+    python3-fiona \
     python3-gdal \
     python3-gi-cairo \
     python3-gpxpy \
@@ -121,7 +121,7 @@ npm install -g carto
 # so we need to use the working upstream Debian package
 
 banner "ms fonts"
-dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb
+dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb > /dev/null
 
 
 

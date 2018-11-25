@@ -24,13 +24,16 @@ cp $FILEDIR/settings_local.py www/settings_local.py
 cp $FILEDIR/maposmatic.wsgi www/maposmatic.wsgi
 
 # init MaposMatics housekeeping database
+banner "Dj. Migration"
 python3 manage.py makemigrations maposmatic
 python3 manage.py migrate
 
 # set up admin user
+banner "Dj. Admin"
 python3 manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'secret')"
 
 # set up translations
+banner "Dj. Translate"
 cd www/maposmatic
 django-admin compilemessages
 cd ../..
@@ -44,6 +47,14 @@ then
 fi
 chgrp www-data media logs
 chmod g+w media logs
+
+# create places table for replacing nominatim search
+
+if not test -f /vagrant/files/place.sql.gz
+then
+	wget https://www.osm-baustelle.de/downloads/place.sql.gz -O /vagrant/files/place.sql.gz
+fi
+zcat /vagrant/files/place.sql.gz | sudo -u maposmatic psql gis 
 
 # set up render daemon
 cp $FILEDIR/maposmatic-render.service /lib/systemd/system
