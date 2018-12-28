@@ -60,31 +60,36 @@ gdaldem hillshade -z 2 -co compress=lzw -co predictor=2 -co bigtiff=yes -compute
 cd ..
 
 echo "station direction"
-sudo -u maposmatic psql gis < tools/stationdirection.sql
+sudo -u maposmatic psql gis < tools/stationdirection.sql >/dev/null
 
 echo "view point direction"
-sudo -u maposmatic psql gis < tools/viewpointdirection.sql
+sudo -u maposmatic psql gis < tools/viewpointdirection.sql >/dev/null
 
 echo "pitchicon"
-sudo -u maposmatic psql gis < tools/pitchicon.sql
+sudo -u maposmatic psql gis < tools/pitchicon.sql >/dev/null
+
+echo "update area labels"
+sudo -u maposmatic psql gis < tools/arealabel.sql >/dev/null
 
 
 cd ..
 
 echo "update lowzoom"
-sudo -u maposmatic mapnik/tools/update_lowzoom.sh
+sudo -u maposmatic mapnik/tools/update_lowzoom.sh >/dev/null
 
 echo "update saddles"
-sudo -u maposmatic mapnik/tools/update_saddles.sh
+sudo -u maposmatic mapnik/tools/update_saddles.sh >/dev/null
 
 echo "update isolations"
-sudo -u maposmatic mapnik/tools/update_isolations.sh
+sudo -u maposmatic mapnik/tools/update_isolations.sh >/dev/null
+
 
 echo "contours schema"
-sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql
+sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql >/dev/null
 
 echo "countours data"
-sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql
+sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql >/dev/null
+
 
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [opentopomap]
