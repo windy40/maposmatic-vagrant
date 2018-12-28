@@ -34,9 +34,7 @@ python3 manage.py shell -c "from django.contrib.auth.models import User; User.ob
 
 # set up translations
 banner "Dj. Translate"
-cd www/maposmatic
-django-admin compilemessages
-cd ../..
+python3 manage.py compilemessages
 
 # fix directory ownerships
 chown -R maposmatic /home/maposmatic
@@ -50,7 +48,7 @@ chmod g+w media logs
 
 # create places table for replacing nominatim search
 
-if not test -f /vagrant/files/place.sql.gz
+if ! test -f /vagrant/files/place.sql.gz
 then
 	wget https://www.osm-baustelle.de/downloads/place.sql.gz -O /vagrant/files/place.sql.gz
 fi
