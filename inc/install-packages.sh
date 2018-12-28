@@ -91,7 +91,7 @@ apt-get install --quiet=2 --assume-yes \
     unzip \
 
 banner "python packages"
-pip3 install \
+pip3 install --ignore-installed \
      colour \
      geoalchemy2 \
      geopy \
@@ -103,6 +103,7 @@ pip3 install \
      natsort \
      fastnumbers \
      django-maintenance-mode \
+     pycairo \
 
 banner "ruby packages"
 gem install --pre asciidoctor-pdf
