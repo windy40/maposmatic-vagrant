@@ -6,7 +6,8 @@ CONFIG="$PROJECT/.ocitysmap.conf"
 LAYOUT="single_page_index_side"
 ORIENTATION="landscape"
 
-BBOX="52.0100,8.5122 52.0300,8.5432"
+BBOX="52.0100,8.5122 52.0300,8.5432" # Bielefeld
+
 PAPER="Din A4"
 THUMB_WIDTH="400"
 
