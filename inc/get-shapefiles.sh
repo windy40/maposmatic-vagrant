@@ -110,7 +110,12 @@ for d in world_boundaries-spherical shoreline_300 ne_10m_populated_places ne_110
 do
 	for f in $d/*
 	do
-		ln -s $(realpath $f) world_boundaries/
+		b=$(basename $f)
+		r=$(realpath $f)
+		if ! test -f world/boundaries/$b
+		then
+		    ln -s $r world_boundaries/$b
+	        fi
 	done
 done
 
