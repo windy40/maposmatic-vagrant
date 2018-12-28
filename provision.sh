@@ -87,7 +87,7 @@ useradd --create-home maposmatic
 # add host entry for gis-db
 sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 
-# no longer needed with yakkety
+# no longer needed starting with yakkety
 # . $INCDIR/mapnik-from-source.sh
 
 banner "db setup"
@@ -181,9 +181,9 @@ banner "postprocessing styles"
 
 . $INCDIR/ocitysmap-conf.sh
 
-cd /home/maposmatic/styles
-find . -name osm.xml | xargs \
-    sed -i -e's/background-color="#......"/background-color="#FFFFFF"/g'
+# cd /home/maposmatic/styles
+# find . -name osm.xml | xargs \
+#    sed -i -e's/background-color="#......"/background-color="#FFFFFF"/g'
 
 #----------------------------------------------------
 #
