@@ -24,12 +24,10 @@ time sudo -u maposmatic python3 makedb.py -d $DBNAME db prepare
 
 echo "Importing countries table"
 (
-  cd /vagrant/cache/
-  mkdir -p postgres
-  cd postgres
+  cd /vagrant/files/
   wget -qN http://www.nominatim.org/data/country_grid.sql.gz
 )
-zcat /vagrant/cache/postgres/country_grid.sql.gz | sudo -u maposmatic psql -d $DBNAME
+zcat /vagrant/files/country_grid.sql.gz | sudo -u maposmatic psql -d $DBNAME
 sudo -u maposmatic psql -d $DBNAME -c "ALTER TABLE country_osm_grid ADD COLUMN geom geometry(Geometry,3857); UPDATE country_osm_grid SET geom=ST_Transform(geometry, 3857); ALTER TABLE country_osm_grid DROP COLUMN geometry"
 
 
