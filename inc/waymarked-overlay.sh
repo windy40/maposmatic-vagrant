@@ -49,6 +49,9 @@ url=http://www.osm-baustelle.de/dokuwiki/doku.php?id=overlay:waymarked
 EOF
 
   echo "  waymarked_$style,"  >> /home/maposmatic/ocitysmap/ocitysmap.overlays
+
+  sudo -u maposmatic psql gis -c "create table waymarked_admin(last_update timestamp)"
+  sudo -u maposmatic psql gis -c "insert into waymarked_admin values(current_timestamp)"
 done
 
 
