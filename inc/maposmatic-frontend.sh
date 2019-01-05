@@ -36,6 +36,8 @@ python3 manage.py shell -c "from django.contrib.auth.models import User; User.ob
 banner "Dj. Translate"
 python3 manage.py compilemessages
 
+(cd documentation; make install)
+
 # fix directory ownerships
 chown -R maposmatic /home/maposmatic
 if test -f www/datastore.sqlite3
