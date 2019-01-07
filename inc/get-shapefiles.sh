@@ -1,10 +1,10 @@
 #! /bin/bash
 
-SD=/vagrant/files/shapefiles
-WD=/home/maposmatic/shapefiles
+DOWNLOAD_DIR=$CACHEDIR/shapefiles
+SHAPEFILE_DIR=/home/maposmatic/shapefiles
 
-mkdir -p $SD
-mkdir -p $WD
+mkdir -p $DOWNLOAD_DIR
+mkdir -p $SHAPEFILE_DIR
 
 for url in \
     http://data.openstreetmapdata.com/antarctica-icesheet-outlines-3857.zip \
@@ -46,26 +46,26 @@ for url in \
     http://zverik.openstreetmap.ru/gmted25.tar.xz \
 
 do
-    cd $SD
+    cd $DOWNLOAD_DIR
     archive=$(basename $url)
     ext=${archive#*.}
     archbase=$(basename $archive .$ext)
     echo -n "downloading $archive"
     rm -f $archive.1
     wget -N --backups=1 $url
-    if [ \( -f $SD/$archive.1 \) -o \( ! -d $WD/$archbase \) ]
+    if [ \( -f $DOWNLOAD_DIR/$archive.1 \) -o \( ! -d $SHAPEFILE_DIR/$archbase \) ]
     then
 	echo -n " ... unpacking"
         rm -f $archive.1    
-        cd $WD
+        cd $SHAPEFILE_DIR
         rm -rf tmp
 	mkdir tmp
         cd tmp
         if [ $ext = 'zip' ]
         then
-            unzip -q $SD/$archive
+            unzip -q $DOWNLOAD_DIR/$archive
         else
-	    tar -xf $SD/$archive
+	    tar -xf $DOWNLOAD_DIR/$archive
         fi
         if [ $(ls | wc -l) -eq 1 ]
         then
@@ -91,10 +91,10 @@ do
     fi
 done
 
-cd $WD/ne_10m_populated_places
+cd $SHAPEFILE_DIR/ne_10m_populated_places
 ogr2ogr --config SHAPE_ENCODING UTF8 ne_10m_populated_places_fixed.shp ne_10m_populated_places.shp
 
-cd $WD
+cd $SHAPEFILE_DIR
 for a in mercator_tiffs/*.tif
 do 
     rm -f $(basename $a)

@@ -5,8 +5,17 @@
 #----------------------------------------------------
 
 FILEDIR=/vagrant/files
-CACHEDIR=/vagrant/cache
 INCDIR=/vagrant/inc
+
+if touch /vagrant/can_write_here
+then
+	CACHEDIR=/vagrant/cache
+	rm /vagrant/can_write_here
+else
+	CACHEDIR=/home/cache
+fi
+
+mkdir -p $CACHEDIR
 
 #----------------------------------------------------
 #
