@@ -15,6 +15,10 @@ Vagrant.configure(2) do |config|
     vb.cpus   = "2"
   end
 
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
   unless Vagrant.has_plugin?("vagrant-disksize")
     raise 'disksize plugin is not installed - run "vagrant plugin install vagrant-disksize" first'
   end

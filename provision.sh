@@ -68,12 +68,6 @@ export LC_TIME=en_US.UTF-8
 echo "--silent" > /root/.curlrc
 echo "quiet = on" > /root/.wgetrc
 
-# pre-seed apt cache to speed things up a bit
-if test -d $CACHEDIR/apt/
-then
-    cp -rn $CACHEDIR/apt/ /var/cache/
-fi
-
 # pre-seed compiler cache
 if test -d $CACHEDIR/.ccache/
 then
@@ -240,10 +234,6 @@ banner "cleanup"
 # some necessary security tweaks
 . $INCDIR/security-quirks.sh
 
-# write back apt cache
-mkdir -p $CACHEDIR
-cp -rn /var/cache/apt/ $CACHEDIR 
-
-# pre-seed compiler cache
+# write back compiler cache
 cp -rn /root/.ccache $CACHEDIR
 
