@@ -166,6 +166,7 @@ overlays="
   contour
   openrailway
   waymarked
+  resiliency
 "
 
 for overlay in $overlays
