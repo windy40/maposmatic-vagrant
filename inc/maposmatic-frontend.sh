@@ -48,14 +48,6 @@ fi
 chgrp www-data media logs
 chmod g+w media logs
 
-# create places table for replacing nominatim search
-
-if ! test -f /vagrant/files/place.sql.gz
-then
-	wget https://www.osm-baustelle.de/downloads/place.sql.gz -O /vagrant/files/place.sql.gz
-fi
-zcat /vagrant/files/place.sql.gz | sudo -u maposmatic psql gis 
-
 # set up render daemon
 cp $FILEDIR/maposmatic-render.service /lib/systemd/system
 chmod 644 /lib/systemd/system/maposmatic-render.service

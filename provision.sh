@@ -96,6 +96,9 @@ sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 banner "db setup"
 . $INCDIR/database-setup.sh
 
+banner "places db"
+. $INCDIR/places-database.sh
+
 banner "db l10n"
 . $INCDIR/mapnik-german-l10n.sh
 
