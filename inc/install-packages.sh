@@ -72,8 +72,10 @@ apt-get install --quiet=2 --assume-yes \
     python3-gdal \
     python3-gi-cairo \
     python3-gpxpy \
+    python3-lxml \
     python3-mapnik \
     python3-pip \
+    python3-pil \
     python3-psycopg2 \
     python3-shapely \
     python3-slugify \
