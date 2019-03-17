@@ -15,7 +15,6 @@ $xpath = new DOMXpath($doc);
    even when the actual output format is PDF and SVG we'd
    still end up with PDF or SVG files that just contain
    one single PNG bitmap object instead of vectorized data
-*/
 
 $comp_op = $xpath->query("//*[@comp-op]");
 if (!is_null($comp_op)) {
@@ -24,6 +23,7 @@ if (!is_null($comp_op)) {
     $tag->removeAttribute("comp-op");
   }
  }
+*/
 
 
 
