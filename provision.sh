@@ -139,6 +139,7 @@ styles="
   german
   french
   belgian
+  ardenne
   swiss
   pistemap
   osmbright
