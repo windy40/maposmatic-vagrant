@@ -81,7 +81,7 @@ URLS+="$VELOROAD/gmted25.tar.xz "
 # some legacy shapefiles still needed by older unmaintained styles
 OSM_HISTORICAL=http://planet.openstreetmap.org/historical-shapefiles
 
-URLS+="$OSM_HISTORICAL/world_boundaries-spherical.tgz"
+URLS+="$OSM_HISTORICAL/world_boundaries-spherical.tgz "
 URLS+="$OSM_HISTORICAL/shoreline_300.tar.bz2 "
 URLS+="$OSM_HISTORICAL/processed_p.tar.bz2 "
 
@@ -222,7 +222,8 @@ done
 cd world_boundaries_new
 for source in ne_110m_admin_0_boundary_lines_land.*
 do
-	dest=$(echo $f | sed -e's/ne_110/110/g')
+	dest=$(echo $source | sed -e's/ne_110/110/g')
+	echo ln -sf $source $dest
 	ln -sf $source $dest
 done
 cd ..
