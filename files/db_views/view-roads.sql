@@ -38,7 +38,8 @@ osml10n_get_streetname_from_tags(tags,true,false,' - ','de', way) as localized_s
 COALESCE(tags->'name:hsb',tags->'name:dsb',tags->'name') as name_hrb,
 layer as layer,
 tags as tags,
-tags->'bridge' as "bridge"
+tags->'bridge' as "bridge",
+tags->'toll' as "toll"
 FROM planet_osm_hstore_roads;
 
 GRANT select ON planet_osm_roads TO public;

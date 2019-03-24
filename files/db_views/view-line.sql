@@ -71,7 +71,8 @@ tags->'trail_visibility' AS "trail_visibility",
 tags->'via_ferrata_scale' AS "via_ferrata_scale",
 tags->'lanes' AS "lanes",
 tags->'voltage' AS "voltage",
-tags->'living_street' AS "living_street"
+tags->'living_street' AS "living_street",
+tags->'toll' AS "toll"
 FROM planet_osm_hstore_line;
 
 GRANT select ON planet_osm_line to public;
