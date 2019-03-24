@@ -80,7 +80,11 @@ tags->'site_type' AS "site_type",
 tags->'abandoned' AS "abandoned",
 tags->'office' AS "office",
 tags->'harbour' AS "harbour",
-tags->'covered' AS "covered"
+tags->'covered' AS "covered",
+tags->'leaf_cycle' AS "leaf_cycle",
+tags->'trees' AS "trees",
+tags->'produce' AS "produce",
+tags->'area' AS "area"
 FROM planet_osm_hstore_polygon;
 
 GRANT select ON planet_osm_polygon TO public;
