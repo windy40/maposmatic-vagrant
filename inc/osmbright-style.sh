@@ -20,6 +20,7 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [osmbright]
 name: OsmBright
 description: Mapbox OSM Bright style
+group: Low Contrast
 path: /home/maposmatic/styles/osm-bright/OSMBright/osm.xml
 
 EOF

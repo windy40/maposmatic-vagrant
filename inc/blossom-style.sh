@@ -19,6 +19,7 @@ php /vagrant/files/postprocess-style.php osm.xml
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [blossom]
 name: Blossom
+group: Low Contrast
 description: Blossom style by Steffen Kuehne
 path: /home/maposmatic/styles/blossom/osm.xml
 

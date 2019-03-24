@@ -22,6 +22,7 @@ cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [pandonia]
 name: Pandonia
 description: Pandonia style by Flickr
+group: Low Contrast
 path: /home/maposmatic/styles/Pandonia/osm.xml
 
 EOF

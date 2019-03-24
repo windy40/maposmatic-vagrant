@@ -23,6 +23,7 @@ carto -q -a $(mapnik-config -v) osm.mml > veloroad.xml
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [veloroad]
 name: Veloroad
+group: Sports
 description: Veloroad by Ilya Zverev
 path: /home/maposmatic/styles/veloroad/veloroad.xml
 

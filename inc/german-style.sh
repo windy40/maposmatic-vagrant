@@ -24,6 +24,7 @@ ln -s /home/maposmatic/shapefiles data
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [german_carto]
 name: GermanCartoOSM
+group: Countries
 description: German CartoCSS OSM style
 path: /home/maposmatic/styles/openstreetmap-carto-de/osm-de.xml
 annotation: German OSM style

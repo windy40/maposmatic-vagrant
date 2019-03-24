@@ -38,6 +38,7 @@ carto -q -a $(mapnik-config -v) project.mml > osm.xml
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [humanitarian]
 name: Humanitarian
+group: Special Interest
 description: HOT Humanitarian style
 path: /home/maposmatic/styles/HDM-CartoCSS/osm.xml
 annotation: Humanitarian style © Humanitarian OpenStreetMap Team (HOT)

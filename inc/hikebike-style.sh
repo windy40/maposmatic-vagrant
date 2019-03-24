@@ -21,6 +21,7 @@ carto -q -a $(mapnik-config -v) project.mml > osm.xml
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [hikebikemap]
 name: HikeBikeMap
+group: Sports
 description: HikeBikeMap style
 path: /home/maposmatic/styles/hikebikemap-carto/osm.xml
 annotation: HikeBikeMap style © Colin Marquardt

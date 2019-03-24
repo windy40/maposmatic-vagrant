@@ -94,6 +94,7 @@ sudo -u maposmatic psql contours < /vagrant/files/contours_53-8.sql >/dev/null
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [opentopomap]
 name: OpenTopoMap
+group: Special Interest
 description: OpenTopoMap
 path: /home/maposmatic/styles/OpenTopoMap/mapnik/opentopomap.xml
 
