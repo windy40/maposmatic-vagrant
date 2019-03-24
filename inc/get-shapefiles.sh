@@ -44,6 +44,7 @@ URLS+="$OSMDATA_OLD/lakes-polygons-reduced-3857.zip "
 URLS+="$OSMDATA_OLD/ocean-polygons-reduced-3857.zip "
 URLS+="$OSMDATA_OLD/river-polygons-reduced-3857.zip "
 URLS+="$OSMDATA_OLD/simplified-water-polygons-complete-3857.zip "
+URLS+="$OSMDATA_OLD/water-polygons-generalized-3857.zip "
 
 # Natural Earth shapefiles
 NATURAL_EARTH=http://www.naturalearthdata.com/http//www.naturalearthdata.com/download
