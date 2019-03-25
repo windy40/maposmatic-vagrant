@@ -9,6 +9,7 @@ cp /vagrant/files/contour.xml .
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [contour_overlay]
 name: ContourOverlay
+group: Heights
 description: Countour lines at 10m resolution
 path: /home/maposmatic/styles/contour-overlay/contour.xml
 

@@ -11,6 +11,7 @@ git clone https://github.com/hholzgra/Mapnik-schwarzkarte-overlay.git
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [schwarzkarte_overlay]
 name: SchwarzkarteOverlay
+group: Special Interest
 description: Schwarzkarte Overlay - showing building polygons only
 path: /home/maposmatic/styles/Mapnik-schwarzkarte-overlay/schwarzkarte.xml
 annotation: Schwarzplan overlay

@@ -18,6 +18,7 @@ cd ..
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [gaslight_overlay]
 name: Gaslight_Overlay
+group: Special Interest
 description: Overlay for gas lit streets
 path: /home/maposmatic/styles/Mapnik-gaslight-overlay/gaslight.xml
 

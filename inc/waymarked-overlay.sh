@@ -44,6 +44,7 @@ do
   cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [waymarked_$style]
 name: WayMarked${style^}_Overlay
+group: WayMaredTrails Routes
 description: Way Marked Trails - ${style^}
 path: /home/maposmatic/styles/waymarked-trails-site/maps/styles/${style}map.xml
 url=http://www.osm-baustelle.de/dokuwiki/doku.php?id=overlay:waymarked

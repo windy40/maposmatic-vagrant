@@ -15,6 +15,7 @@ git checkout maposmatic
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [golf_overlay]
 name: GolfOverlay
+group: Special Interest
 description: Golf course detail overlay
 path: /home/maposmatic/styles/Mapnik-golf-overlay/golf.xml
 

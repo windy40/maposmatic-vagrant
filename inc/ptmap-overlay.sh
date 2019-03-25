@@ -43,6 +43,7 @@ sed -ie "s/state is null/tags->'state' is null/" mapnik_pt.xml
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [pt_overlay]
 name: Public_Transport_Overlay
+group: Transport
 description: ptmap Public Transport Overlay
 path: /home/maposmatic/styles/openptmap/mapnik_pt.xml
 

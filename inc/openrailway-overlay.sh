@@ -12,6 +12,7 @@ php /vagrant/files/postprocess-style.php railmap.xml
 cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
 [rail_overlay]
 name: OpenRailwayMap_Overlay
+group: Transport
 description: OpenRailwayMap rail line overlay
 path: /home/maposmatic/styles/OpenRailwayMap-webmap-styles/railmap.xml
 EOF
