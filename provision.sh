@@ -146,6 +146,7 @@ styles="
   opentopomap
   openriverboat
   veloroad
+  cyclosm
   blossom
   pandonia
   pencil

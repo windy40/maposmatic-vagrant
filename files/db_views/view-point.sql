@@ -74,7 +74,9 @@ tags->'site_type' AS "site_type",
 tags->'abandoned' AS "abandoned",
 tags->'office' AS "office",
 tags->'harbour' AS "harbour",
-tags->'bus' AS "bus"
+tags->'bus' AS "bus",
+tags->'bicycle' AS "bicycle",
+tags->'covered' AS "covered"
 FROM planet_osm_hstore_point;
 
 GRANT select ON planet_osm_point TO public;
