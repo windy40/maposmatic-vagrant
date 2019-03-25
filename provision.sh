@@ -149,6 +149,7 @@ styles="
   cyclosm
   blossom
   pandonia
+  routexl
   pencil
   spacestation
   toner
