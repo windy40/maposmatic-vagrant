@@ -12,6 +12,7 @@ for hillshade in /home/maposmatic/styles/OpenTopoMap/mapnik/dem/hillshade*
 do
     ln -s $hillshade .
 done
+cd ..
 		 
 sed -e 's/dbname: "osm"/dbname: "gis"/g' \
     -e 's/http:\/\/data.openstreetmapdata.com\/simplified-land-polygons-complete-3857.zip/.\/data\/simplified-land-polygons-complete-3857\/simplified_land_polygons.shp/g' \
