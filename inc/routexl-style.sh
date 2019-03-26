@@ -7,7 +7,7 @@ cd osm-routexl
 
 ln -s $(realpath ../osm-bright/OSMBright/img) .
 
-cp ../blossom/project.mml .
+cp ../osm-bright/OSMBright/project.mml
 
 sed '/"name":/d' < project.mml > osm.mml
 sed -ie 's/"dbname": "osm"/"dbname": "gis"/g' osm.mml
