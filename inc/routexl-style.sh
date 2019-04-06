@@ -7,9 +7,7 @@ cd osm-routexl
 
 ln -s $(realpath ../osm-bright/OSMBright/img) .
 
-cp ../osm-bright/OSMBright/project.mml
-
-sed '/"name":/d' < project.mml > osm.mml
+sed '/"name":/d' < ../osm-bright/OSMBright/project.mml > osm.mml
 sed -ie 's/"dbname": "osm"/"dbname": "gis"/g' osm.mml
 sed -ie 's/http.*10m-land.zip"/\/home\/maposmatic\/shapefiles\/ne_10m_land\/ne_10m_land.shp", "type": "shape"/' osm.mml
 sed -ie 's/http.*coastline-good.zip"/\/home\/maposmatic\/shapefiles\/coastlines-split-3857\/lines.shp", "type": "shape"/' osm.mml
