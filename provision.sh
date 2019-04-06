@@ -135,7 +135,7 @@ styles="
   maposmatic 
   hikebike 
   humanitarian
-  mapquest-eu
+  mapquest
   german
   french
   belgian
