@@ -70,7 +70,23 @@ ADMINS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'maposmatic',
+        'USER': 'maposmatic',
+        'PASSWORD': 'secret',
+        'HOST': 'gis-db',
+        'PORT': '5432'
+        },
+    'osm': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gis',
+        'USER': 'maposmatic',
+        'PASSWORD': 'secret',
+        'HOST': 'gis-db',
+        'PORT': '5432'
+        },
+    'waymarked': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'planet',
         'USER': 'maposmatic',
         'PASSWORD': 'secret',
         'HOST': 'gis-db',
