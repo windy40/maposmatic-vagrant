@@ -116,7 +116,6 @@ banner "npm packages"
 (cd /usr/local/bin; ln -s /usr/bin/nodejs node)
 npm config set loglevel warn
 
-npm install -g bower 
 npm install -g carto
 
 # this package is currently broken in Ubuntu, see e.g. 
