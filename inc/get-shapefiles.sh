@@ -32,6 +32,7 @@ OSMDATA=https://osmdata.openstreetmap.de/download
 
 URLS+="$OSMDATA/land-polygons-split-3857.zip "
 URLS+="$OSMDATA/simplified-land-polygons-complete-3857.zip "
+URLS+="$OSMDATA/simplified-water-polygons-split-3857.zip "
 URLS+="$OSMDATA/water-polygons-split-3857.zip "
 URLS+="$OSMDATA/coastlines-split-3857.zip "
 URLS+="$OSMDATA/antarctica-icesheet-outlines-3857.zip "
