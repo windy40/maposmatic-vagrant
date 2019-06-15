@@ -95,19 +95,19 @@ apt-get install --quiet=2 --assume-yes \
 banner "python packages"
 pip3 install --ignore-installed \
      colour \
+     django-maintenance-mode \
+     fastnumbers \
      geoalchemy2 \
      geopy \
+     natsort \
+     osmium \
      pillow \
      pluginbase \
-     osmium \
+     pycairo \
+     pyproj \
      qrcode \
      sqlalchemy-utils \
-     natsort \
-     fastnumbers \
-     django-maintenance-mode \
-     pycairo \
      utm \
-     pyproj \
 
 banner "ruby packages"
 gem install --pre asciidoctor-pdf
