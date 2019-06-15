@@ -106,6 +106,8 @@ pip3 install --ignore-installed \
      fastnumbers \
      django-maintenance-mode \
      pycairo \
+     utm \
+     pyproj \
 
 banner "ruby packages"
 gem install --pre asciidoctor-pdf
