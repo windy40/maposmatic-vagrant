@@ -16,6 +16,10 @@ Din A0: 841x1189
 2x A0: 1189x1682
 US letter: 216x279
 
+[multipage_paper_sizes]
+Din A4: 210x297
+US letter: 216x279
+
 [rendering]
 available_stylesheets:
 EOF
