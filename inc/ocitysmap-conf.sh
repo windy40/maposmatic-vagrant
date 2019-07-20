@@ -29,6 +29,7 @@ cat /home/maposmatic/ocitysmap/ocitysmap.styles >> /home/maposmatic/.ocitysmap.c
 echo "available_overlays:" >> /home/maposmatic/.ocitysmap.conf
 echo "  compass_rose," >> /home/maposmatic/.ocitysmap.conf
 echo "  scalebar," >> /home/maposmatic/.ocitysmap.conf
+echo "  osm_notes," >> /home/maposmatic/.ocitysmap.conf
 echo "  qrcode," >> /home/maposmatic/.ocitysmap.conf
 
 cat /home/maposmatic/ocitysmap/ocitysmap.overlays >> /home/maposmatic/.ocitysmap.conf
@@ -59,6 +60,13 @@ name: Surveillance_Overlay
 group: Special Interest
 description: Surveillance Cameras
 path: internal:surveillance
+
+[osm_notes]
+name: OSM_Notes_Overlay
+group: Special Interest
+description: OSM Notes Overlay
+path: internal:osm_notes
+
 
 EOF
 
