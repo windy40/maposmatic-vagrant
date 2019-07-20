@@ -7,6 +7,9 @@
 # uncomment this when using an old Ubuntu release no longer supported
 # sed -i -e's/archive/old-releases/g' /etc/apt/sources.list
 
+# prevent configuration dialogs from popping up, we want fully automatic install
+export DEBIAN_FRONTEND=noninteractive
+
 # bring apt package database up to date
 apt-get update --quiet=2
 
