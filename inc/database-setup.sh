@@ -5,7 +5,7 @@
 #----------------------------------------------------
 
 # add "gis" database user
-sudo --user=postgres createuser --no-superuser --no-createdb --no-createrole maposmatic
+sudo --user=postgres createuser --superuser --no-createdb --no-createrole maposmatic
 
 # creade database for osm2pgsql import 
 sudo --user=postgres createdb --encoding=UTF8 --locale=en_US.UTF-8 --template=template0 --owner=maposmatic gis
