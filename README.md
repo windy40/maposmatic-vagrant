@@ -23,13 +23,15 @@ The following components will be installed into the VM:
 
 ## Requirements
 
-* A working Vagrant / Virtualbox setup
+* A working Vagrant (>= v2.2) / Virtualbox (>= v5.2) setup
 
-* A minimum of 2GB available RAM for the VM and a working internet connection 
+* A minimum of 5GB available RAM, 4GB for the VM, and 1GB extra head room for the host system
 
 * About 30GB of disk space minimum (the more the larger your OSM PBF extract import file is)
 
-* Sufficient bandwidth, about 3GB of data will be downloaded during installation and provisioning 
+* A working internet connection 
+
+* Sufficient bandwidth, about 4GB of data will be downloaded during installation and provisioning 
 
 ## Installation and useage
 
