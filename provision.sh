@@ -203,6 +203,7 @@ banner "postprocessing styles"
 
 banner "django frontend"
 
+. $INCDIR/apache-global-config.sh
 . $INCDIR/maposmatic-frontend.sh
 
 
