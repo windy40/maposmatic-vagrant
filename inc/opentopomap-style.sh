@@ -12,9 +12,9 @@ ln -s /home/maposmatic/shapefiles/world_boundaries .
 
 cd tools
 
-cc -o saddledirection saddledirection.c -lm -lgdal
+cc -w -o saddledirection saddledirection.c -lm -lgdal
 install saddledirection /usr/local/bin
-cc -Wall -o isolation isolation.c -lgdal -lm -O2
+cc -w -o isolation isolation.c -lgdal -lm -O2
 install isolation /usr/local/bin
 
 wget http://katze.tfiu.de/projects/phyghtmap/phyghtmap_1.71.orig.tar.gz
