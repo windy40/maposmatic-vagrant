@@ -47,7 +47,7 @@ fi
 
 # override language settings
 locale-gen en_US.UTF-8
-localedef -c -i en_US -f UTF-8 en_US.UTF-8
+localedef --force --inputfile=en_US --charmap=UTF-8 en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export LC_ADDRESS=en_US.UTF-8
