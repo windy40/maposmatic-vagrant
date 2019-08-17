@@ -95,6 +95,7 @@ apt-get install --quiet=2 --assume-yes \
     unifont \
     unifont-bin \
     unzip \
+    > /dev/null
 
 banner "python packages"
 pip3 install --ignore-installed \
@@ -129,7 +130,10 @@ npm install -g carto
 # so we need to use the working upstream Debian package
 
 banner "ms fonts"
-dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb > /dev/null
+if ! dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb > /dev/null 2>/tmp/ms-fonts.log
+then
+	cat 1>&2 /tmp/ms-fonts.log
+fi
 
 
 
