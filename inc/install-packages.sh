@@ -54,6 +54,7 @@ apt-get install --quiet=2 --assume-yes \
     mc \
     npm \
     osm2pgsql \
+    osmium-tool \
     osmosis \
     pandoc \
     php-cli \
