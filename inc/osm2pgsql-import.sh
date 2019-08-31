@@ -43,8 +43,31 @@ do
   done
 done
 
-# update import timestamp
-sudo --user=maposmatic psql \
-     --dbname=gis \
-     --command="UPDATE maposmatic_admin SET last_update = NOW()"
+
+# prepare for diff imports
+OSMOSIS_DIFFIMPORT=/home/maposmatic/osmosis-diffimport
+mkdir -p $OSMOSIS_DIFFIMPORT
+
+if REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${OSM_EXTRACT}")"
+then
+    echo -e "baseUrl=${REPLICATION_BASE_URL}\nmaxInterval=3600" > "${OSMOSIS_DIFFIMPORT}/configuration.txt"
+
+    REPLICATION_SEQUENCE_NUMBER="$( printf "%09d" "$(osmium fileinfo -g 'header.option.osmosis_replication_sequence_number' "${OSM_EXTRACT}")" | sed ':a;s@\B[0-9]\{3\}\>@/&@;ta' )"
+
+    curl -s -L -o "${OSMOSIS_DIFFIMPORT}/state.txt" "${REPLICATION_BASE_URL}/${REPLICATION_SEQUENCE_NUMBER}.state.txt"
+
+    # update import timestamp by osmosis state file
+    . ${OSMOSIS_DIFFIMPORT}/state.txt # get timestamp from osmosis state.txt file
+    sudo -u maposmatic psql gis -c "update maposmatic_admin set last_update='$timestamp'"
+
+else
+    # update import timestamp by osm file timestamp
+    timestamp=$(stat --format='%Y' $OSM_EXTRACT)
+    timestring=$(date --utc --date="@$timestamp" +"%FT%TZ")
+    
+    sudo --user=maposmatic psql \
+	 --dbname=gis \
+	 --command="UPDATE maposmatic_admin SET last_update = '$timestring'"
+fi
+
 

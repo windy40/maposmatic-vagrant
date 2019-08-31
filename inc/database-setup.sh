@@ -11,12 +11,12 @@ sudo --user=postgres createuser --superuser --no-createdb --no-createrole maposm
 sudo --user=postgres createdb --encoding=UTF8 --locale=en_US.UTF-8 --template=template0 --owner=maposmatic gis
 
 # set up PostGIS for osm2pgsql database
-sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION postgis"
-sudo --user=maposmatic psql --dbname=gis --command="ALTER TABLE geometry_columns OWNER TO maposmatic"
-sudo --user=maposmatic psql --dbname=gis --command="ALTER TABLE spatial_ref_sys OWNER TO maposmatic"
+sudo --user=postgres psql --dbname=gis --command="CREATE EXTENSION postgis"
+sudo --user=postgres psql --dbname=gis --command="ALTER TABLE geometry_columns OWNER TO maposmatic"
+sudo --user=postgres psql --dbname=gis --command="ALTER TABLE spatial_ref_sys OWNER TO maposmatic"
 
 # enable hstore extension
-sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION hstore"
+sudo --user=postgres psql --dbname=gis --command="CREATE EXTENSION hstore"
 
 # set up maposmatic admin table
 sudo --user=maposmatic psql --dbname=gis --command="CREATE TABLE maposmatic_admin (last_update timestamp)"

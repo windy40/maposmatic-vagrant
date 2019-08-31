@@ -7,6 +7,9 @@
 # uncomment this when using an old Ubuntu release no longer supported
 # sed -i -e's/archive/old-releases/g' /etc/apt/sources.list
 
+# prevent configuration dialogs from popping up, we want fully automatic install
+export DEBIAN_FRONTEND=noninteractive
+
 # bring apt package database up to date
 apt-get update --quiet=2
 
@@ -51,6 +54,7 @@ apt-get install --quiet=2 --assume-yes \
     mc \
     npm \
     osm2pgsql \
+    osmium-tool \
     osmosis \
     pandoc \
     php-cli \
@@ -95,17 +99,19 @@ apt-get install --quiet=2 --assume-yes \
 banner "python packages"
 pip3 install --ignore-installed \
      colour \
+     django-maintenance-mode \
+     fastnumbers \
      geoalchemy2 \
      geopy \
+     natsort \
+     osmium \
      pillow \
      pluginbase \
-     osmium \
+     pycairo \
+     pyproj \
      qrcode \
      sqlalchemy-utils \
-     natsort \
-     fastnumbers \
-     django-maintenance-mode \
-     pycairo \
+     utm \
 
 banner "ruby packages"
 gem install --pre asciidoctor-pdf
