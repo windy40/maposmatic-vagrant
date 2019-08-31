@@ -1,0 +1,15 @@
+#! /bin/bash
+
+basedir=/vagrant/git-log
+
+project=$(basename $(pwd))
+branch=$(git rev-parse --abbrev-ref HEAD)
+timestamp=$(date +"%F-%T")
+
+dir=$basedir/$project/$branch
+
+mkdir -p $dir
+
+file=$basedir/$project/$branch/$timestamp.commit
+
+git show -1 HEAD > $file
