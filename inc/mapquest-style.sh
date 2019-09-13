@@ -15,7 +15,7 @@ cd MapQuest-Mapnik-Style
 ln -s /home/maposmatic/shapefiles/world_boundaries/ .
 
 # generate stylesheet XML
-python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
+/vagrant/files/generate_xml.py \
        --inc mapquest_inc \
        --symbols mapquest_symbols \
        --dbname gis \
@@ -24,7 +24,7 @@ python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
        --port 5432 \
        --password secret
 
-python /home/maposmatic/styles/mapnik2-osm/generate_xml.py \
+/vagrant/files/generate_xml.py \
        --inc hybrid_inc \
        --symbols hybrid_symbols \
        --dbname gis \
