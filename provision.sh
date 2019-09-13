@@ -128,57 +128,16 @@ banner "shapefiles"
 
 mkdir /home/maposmatic/styles
 
-styles="
-  osm-carto 
-  alternative-colors
-  osm-mapnik 
-  maposmatic 
-  hikebike 
-  humanitarian
-  mapquest
-  german
-  french
-  belgian
-  ardenne
-  swiss
-  pistemap
-  osmbright
-  opentopomap
-  openriverboat
-  veloroad
-  cyclosm
-  blossom
-  pandonia
-  routexl
-  pencil
-  spacestation
-  toner
-  empty
-"
-
-for style in $styles
+for style in /vagrant/inc/styles/*.sh
 do
-  banner "$style style"
-  . $INCDIR/$style-style.sh
+  banner $(basename $style .sh)" style"
+  . $style
 done
 
-overlays="
-  golf
-  fire
-  maxspeed
-  gaslight
-  ptmap
-  schwarzkarte
-  contour
-  openrailway
-  waymarked
-  resiliency
-"
-
-for overlay in $overlays
+for overlay in /vagrant/inc/overlays/*.sh
 do
-  banner "$overlay overlay"
-  . $INCDIR/$overlay-overlay.sh
+  banner $(basename $overlay .sh)" overlay"
+  . $overlay
 done
 
 #----------------------------------------------------
