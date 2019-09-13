@@ -17,6 +17,9 @@ Vagrant.configure(2) do |config|
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
+    config.cache.synced_folder_opts = {
+      owner: "_apt"
+    }
   end
 
   unless Vagrant.has_plugin?("vagrant-disksize")
