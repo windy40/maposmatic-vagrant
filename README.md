@@ -25,7 +25,7 @@ The following components will be installed into the VM:
 
 * A working Vagrant (>= v2.2) / Virtualbox (>= v5.2) setup
 
-* A minimum of 5GB available RAM, 4GB for the VM, and 1GB extra head room for the host system
+* A minimum of 4GB available RAM, 3GB for the VM, and 1GB extra head room for the host system
 
 * About 30GB of disk space minimum (the more the larger your OSM PBF extract import file is)
 
@@ -38,10 +38,68 @@ The following components will be installed into the VM:
 * Copy a OSM PBF extract of your choice into this directory. If multiple files with ending '.pbf' are found only the first one is used. 
 * Run "vagrant up"
 * Be patient ...
- * The stylesheets require quite some extra downloads, and some processing on these (shape files, height information, ...). The downloads are cached localy, so this only happens on the first start mostly.
+ * The stylesheets require quite some extra downloads, and some processing on these (shape files, height information, ...). The downloads are cached localy, so downloads only happens on the first start mostly
  * Importing the provided OSM PBF file can take some time, too, depending on its size ...
-* Once the VM is fully started and provisioned you can use your 
-  MapOsMatic instance on http://localhost:8000/
+* When the VM starts to test the different style sheets and overlays it is actually already ready to use.
+ * You can access the web interface on http://localhost:8000/
+ * Or you can log into the VM with "vagrant ssh", e.g. to run the command line renderer directly or to do actual development work
 
+## File system layout
 
+### On the host 
 
+<dl>
+  <dt>Vagrantfile</dt>
+  <dd>Main virtual machine setup file</dd>
+  
+  <dt>provision.sh</dt>
+  <dd>Top level provisioning script, executes all scripts found in the inc/ folder</dd>
+  
+  <dt>cache/</dt>
+  <dd>Used for cacheing downloads</dd>
+  
+  <dt>files/</dt>
+  <dd>Contains extra files needed by the provisioning scripts</dd>
+  
+  <dt>inc/</dt>
+  <dd>Contains all the provisioning shell scripts</dd>
+  
+  <dt>inc/styles/</dt>
+  <dd>Provisioning scripts and ocitysmap ini file snippets for map styles</dd>
+  
+  <dt>inc/overlays/</dt>
+  <dd>Provisioning scripts and ocitysmap ini file snippets for map overlays</dd>
+  
+  <dt>test</dt>
+  <dd>Shared folder for running render tests in the VM and have results visible on the host</dd>
+</dl>
+
+### In the VM
+
+Inside the VM almost everything gets installed under the `/home/maposmatic` directory.
+
+<dl>
+  <dt>elevation-data</dt>
+  <dd>Ditigal elevation model data for hillshadings and reliefs</dd>
+  
+  <dt>ocitysmap</dt>
+  <dd>The MapOSMatic OCitysMap renderer</dd>
+  
+  <dt>maposmatic</dt>
+  <dd>The MapOSMatic web frontend</dd>
+
+  <dt>osmosis-diffimport</dt>
+  <dd>Data dir for OSM diff imports to update the databasse</dd>
+  
+  <dt>shapefiles</dt>
+  <dd>All shapefiles required by the different map styles installed</dd>
+
+  <dt>styles</dt>
+  <dd>All installed mapstyles are here, with the exception of the maposmatic-printable style which is part of the ocitysmap renderer repository</dd>
+
+  <dt>tools</dt>
+  <dd>All tools that need to be installed from source</dd>
+
+  <dt>umgebungsplaene</dt>
+  <dd>The neighbourhood maps project, an alternative frontend to the MapOSMatic rendering service</dd>
+</dl>

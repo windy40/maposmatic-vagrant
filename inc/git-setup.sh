@@ -6,3 +6,7 @@ then
 fi
 
 git config --global advice.detachedHead false
+
+git config --global core.hooksPath /vagrant/files/git-hooks/
+
+mkdir -p /vagrant/git-log
