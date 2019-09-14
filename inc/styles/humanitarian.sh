@@ -10,7 +10,7 @@ git clone --quiet https://github.com/hholzgra/HDM-CartoCSS.git
 
 cd HDM-CartoCSS
 
-git checkout nohillshade
+git checkout --quiet nohillshade
 
 sed -e's|/ybon/Data/geo/shp/|/maposmatic/shapefiles/|g' \
     -e's|/ybon/Code/maps/hdm/|/maposmatic/styles/HDM-CartoCSS/|g' \

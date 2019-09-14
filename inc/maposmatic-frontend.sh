@@ -8,7 +8,7 @@
 cd /home/maposmatic
 git clone --quiet https://github.com/hholzgra/maposmatic.git
 cd maposmatic
-git checkout site-osm-baustelle
+git checkout --quiet site-osm-baustelle
 
 
 # install dependencies

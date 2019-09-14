@@ -4,7 +4,7 @@ cd /home/maposmatic/styles
 
 git clone --quiet https://github.com/hholzgra/OpenTopoMap.git
 cd OpenTopoMap
-git checkout hartmut-dev
+git checkout --quiet hartmut-dev
 cd mapnik
 
 ln -s /home/maposmatic/shapefiles data

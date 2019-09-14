@@ -5,7 +5,7 @@ cd /home/maposmatic/styles
 git clone --quiet https://gitlab.com/hholzgra/pistemap.git
 
 cd pistemap
-git checkout maposmatic
+git checkout --quiet maposmatic
 
 # fetch additional files required by this style
 ln -s /home/maposmatic/shapefiles/world_boundaries .

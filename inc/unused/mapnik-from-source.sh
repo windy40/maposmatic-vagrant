@@ -16,7 +16,7 @@
     apt-get build-dep --quiet=2 --assume-yes python-mapnik
     git clone --quiet https://github.com/mapnik/mapnik.git 
     cd mapnik
-    git checkout 2.3.x
+    git checkout --quiet 2.3.x
 
     # configure, build, install
     export SCONSFLAGS="-j 2"
