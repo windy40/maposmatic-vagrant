@@ -9,6 +9,7 @@ cd mapnik
 
 ln -s /home/maposmatic/shapefiles data
 ln -s /home/maposmatic/shapefiles/world_boundaries .
+ln -s /home/maposmatic/elevation-data/dem .
 
 # build the bundled utility programs
 
@@ -35,6 +36,7 @@ echo "update area labels"
 sudo -u maposmatic psql gis < tools/arealabel.sql >/dev/null
 
 
+cd ..
 
 echo "update lowzoom"
 sudo -u maposmatic mapnik/tools/update_lowzoom.sh >/dev/null
