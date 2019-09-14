@@ -76,7 +76,8 @@ tags->'office' AS "office",
 tags->'harbour' AS "harbour",
 tags->'bus' AS "bus",
 tags->'bicycle' AS "bicycle",
-tags->'covered' AS "covered"
+tags->'covered' AS "covered",
+tags->'height' AS "height"
 FROM planet_osm_hstore_point;
 
 GRANT select ON planet_osm_point TO public;
