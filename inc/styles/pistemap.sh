@@ -74,14 +74,3 @@ do
 EOF
 done
 
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[pistemap]
-name: PisteMap
-description: PisteMap style by Michael von Glasow
-group: Sports
-path: /home/maposmatic/styles/pistemap/pistemap.xml
-
-EOF
-
-echo "  pistemap," >> /home/maposmatic/ocitysmap/ocitysmap.styles
-

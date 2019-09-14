@@ -35,16 +35,3 @@ carto -q -a $(mapnik-config -v) project.mml > osm.xml
 # ./hillshade_to_vrt.sh
 # ./merge_contour.sh
 
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[humanitarian]
-name: Humanitarian
-group: Special Interest
-description: HOT Humanitarian style
-path: /home/maposmatic/styles/HDM-CartoCSS/osm.xml
-annotation: Humanitarian style © Humanitarian OpenStreetMap Team (HOT)
-url: http://www.osm-baustelle.de/dokuwiki/style:humanitarian
-
-EOF
-
-echo "  humanitarian," >> /home/maposmatic/ocitysmap/ocitysmap.styles
-

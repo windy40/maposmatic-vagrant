@@ -18,14 +18,3 @@ sed -ie 's/"srs": ""/"srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0
 carto -a $(mapnik-config -v) -q osm.mml  > osm.xml
 php /vagrant/files/postprocess-style.php osm.xml
 
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[routexl]
-name: RouteXL
-description: OSM RouteXL style
-group: Low Contrast
-path: /home/maposmatic/styles/osm-routexl/osm.xml
-
-EOF
-
-echo "  routexl," >> /home/maposmatic/ocitysmap/ocitysmap.styles
-

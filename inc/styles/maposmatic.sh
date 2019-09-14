@@ -22,14 +22,3 @@ cd ../ocitysmap/stylesheet/maposmatic-printable
        --world_boundaries /home/maposmatic/shapefiles/world_boundaries \
        --symbols /home/maposmatic/styles/mapnik2-osm/symbols
 
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[maposmatic]
-name: Maposmatic
-description: The Maposmatic printable stylesheet
-path: /home/maposmatic/ocitysmap/stylesheet/maposmatic-printable/osm.xml
-url: http://www.osm-baustelle.de/dokuwiki/style:maposmatic
-annotation: MapOSMatic printable style © MapOSMatic developers
-
-EOF
-
-echo "  maposmatic," >> /home/maposmatic/ocitysmap/ocitysmap.styles

@@ -17,14 +17,3 @@ do
 done
 cd ..
 
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[fire_overlay]
-name: FireOverlay
-group: Emergency
-description: Fire Hydrant Overlay
-path: /home/maposmatic/styles/Mapnik-fire-overlay/fire.xml
-
-EOF
-
-echo "  fire_overlay," >> /home/maposmatic/ocitysmap/ocitysmap.overlays
-

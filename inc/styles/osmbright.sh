@@ -16,14 +16,3 @@ cd OSMBright
 sed '/"name":/d' < project.mml > osm.mml
 carto -q -a $(mapnik-config -v) osm.mml  > osm.xml
 
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[osmbright]
-name: OsmBright
-description: Mapbox OSM Bright style
-group: Low Contrast
-path: /home/maposmatic/styles/osm-bright/OSMBright/osm.xml
-
-EOF
-
-echo "  osmbright," >> /home/maposmatic/ocitysmap/ocitysmap.styles
-

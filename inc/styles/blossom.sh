@@ -17,14 +17,3 @@ sed -ie 's/"srs": ""/"srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0
 carto -a $(mapnik-config -v) -q osm.mml  > osm.xml
 php /vagrant/files/postprocess-style.php osm.xml
 
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[blossom]
-name: Blossom
-group: Low Contrast
-description: Blossom style by Steffen Kuehne
-path: /home/maposmatic/styles/blossom/osm.xml
-
-EOF
-
-echo "  blossom," >> /home/maposmatic/ocitysmap/ocitysmap.styles
-
