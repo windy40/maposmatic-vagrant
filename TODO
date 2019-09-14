@@ -1,9 +1,13 @@
 TODO
 ====
 
-* HTTP cacheing (for couast lines, amdin boundaries, SRTM ...)
-* add back OpenTopoMap support
-* add french CartoOSM style
-* add Toner etc. styles from Stamen again
-* more integration tests
+* make SRTM data download configurable
+* cache SRTM downloads
 
+* more integration tests:
+ * test API
+ * test Umgebnugsplaene
+
+* reduce number of "red" lines during provisioning
+ 
+* better documentation
