@@ -107,9 +107,15 @@ banner "building osgende"
 
 # banner "building osm2pgsql"
 # . $INCDIR/osm2pgsql-build.sh
+
+banner "building phyghtmap" # needed by OpenTopoMap
+. $INCDIR/phyghtmap.sh
    
 banner "db import" 
 . $INCDIR/osm2pgsql-import.sh
+
+banner "DEM setup"
+. $INCDIR/elevation-model.sh
 
 banner "renderer setup"
 . $INCDIR/ocitysmap.sh

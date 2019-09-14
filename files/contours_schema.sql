@@ -16,6 +16,8 @@ SET row_security = off;
 --
 -- Name: contours; Type: DATABASE; Schema: -; Owner: maposmatic
 --
+
+DROP DATABASE IF EXISTS contours;
  
 CREATE DATABASE contours WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
 
@@ -120,7 +122,7 @@ ALTER TABLE ONLY contours
 -- Name: contour_geom_idx; Type: INDEX; Schema: public; Owner: maposmatic
 --
  
-CREATE INDEX contour_geom_idx ON contours USING gist (wkb_geometry);
+CREATE INDEX contour_geom_idx ON contours USING gist (way);
  
  
 --
