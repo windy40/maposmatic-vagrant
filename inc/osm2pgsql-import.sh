@@ -48,7 +48,8 @@ done
 OSMOSIS_DIFFIMPORT=/home/maposmatic/osmosis-diffimport
 mkdir -p $OSMOSIS_DIFFIMPORT
 
-if REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${OSM_EXTRACT}")"
+REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${OSM_EXTRACT}")"
+if ! test -z "$REPLICATION_BASE_URL"
 then
     echo -e "baseUrl=${REPLICATION_BASE_URL}\nmaxInterval=3600" > "${OSMOSIS_DIFFIMPORT}/configuration.txt"
 
