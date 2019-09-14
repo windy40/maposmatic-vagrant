@@ -14,8 +14,14 @@ sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION unaccent"
 #----------------------------------------------------------
 
 cd /home/maposmatic
+
+mkdir -p tools
+cd tools
+
 git clone --quiet https://github.com/giggls/mapnik-german-l10n.git
 cd mapnik-german-l10n
 make install
 sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION osml10n"
+
+cd ..
 
