@@ -7,6 +7,15 @@
 # uncomment this when using an old Ubuntu release no longer supported
 # sed -i -e's/archive/old-releases/g' /etc/apt/sources.list
 
+
+# we don't have "banner" installed yet at this point
+echo "   ##    #####    #####          #####     ##     ####   #    #    ##     #### "
+echo "  #  #   #    #     #            #    #   #  #   #    #  #   #    #  #   #    #"
+echo " #    #  #    #     #            #    #  #    #  #       ####    #    #  #     "
+echo " ######  #####      #            #####   ######  #       #  #    ######  #  ###"
+echo " #    #  #          #            #       #    #  #    #  #   #   #    #  #    #"
+echo " #    #  #          #            #       #    #   ####   #    #  #    #   #### "
+
 # prevent configuration dialogs from popping up, we want fully automatic install
 export DEBIAN_FRONTEND=noninteractive
 
@@ -113,9 +122,10 @@ pip3 install --ignore-installed \
      qrcode \
      sqlalchemy-utils \
      utm \
+     > /dev/null
 
 banner "ruby packages"
-gem install --pre asciidoctor-pdf
+gem install --pre asciidoctor-pdf > /dev/null
 
 
 # install extra npm packages
