@@ -40,7 +40,7 @@ do
         <StyleName>raster</StyleName>
         <Datasource>
                 <Parameter name="type">gdal</Parameter>
-                <Parameter name="file">srtm/$hillshade</Parameter>
+                <Parameter name="file">$hillshade</Parameter>
                 <Parameter name="format">tiff</Parameter>
                 <Parameter name="band">1</Parameter>
         </Datasource>
