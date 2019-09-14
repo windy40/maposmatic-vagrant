@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/hholzgra/Pandonia
+git clone --quiet https://github.com/hholzgra/Pandonia
 cd Pandonia 
 
 cp ../blossom/project.mml .

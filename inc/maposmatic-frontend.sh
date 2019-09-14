@@ -6,7 +6,7 @@
 
 # get maposmatic web frontend
 cd /home/maposmatic
-git clone https://github.com/hholzgra/maposmatic.git
+git clone --quiet https://github.com/hholzgra/maposmatic.git
 cd maposmatic
 git checkout site-osm-baustelle
 

@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://gitlab.com/hholzgra/pistemap.git
+git clone --quiet https://gitlab.com/hholzgra/pistemap.git
 
 cd pistemap
 git checkout maposmatic

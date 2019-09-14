@@ -8,7 +8,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/hholzgra/Mapnik-fire-overlay.git
+git clone --quiet https://github.com/hholzgra/Mapnik-fire-overlay.git
 
 cd Mapnik-fire-overlay
 for f in sql-functions/*.sql

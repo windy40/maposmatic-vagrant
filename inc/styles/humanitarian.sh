@@ -6,7 +6,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/hholzgra/HDM-CartoCSS.git
+git clone --quiet https://github.com/hholzgra/HDM-CartoCSS.git
 
 cd HDM-CartoCSS
 

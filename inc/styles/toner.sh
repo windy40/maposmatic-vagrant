@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/geofabrik/toner.git
+git clone --quiet https://github.com/geofabrik/toner.git
 
 cd toner
 

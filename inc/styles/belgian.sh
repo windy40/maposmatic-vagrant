@@ -5,7 +5,7 @@
 #----------------------------------------------------
 
 cd /home/maposmatic/styles
-git clone https://github.com/jbelien/openstreetmap-carto-be
+git clone --quiet https://github.com/jbelien/openstreetmap-carto-be
 cd openstreetmap-carto-be
 
 ln -s /home/maposmatic/shapefiles data

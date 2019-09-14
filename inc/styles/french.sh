@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/cquest/osmfr-cartocss.git
+git clone --quiet https://github.com/cquest/osmfr-cartocss.git
 cd osmfr-cartocss
 git checkout v2.8.0
 

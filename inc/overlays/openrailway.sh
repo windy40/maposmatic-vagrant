@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/Nakaner/OpenRailwayMap-webmap-styles
+git clone --quiet https://github.com/Nakaner/OpenRailwayMap-webmap-styles
 
 cd OpenRailwayMap-webmap-styles
 

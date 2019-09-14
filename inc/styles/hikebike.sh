@@ -6,7 +6,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/cmarqu/hikebikemap-carto.git
+git clone --quiet https://github.com/cmarqu/hikebikemap-carto.git
 
 cd hikebikemap-carto/
 

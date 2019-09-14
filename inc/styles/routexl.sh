@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/routexl/osm-routexl
+git clone --quiet https://github.com/routexl/osm-routexl
 cd osm-routexl
 
 ln -s $(realpath ../osm-bright/OSMBright/img) .

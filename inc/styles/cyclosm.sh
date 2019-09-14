@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/cyclosm/cyclosm-cartocss-style
+git clone --quiet https://github.com/cyclosm/cyclosm-cartocss-style
 cd cyclosm-cartocss-style
 
 ln -s /home/maposmatic/shapefiles data

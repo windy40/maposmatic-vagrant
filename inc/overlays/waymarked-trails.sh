@@ -7,7 +7,7 @@ STYLES="hiking cycling mtb riding skating slopes"
  
 cd /home/maposmatic/styles
 
-git clone https://github.com/lonvia/waymarked-trails-site.git
+git clone --quiet https://github.com/lonvia/waymarked-trails-site.git
 cd waymarked-trails-site
 
 sed -ie 's/www-data/maposmatic/g' config/defaults.py

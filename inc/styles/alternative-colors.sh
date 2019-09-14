@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/imagico/osm-carto-alternative-colors
+git clone --quiet https://github.com/imagico/osm-carto-alternative-colors
 
 cd osm-carto-alternative-colors
 

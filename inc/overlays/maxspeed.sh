@@ -6,5 +6,5 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/hholzgra/Mapnik-maxspeed-overlay.git
+git clone --quiet https://github.com/hholzgra/Mapnik-maxspeed-overlay.git
 

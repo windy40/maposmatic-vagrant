@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/stekhn/blossom
+git clone --quiet https://github.com/stekhn/blossom
 
 cd blossom 
 

@@ -14,7 +14,7 @@
     # older Mapnik versions have a bug that leads to Cairo null pointer exceptions
     # and Mapnik 3.0 doesn't have fully working python bindings yet
     apt-get build-dep --quiet=2 --assume-yes python-mapnik
-    git clone https://github.com/mapnik/mapnik.git 
+    git clone --quiet https://github.com/mapnik/mapnik.git 
     cd mapnik
     git checkout 2.3.x
 

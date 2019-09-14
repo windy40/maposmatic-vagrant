@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/yohanboniface/OpenRiverboatMap.git
+git clone --quiet https://github.com/yohanboniface/OpenRiverboatMap.git
 cd OpenRiverboatMap/openriverboatmap
 
 ln -s /home/maposmatic/shapefiles data

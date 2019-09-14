@@ -3,7 +3,7 @@
 #----------------------------------------------------
 
 cd /home/maposmatic/styles
-git clone https://github.com/nobohan/OpenArdenneMap
+git clone --quiet https://github.com/nobohan/OpenArdenneMap
 cd OpenArdenneMap
 
 cd osm2pgsql

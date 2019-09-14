@@ -8,7 +8,7 @@
 
 cd /home/maposmatic/styles
 
-git clone https://github.com/hholzgra/Mapnik-golf-overlay.git
+git clone --quiet https://github.com/hholzgra/Mapnik-golf-overlay.git
 cd Mapnik-golf-overlay
 git checkout maposmatic
 
