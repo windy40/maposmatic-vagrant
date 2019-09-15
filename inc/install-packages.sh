@@ -78,6 +78,9 @@ apt-get install --quiet=2 --assume-yes \
     python-gdal \
     python-mapnik \
     python-setuptools \
+    python-matplotlib \
+    python-beautifulsoup \
+    python-numpy \
     python3-django \
     python3-future \
     python3-feedparser \
