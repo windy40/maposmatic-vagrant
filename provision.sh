@@ -12,6 +12,8 @@ then
 	CACHEDIR=/vagrant/cache
 	rm /vagrant/can_write_here
 else
+	mkdir -p /home/cache
+	chmod a+rwx /home/cache
 	CACHEDIR=/home/cache
 fi
 
