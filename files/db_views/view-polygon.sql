@@ -85,7 +85,8 @@ tags->'leaf_cycle' AS "leaf_cycle",
 tags->'trees' AS "trees",
 tags->'produce' AS "produce",
 tags->'area' AS "area",
-tags->'height' as "height"
+tags->'height' as "height",
+tags->'region:type' as "region:type"
 FROM planet_osm_hstore_polygon;
 
 GRANT select ON planet_osm_polygon TO public;
