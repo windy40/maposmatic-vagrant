@@ -117,7 +117,7 @@ banner "db import"
 . $INCDIR/osm2pgsql-import.sh
 
 banner "DEM setup"
-. $INCDIR/elevation-model.sh
+. $INCDIR/elevation-data.sh
 
 banner "renderer setup"
 . $INCDIR/ocitysmap.sh
