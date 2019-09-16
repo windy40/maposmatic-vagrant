@@ -2,6 +2,23 @@
 
 Performs a full MapOsMatic installation in an Ubuntu "Bionic" 18.04LTS VM using Vagrant and shell provisioning
 
+## Table of contents
+
+- [Components](#components)
+- [Requirements](#requirements)
+- [Installation and useage](#installation-and-useage)
+- [Startup messages](#startup-messages)
+- [File system layout](#file-system-layout)
+  - [On the host](#on-the-host)
+  - [In the VM](#in-the-vm)
+- [Keeping the OSM database up to date](#keeping-the-osm-database-up-to-date)
+- [Adding a new style or overlay](#adding-a-new-style-or-overlay)
+  - [Prequisites](#prequisites)
+  - [Database](#database)
+  - [Shapefiles](#shapefiles)
+- [Provision a real server](#provision-a-real-server)
+
+
 ## Components
 
 The following components will be installed into the VM:
