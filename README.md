@@ -44,6 +44,29 @@ The following components will be installed into the VM:
  * You can access the web interface on http://localhost:8000/
  * Or you can log into the VM with "vagrant ssh", e.g. to run the command line renderer directly or to do actual development work
 
+## Startup messages
+
+The provisioning scripts will produce a lot of output when the VM
+is started for the first time.
+
+Everything that is printed in green is just progress info and can
+easily be ignored.
+
+Red output may be more serious, but unfortunately some tools print
+their progress messages to standard error output, too, so some red
+output can't be avoided.
+
+Red things that can be ignored are:
+
+* everything starting with `NOTICE:`
+* lines starting with `warning:` in the "pghyghtmap" secition
+* everything in the "DB IMPORT" section, unless there's an actual error messages at the end of the red block
+* the `RuntimeError: XML document not well formed` block in the "MAPOSMATIC" style block
+* `ERROR:  "planet_osm_point" is not a table or materialized view` in the "OpenRailwayMap" style block
+* everything in the "WAYMARKED" section as long as all data up to `Importing slopes DB` gets processed
+* npn `WARN` messages in the "DJ FRONTEND" section
+* everything in the 'OSM_Notes_Overlay' section for now (it needs fixing on my side, but won't affect the other map styles
+
 ## File system layout
 
 ### On the host 
