@@ -13,7 +13,6 @@ git checkout --quiet site-osm-baustelle
 
 # install dependencies
 (cd www/static; npm install)
-wget -O www/static/js/leaflet-omnivore.min.js http://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js
 
 # create needed directories and tweak permissions
 mkdir -p logs rendering/results media
