@@ -37,7 +37,7 @@ sudo --user=maposmatic osm2pgsql \
 
 for dir in db_indexes db_functions db_views
 do
-  for sql in /vagrant/files/$dir/*.sql
+  for sql in /vagrant/files/database/$dir/*.sql
   do
     sudo -u maposmatic psql gis < $sql
   done
@@ -55,7 +55,7 @@ then
 
     REPLICATION_SEQUENCE_NUMBER="$( printf "%09d" "$(osmium fileinfo -g 'header.option.osmosis_replication_sequence_number' "${OSM_EXTRACT}")" | sed ':a;s@\B[0-9]\{3\}\>@/&@;ta' )"
 
-    cp /vagrant/files/osm2pgsql-update.* /etc/systemd/system
+    cp /vagrant/files/systemd/osm2pgsql-update.* /etc/systemd/system
     chmod 644 /etc/systemd/system/osm2pgsql-update.*
     systemctl daemon-reload
 

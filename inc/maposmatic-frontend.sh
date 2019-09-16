@@ -18,9 +18,9 @@ git checkout --quiet site-osm-baustelle
 mkdir -p logs rendering/results media
 
 # copy config files
-cp $FILEDIR/config.py scripts/config.py
-cp $FILEDIR/settings_local.py www/settings_local.py
-cp $FILEDIR/maposmatic.wsgi www/maposmatic.wsgi
+cp $FILEDIR/config-files/config.py scripts/config.py
+cp $FILEDIR/config-files/settings_local.py www/settings_local.py
+cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
 
 # init MaposMatics housekeeping database
 banner "Dj. Migration"
@@ -48,7 +48,7 @@ chgrp www-data media logs
 chmod g+w media logs
 
 # set up render daemon
-cp $FILEDIR/maposmatic-render.service /etc/systemd/system
+cp $FILEDIR/systemd/maposmatic-render.service /etc/systemd/system
 chmod 644 /etc/systemd/system/maposmatic-render.service
 systemctl daemon-reload
 systemctl enable maposmatic-render.service
@@ -56,6 +56,6 @@ systemctl start maposmatic-render.service
 
 # set up web server
 service apache2 stop
-cp $FILEDIR/000-default.conf /etc/apache2/sites-available
+cp $FILEDIR/config-files/000-default.conf /etc/apache2/sites-available
 service apache2 start
     

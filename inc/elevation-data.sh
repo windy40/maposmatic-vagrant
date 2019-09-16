@@ -6,7 +6,7 @@ cd /home/maposmatic
 
 # read SRTM 90m zone name -> area mapping table
 echo "Importing SRTM zone database"
-sudo -u maposmatic psql gis < /vagrant/files/srtm_zones.sql > /dev/null
+sudo -u maposmatic psql gis < /vagrant/files/database/db_dumps/srtm_zones.sql > /dev/null
 
 mkdir -p elevation-data
 cd elevation-data
@@ -106,11 +106,11 @@ gdaldem hillshade -z 7 -combined -compute_edges -co compress=lzw -co predictor=2
 # TODO: not used? gdal_translate -co compress=JPEG -co bigtiff=yes -co tiled=yes hillshade-90.tif hillshade-90-jpeg.tif -q
 
 # set up countours database and table schema
-sudo -u maposmatic psql gis < /vagrant/files/contours_schema.sql >/dev/null
+sudo -u maposmatic psql gis < /vagrant/files/database/db_dumps/contours_schema.sql >/dev/null
 
 # create contours shapefile and imports its data into the database
 gdal_contour -i 10 -a ele warp-90.tif . -q
-shp2pgsql -a -g way -s contour.shp contours | psql contours
+shp2pgsql -a -g way -s 3857 contour.shp contours | psql contours
 
 cd ..
 

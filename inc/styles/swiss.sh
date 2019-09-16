@@ -12,5 +12,5 @@ ln -s /home/maposmatic/shapefiles data
 
 sed '/\sname:/d' < project.mml > osm.mml
 carto -a $(mapnik-config -v) --quiet osm.mml > osm.xml
-php /vagrant/files/postprocess-style.php osm.xml
+php /vagrant/files/tools/postprocess-style.php osm.xml
 

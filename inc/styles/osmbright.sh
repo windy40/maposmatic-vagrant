@@ -8,7 +8,7 @@ cd osm-bright
 
 ln -s /home/maposmatic/shapefiles shp
 
-cp /vagrant/files/osmbright-configure.py configure.py
+cp /vagrant/files/config-files/osmbright-configure.py configure.py
 
 ./make.py
 

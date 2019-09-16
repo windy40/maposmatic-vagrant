@@ -17,7 +17,7 @@ make
 
 for a in *.xml
 do
-    php /vagrant/files/postprocess-style.php $a
+    php /vagrant/files/tools/postprocess-style.php $a
 done
 
 ln -s /home/maposmatic/shapefiles data

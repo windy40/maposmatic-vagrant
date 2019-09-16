@@ -4,5 +4,5 @@ cd /home/maposmatic/styles
 
 mkdir contour-overlay
 cd contour-overlay
-cp /vagrant/files/contour.xml .
+cp /vagrant/files/styles/contour.xml .
 

@@ -17,5 +17,5 @@ sed -e '/\sname:/d' \
 < project.mml > osm.mml
 
 carto -q -a $(mapnik-config -v) --quiet osm.mml > osm.xml
-php /vagrant/files/postprocess-style.php osm.xml
+php /vagrant/files/tools/postprocess-style.php osm.xml
 

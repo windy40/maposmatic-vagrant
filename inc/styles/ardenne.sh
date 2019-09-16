@@ -12,5 +12,5 @@ sed -i -e 's/"osmpg_db"/"gis"/g' -e 's/"..\/..\/..\/Elevation\/contour_anlier.sh
 
 carto -a $(mapnik-config -v) --quiet project.mml > OpenArdenneMap.xml
 
-php /vagrant/files/postprocess-style.php OpenArdenneMap.xml
+php /vagrant/files/tools/postprocess-style.php OpenArdenneMap.xml
 

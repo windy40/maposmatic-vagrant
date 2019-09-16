@@ -6,7 +6,7 @@ Note: feel free to leave password, host, port, or use blank
 
 <Parameter name="type">postgis</Parameter>
 <Parameter name="password">secret</Parameter>
-<Parameter name="host">localhost</Parameter>
+<Parameter name="host">gis-db</Parameter>
 <Parameter name="port">5432</Parameter>
 <Parameter name="user">maposmatic</Parameter>
 <Parameter name="dbname">gis</Parameter>

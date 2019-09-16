@@ -30,7 +30,7 @@ cd ..
 sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
 
 # set up the actual stylesheet
-/home/maposmatic/styles/mapnik2-osm/generate_xml.py osm-de.xml osm.xml \
+/vagrant/files/tools/generate_xml.py \
           --host 'localhost' \
           --port 5432 \
           --dbname gis \
@@ -38,16 +38,5 @@ sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
           --user maposmatic \
           --password 'secret' \
           --inc $(pwd)/inc-de \
-          --world_boundaries /home/maposmatic/styles/mapnik2-osm/world_boundaries
-
-cat <<EOF >> /home/maposmatic/ocitysmap/ocitysmap.styledefs
-[german_osm]
-name: GermanOSM
-description: Old openstreetmap.de style
-path: /home/maposmatic/styles/mapnik-german/osm-de.xml
-
-EOF
-
-echo "  german_osm," >> /home/maposmatic/ocitysmap/ocitysmap.styles
-
+          --world_boundaries /home/maposmatic/shapefiles/world_boundaries
 

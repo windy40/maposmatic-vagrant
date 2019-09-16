@@ -14,7 +14,7 @@ wget http://openptmap.org/f/mapnik_pt.xml
 
 
 # use datasource entity instead of hard coded db parameters
-cp /vagrant/files/datasource-settings.xml.inc .
+cp /vagrant/files/config-files/datasource-settings.xml.inc .
 
 sed -ie 's/<Parameter name="type">postgis<\/Parameter>/\&datasource-settings;/' mapnik_pt.xml
 

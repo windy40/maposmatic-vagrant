@@ -21,7 +21,7 @@ sed -e 's/dbname: "osm"/dbname: "gis"/g' \
     < project.mml > cyclosm.mml
 
 carto -a $(mapnik-config -v) --quiet cyclosm.mml > cyclosm.xml
-php /vagrant/files/postprocess-style.php cyclosm.xml
+php /vagrant/files/tools/postprocess-style.php cyclosm.xml
 
 # style expects contours table under a different name, and ele column with different type
 sudo -u maposmatic psql contours -c "create view planet_osm_line as select gid, id, ele::int as ele, way from contours;"
