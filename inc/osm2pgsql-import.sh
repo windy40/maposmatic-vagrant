@@ -55,6 +55,10 @@ then
 
     REPLICATION_SEQUENCE_NUMBER="$( printf "%09d" "$(osmium fileinfo -g 'header.option.osmosis_replication_sequence_number' "${OSM_EXTRACT}")" | sed ':a;s@\B[0-9]\{3\}\>@/&@;ta' )"
 
+    cp /vagrant/files/osm2pgsql-update.service /etc/systemd/system
+    chmod 644 /etc/systemd/system/osm2pgsql-update.service
+    systemctl daemon-reload
+
     curl -s -L -o "${OSMOSIS_DIFFIMPORT}/state.txt" "${REPLICATION_BASE_URL}/${REPLICATION_SEQUENCE_NUMBER}.state.txt"
 
     # update import timestamp by osmosis state file

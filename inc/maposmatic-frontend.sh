@@ -48,8 +48,8 @@ chgrp www-data media logs
 chmod g+w media logs
 
 # set up render daemon
-cp $FILEDIR/maposmatic-render.service /lib/systemd/system
-chmod 644 /lib/systemd/system/maposmatic-render.service
+cp $FILEDIR/maposmatic-render.service /etc/systemd/system
+chmod 644 /etc/systemd/system/maposmatic-render.service
 systemctl daemon-reload
 systemctl enable maposmatic-render.service
 systemctl start maposmatic-render.service

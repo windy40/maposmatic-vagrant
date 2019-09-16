@@ -1,0 +1,10 @@
+[Unit]
+Description=Fetch OSM diff files since last update and apply them to the planet database
+Wants=postgresql.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/maposmatic/osmosis-diffimport
+ExecStart=/vagrant/inc/osm2pgsql-update.sh
+
+

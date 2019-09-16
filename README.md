@@ -103,3 +103,24 @@ Inside the VM almost everything gets installed under the `/home/maposmatic` dire
   <dt>umgebungsplaene</dt>
   <dd>The neighbourhood maps project, an alternative frontend to the MapOSMatic rendering service</dd>
 </dl>
+
+## Database updates
+
+If the OSM PBF file you used for the initial data import provides
+a replication base URL to fetch diffs from, a systemd service 
+will be set up to download such diff files and to apply the changes
+to the database.
+
+E.g. GeoFabrik provides daily diff files for all their regional extracts,
+so if you downloaded the PBF file used for initial setup from there
+your database can be brought up to date with
+
+  systemctl start osm2pgsql-update
+
+If no `replication_base_url` information is found in the initial import
+file, then the service will not be installed at all. (This unfortunately
+is also true for full planet files at this point, but I don't expect
+anyone to try a full planet import inside a VM anyway. If you actually
+*do* plan to do this, please let me (<hartmut@php.net>) know and I'll
+see what I can work out to support automatic diff import setup for this,
+too)
