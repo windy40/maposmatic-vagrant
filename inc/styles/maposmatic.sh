@@ -6,10 +6,6 @@
 
 cd /home/maposmatic/styles
 
-# we need to add the MapOSMatic specific
-# symbols to the "old" MapnikOSM symbol set
-cp ../ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
-
 # configure the actual stylesheet
 cd ../ocitysmap/stylesheet/maposmatic-printable
 
