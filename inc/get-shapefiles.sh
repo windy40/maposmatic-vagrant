@@ -12,7 +12,7 @@ echo
 #
 
 # download/cache directory for downloaded shapefile archives
-DOWNLOAD_DIR=$CACHEDIR/shapefiles
+DOWNLOAD_DIR=${CACHEDIR:-/vagrant/cache}/shapefiles
 mkdir -p $DOWNLOAD_DIR
 
 # actual shapefile directory tree
