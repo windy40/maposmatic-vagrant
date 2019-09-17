@@ -1,3 +1,14 @@
+# For some strange reason I don't understand yet Vagrant
+# seems to write "exit" to the provisioning scripts
+# stdin stream. As this may confuse tools that optionally
+# read from stdin (genenrate-xml.py in this case) we're
+# draining stdin here as the first thing before doing
+# anything else
+if ! test -t 0
+then
+    cat > /dev/null
+fi
+
 #----------------------------------------------------
 #
 # putting some often used constants into variables
