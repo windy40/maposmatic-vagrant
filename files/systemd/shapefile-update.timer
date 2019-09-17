@@ -1,0 +1,10 @@
+[Unit]
+Description=Fetch and process Shapefile archives that have changed since last download
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+
