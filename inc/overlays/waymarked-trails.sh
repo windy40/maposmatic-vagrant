@@ -44,3 +44,12 @@ done
 sudo -u maposmatic psql planet -c "create table waymarked_admin(last_update timestamp)"
 sudo -u maposmatic psql planet -c "insert into waymarked_admin select MIN(date) from status"
 
+REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${OSM_EXTRACT}")"
+if ! test -z "$REPLICATION_BASE_URL"
+then
+    echo ${REPLICATION_BASE_URL} > "${OSMOSIS_DIFFIMPORT}/baseurl.txt"
+
+    cp /vagrant/files/systemd/waymarked-update.* /etc/systemd/system
+    chmod 644 /etc/systemd/system/waymarked-update.*
+    systemctl daemon-reload
+fi

@@ -1,0 +1,10 @@
+[Unit]
+Description=Fetch OSM diff files since last update and apply them to the waymarked trails database
+Wants=postgresql.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/maposmatic/styles/waymarked-trails-site
+ExecStart=/vagrant/inc/waymarked-update.sh
+
+
