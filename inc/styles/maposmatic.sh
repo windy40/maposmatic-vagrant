@@ -16,5 +16,5 @@ cd ../ocitysmap/stylesheet/maposmatic-printable
        --port 5432 \
        --password 'secret' \
        --world_boundaries /home/maposmatic/shapefiles/world_boundaries \
-       --symbols /home/maposmatic/ocitysmap/stylesheet/maposmatic-printable/symbols
-
+       --symbols /home/maposmatic/ocitysmap/stylesheet/maposmatic-printable/symbols \
+       > /dev/null

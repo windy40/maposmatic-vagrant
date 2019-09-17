@@ -22,7 +22,8 @@ ln -s /home/maposmatic/shapefiles/world_boundaries/ .
        --host 'localhost' \
        --user maposmatic \
        --port 5432 \
-       --password secret
+       --password secret \
+       > /dev/null
 
 /vagrant/files/tools/generate_xml.py \
        --inc hybrid_inc \
@@ -31,5 +32,6 @@ ln -s /home/maposmatic/shapefiles/world_boundaries/ .
        --host 'localhost' \
        --user maposmatic \
        --port 5432 \
-       --password secret
+       --password secret \
+       > /dev/null
 
