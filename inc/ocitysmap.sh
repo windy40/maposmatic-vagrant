@@ -9,5 +9,8 @@ cd /home/maposmatic
 git clone --quiet https://github.com/hholzgra/ocitysmap.git
 cd ocitysmap
 ./i18n.py --compile-mo
+chmod a+x render.py
+cp /vagrant/files/config-files/ocitysmap-command.sh /usr/local/bin/ocitysmap
+chmod a+x /usr/local/bin/ocitysmap
 cd ..
 

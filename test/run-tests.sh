@@ -47,14 +47,14 @@ do
   do
     base=test-base-$style-$format
     printf "... %-4s " $format
-    echo "$PYTHON $PROJECT/ocitysmap/render.py --config=$CONFIG --bounding-box=$BBOX --title='Test $style ($format)' --format=$format --prefix=$base --language=de_DE.utf8 --layout=$LAYOUT --orientation=$ORIENTATION --paper-format='$PAPER' --style=$style" > $base.sh
+    echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $style ($format)' --format=$format --prefix=$base --language=de_DE.utf8 --layout=$LAYOUT --orientation=$ORIENTATION --paper-format='$PAPER' --style=$style" > $base.sh
     chmod a+x $base.sh
     /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
     cat $base.time
   done
   base=test-base-$style-multi
   printf "... %-4s " mpdf
-  echo "$PYTHON $PROJECT/ocitysmap/render.py --config=$CONFIG --bounding-box=$BBOX --title='Test $style (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style=$style" > $base.sh
+  echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $style (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style=$style" > $base.sh
   chmod a+x $base.sh
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
@@ -74,14 +74,14 @@ do
   do
     base=test-overlay-$overlay-$format
     printf "... %-4s " $format
-    echo "$PYTHON $PROJECT/ocitysmap/render.py --config=$CONFIG --bounding-box=$BBOX --title='Test $overlay ($format)' --format=$format --prefix=$base --language=de_DE.utf8 --layout=$LAYOUT --orientation=$ORIENTATION --paper-format='$PAPER' --style='$BASE_FOR_OVERLAY' --overlay=$overlay" > $base.sh
+    echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $overlay ($format)' --format=$format --prefix=$base --language=de_DE.utf8 --layout=$LAYOUT --orientation=$ORIENTATION --paper-format='$PAPER' --style='$BASE_FOR_OVERLAY' --overlay=$overlay" > $base.sh
     chmod a+x $base.sh
     /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
     cat $base.time
   done
   base=test-overlay-$overlay-multi
   printf "... %-4s " mpdf
-  echo "$PYTHON $PROJECT/ocitysmap/render.py --config=$CONFIG --bounding-box=$BBOX --title='Test $overlay (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style='$BASE_FOR_OVERLAY' --overlay=$overlay" > $base.sh
+  echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $overlay (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style='$BASE_FOR_OVERLAY' --overlay=$overlay" > $base.sh
   chmod a+x $base.sh
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
