@@ -11,7 +11,7 @@ Performs a full MapOsMatic installation in an Ubuntu "Bionic" 18.04LTS VM using 
 - [File system layout](#file-system-layout)
   - [On the host](#on-the-host)
   - [In the VM](#in-the-vm)
-- [Keeping the OSM database up to date](#keeping-the-osm-database-up-to-date)
+- [Keeping the data up to date](#keeping-the-data-up-to-date)
 - [Adding a new style or overlay](#adding-a-new-style-or-overlay)
   - [Prequisites](#prequisites)
   - [Database](#database)
@@ -41,6 +41,8 @@ The following components will be installed into the VM:
 ## Requirements
 
 * A working Vagrant (>= v2.2) / Virtualbox (>= v5.2) setup
+* The `vagrant-disksize` plugin to grow the VMs disk space, install with `vagrant plugin install vagrant-disksize`
+* Optional:  The `vagrant-cachier` plugin, to cache apt, gem, npm, pip packages, install with `vagrant plugin install vagrant-cachier`
 * A minimum of 4GB available RAM, 3GB for the VM, and 1GB extra head room for the host system
 * About 30GB of disk space minimum (the more the larger your OSM PBF extract import file is)
 * A working internet connection 
@@ -49,13 +51,13 @@ The following components will be installed into the VM:
 ## Installation and useage
 
 * Copy a OSM PBF extract of your choice into this directory. If multiple files with ending '.pbf' are found only the first one is used. 
-* Run "vagrant up"
+* Run `vagrant up`
 * Be patient ...
   * The stylesheets require quite some extra downloads, and some processing on these (shape files, height information, ...). The downloads are cached localy, so downloads only happens on the first start mostly
   * Importing the provided OSM PBF file can take some time, too, depending on its size ...
 * When the VM starts to test the different style sheets and overlays it is actually already ready to use.
   * You can access the web interface on http://localhost:8000/
-  * Or you can log into the VM with "vagrant ssh", e.g. to run the command line renderer directly or to do actual development work
+  * Or you can log into the VM with `vagrant ssh`, e.g. to run the command line renderer directly or to do actual development work
 
 ## Startup messages
 
@@ -74,7 +76,6 @@ Red things that can be ignored are:
 * everything starting with `NOTICE:`
 * lines starting with `warning:` in the "pghyghtmap" secition
 * everything in the "DB IMPORT" section, unless there's an actual error messages at the end of the red block
-* the `RuntimeError: XML document not well formed` block in the "MAPOSMATIC" style block
 * `ERROR:  "planet_osm_point" is not a table or materialized view` in the "OpenRailwayMap" style block
 * everything in the "WAYMARKED" section as long as all data up to `Importing slopes DB` gets processed
 * npn `WARN` messages in the "DJ FRONTEND" section
@@ -140,7 +141,7 @@ Inside the VM almost everything gets installed under the `/home/maposmatic` dire
   <dd>The neighbourhood maps project, an alternative frontend to the MapOSMatic rendering service</dd>
 </dl>
 
-## Keeping the OSM database up to date
+## Keeping the data up to date
 
 If the OSM PBF file you used for the initial data import provides
 a replication base URL to fetch diffs from, a systemd service 
@@ -149,10 +150,11 @@ to the database.
 
 E.g. GeoFabrik provides daily diff files for all their regional extracts,
 so if you downloaded the PBF file used for initial setup from there
-your database can be brought up to date with
+your databases can be brought up to date with
 
 ```bash
   systemctl start osm2pgsql-update.service
+  systemctl start waymarked-update.service
 ```
 
 If you want to import updates on a daily basis automatically you
@@ -160,10 +162,13 @@ can enable the systemd timer that also got installed for this service:
 
 ```bash
   systemctl enable osm2pgsql-update.timer
-  systemctl start osm2pgsql-update.timer
+  systemctl start  osm2pgsql-update.timer
+
+  systemctl enable waymarked-update.timer
+  systemctl start  waymarked-update.timer
 ```
 
-This will run the diff update service once per day, or whenever the
+This will run the diff update services once per day each, or whenever the
 VM is restarted.
 
 If no `replication_base_url` information is found in the initial import
@@ -174,6 +179,22 @@ but I don't expect anyone to try a full planet import inside a VM anyway.
 If you actually *do* plan to do this, please let me (<hartmut@php.net>) 
 know and I'll see what I can work out to support automatic diff import 
 setup for this, too)
+
+Also the shapefiles can be updated every once in a while. This does not
+depend on the import file used, so the service and timer files for this
+are always installed. You can start the shapefile update service manually
+with
+
+```bash
+  systemctl start shapefile-update.service
+```
+
+or enable daily automatic updates with
+
+```bash
+  systemctl enable shapefile-update.timer
+  systemctl start  shapefile-update.timer
+```
 
 ## Adding a new style or overlay
 
