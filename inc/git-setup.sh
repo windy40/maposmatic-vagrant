@@ -1,6 +1,6 @@
 #! /bin/bash
 
-if test -f /vagrant/giconfig.conf
+if test -f /vagrant/gitconfig.conf
 then
     cp /vagrant/gitconfig.conf ~root/.gitconfig	
 fi
