@@ -144,7 +144,7 @@ banner "locales"
 
 banner "shapefiles"
 . $INCDIR/get-shapefiles.sh
-cp /vagrant/files/sytemd/shapefile-update.* /etc/systemd/system
+cp /vagrant/files/systemd/shapefile-update.* /etc/systemd/system
 systemctl daemon-reload
 
 mkdir /home/maposmatic/styles
