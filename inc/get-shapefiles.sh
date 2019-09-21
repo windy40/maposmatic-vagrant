@@ -115,6 +115,10 @@ do
     # download the file only if newer than the localy cached copy
     wget --quiet --timestamping --backups=1 --no-check-certificate $url
 
+    if not test -f $DOWNLOAD_DIR/$archive.1
+    then
+	    echo "-n ... cached"
+
     # renew actual shapefile if a more recent version was downloaded (new backup exists)
     # or process shapefile archive (from download or cache) if actual shapefile not found
     if [ \( -f $DOWNLOAD_DIR/$archive.1 \) -o \( ! -d $SHAPEFILE_DIR/$archbase \) ]
