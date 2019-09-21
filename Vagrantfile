@@ -29,6 +29,11 @@ Vagrant.configure(2) do |config|
 
   config.ssh.forward_x11=true
 
-  config.vm.provision "shell", path: "provision.sh"
+  config.vm.provision "shell",
+    env: {
+      "GIT_AUTHOR_NAME":  "#{ENV['GIT_AUTHOR_NAME']}",
+      "GIT_AUTHOR_EMAIL": "#{ENV['GIT_AUTHOR_EMAIL']}"
+    },
+    path: "provision.sh"
   
 end

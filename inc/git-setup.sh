@@ -1,12 +1,20 @@
 #! /bin/bash
 
-if test -f /vagrant/gitconfig.conf
-then
-    cp /vagrant/gitconfig.conf ~root/.gitconfig	
-fi
+mkdir -p /vagrant/git-log
+
+git config --global init.templatedir /vagrant/files/git-templates
 
 git config --global advice.detachedHead false
 
-git config --global core.hooksPath /vagrant/files/git-hooks/
+if test -n "$GIT_AUTHOR_NAME"
+then
+	git config --global user.name "$GIT_AUTHOR_NAME"
+fi
 
-mkdir -p /vagrant/git-log
+if test -n "$GIT_AUTHOR_EMAIL"
+then
+	git config --global user.email "$GIT_AUTHOR_EMAIL"
+fi
+
+cp ~/.gitconfig /home/vagrant/.gitconfig
+chown vagrant /home/vagrant/.gitconfig
