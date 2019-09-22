@@ -21,11 +21,11 @@ eval b=$bbox
 
 echo "{
   '_northEast': {
-    'lon': ${b[3]},
-    'lat': ${b[2]}
+    'lon': ${b[2]},
+    'lat': ${b[3]}
   },
   '_southWest': {
-    'lon': ${b[1]},
-    'lat': ${b[0]}
+    'lon': ${b[0]},
+    'lat': ${b[1]}
   }
 }" | tr "'" '"' > bbox.json
