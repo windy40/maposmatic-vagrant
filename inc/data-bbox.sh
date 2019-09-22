@@ -29,3 +29,5 @@ echo "{
     'lat': ${b[1]}
   }
 }" | tr "'" '"' > bbox.json
+
+echo "MAX_BOUNDING_BOX=(${b[1]}, ${b[0]}, ${b[3]}, ${b[2]})" > /home/maposmatic/maposmatic/www/settings_bbox.py
