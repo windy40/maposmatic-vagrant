@@ -18,8 +18,8 @@ cd srtm-data
 
 mkdir -p $CACHEDIR/srtm-data
 
-# extract bounding box data in bash array foratm
-bbox=$(osmium fileinfo --no-progress --extended --get data.bbox $OSM_EXTRACT | sed -e's/,/ /g')
+# extract bounding box data in bash array format
+bbox=$(cat /home/maposmatic/bbox.bash)
 
 # create actaul bounding box bash array
 eval b=$bbox
