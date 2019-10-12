@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles/waymarked-trails
+cd /home/maposmatic/styles/waymarked-trails-site
 
 IMPORT_SIZE=60
 
