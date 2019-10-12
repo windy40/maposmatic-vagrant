@@ -107,6 +107,7 @@ apt-get install --quiet=2 --assume-yes \
     unifont \
     unifont-bin \
     unzip \
+    wkhtmltopdf \
     > /dev/null
 
 banner "python packages"

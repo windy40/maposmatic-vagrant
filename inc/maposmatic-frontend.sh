@@ -21,6 +21,7 @@ mkdir -p logs rendering/results media
 cp $FILEDIR/config-files/config.py scripts/config.py
 cp $FILEDIR/config-files/settings_local.py www/settings_local.py
 cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
+cp /home/maposmatic/bbox.py www/settings_bbox.py
 
 # init MaposMatics housekeeping database
 banner "Dj. Migration"
