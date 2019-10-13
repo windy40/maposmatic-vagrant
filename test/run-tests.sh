@@ -64,6 +64,9 @@ do
   then
     cp thumbnails/test-base-$style-png.jpg $PREVIEW_DIR/style/$style.jpg
   fi
+
+  php index.php > index.html
+  ( cd thumbnails && php index.php > index.html )
 done
 
 for overlay in $OVERLAYS
@@ -91,9 +94,9 @@ do
   then
     cp thumbnails/test-overlay-$overlay-png.jpg $PREVIEW_DIR/overlay/$overlay.jpg
   fi
+
+  php index.php > index.html
+  ( cd thumbnails && php index.php > index.html )
 done
 
-php index.php > index.html
-cd thumbnails
-php index.php > index.html
 
