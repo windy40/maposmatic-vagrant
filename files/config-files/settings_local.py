@@ -116,6 +116,15 @@ DEFAULT_MAPOSMATIC_LOG_FORMAT = "%(asctime)s - %(name)s@%(process)d - "\
 # # Base bounding box
 BASE_BOUNDING_BOX = (51.7, 7.5, 52.2, 9.5)
 
+# Restrict map rendering to this bounding box
+# Set to False on full planet setups or if
+# you don't care to get back maps with no data
+MAX_BOUNDING_BOX = False
+
+# geojson multipolygon for the area *not*
+# covered by the data import
+# this area will be grayed out on the slippy map
+OUTER_BOUNDS_JSON = False
 
 # # Maximum length of the bounding box to be rendered. This length is
 # # checked in both directions (longitude and latitude).

@@ -23,10 +23,10 @@ cp $FILEDIR/config-files/settings_local.py www/settings_local.py
 cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
 
 # create import bounds information
-echo -n "MAX_BOUNDING_BOX=" > www/settings_bbox.py
+echo -n "MAX_BOUNDING_BOX=" > www/settings_bounds.py
 cat /home/maposmatic/bounds/bbox.py >> www/settings_bbox.py
-echo "MAX_BOUNDING_OUTER='''" >> www/settings_bbox.py
-cat /home/maposmatic/bounds/outer.json >> www/settings_bbox.py
+echo "MAX_BOUNDING_OUTER='''" >> www/settings_bounds.py
+cat /home/maposmatic/bounds/outer.json >> www/settings_bounds.py
 echo "'''" >> www/settings_bbox.py
 
 # init MaposMatics housekeeping database
