@@ -21,7 +21,13 @@ mkdir -p logs rendering/results media
 cp $FILEDIR/config-files/config.py scripts/config.py
 cp $FILEDIR/config-files/settings_local.py www/settings_local.py
 cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
-cp /home/maposmatic/bbox.py www/settings_bbox.py
+
+# create import bounds information
+echo -n "MAX_BOUNDING_BOX=" > www/settings_bbox.py
+cat /home/maposmatic/bounds/bbox.py >> www/settings_bbox.py
+echo "MAX_BOUNDING_OUTER='''" >> www/settings_bbox.py
+cat /home/maposmatic/bounds/outer.json >> www/settings_bbox.py
+echo "'''" >> www/settings_bbox.py
 
 # init MaposMatics housekeeping database
 banner "Dj. Migration"

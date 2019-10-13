@@ -19,7 +19,7 @@ cd srtm-data
 mkdir -p $CACHEDIR/srtm-data
 
 # extract bounding box data in bash array format
-bbox=$(cat /home/maposmatic/bbox.bash)
+bbox=$(cat /home/maposmatic/bounds/bbox.bash)
 
 # create actaul bounding box bash array
 eval b=$bbox
