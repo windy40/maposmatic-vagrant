@@ -13,3 +13,7 @@ sudo -u maposmatic psql gis < sql/functions.sql
 carto -a $(mapnik-config -v) --quiet project.mml  > railmap.xml
 php /vagrant/files/tools/postprocess-style.php railmap.xml
 
+carto -a $(mapnik-config -v) --quiet maxspeed.mml  > maxspeed.xml
+php /vagrant/files/tools/postprocess-style.php maxspeed.xml
+
+
