@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # For some strange reason I don't understand yet Vagrant
 # seems to write "exit" to the provisioning scripts
 # stdin stream. As this may confuse tools that optionally
