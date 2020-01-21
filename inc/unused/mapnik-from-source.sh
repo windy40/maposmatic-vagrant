@@ -16,11 +16,11 @@
     apt-get build-dep --quiet=2 --assume-yes python-mapnik
     git clone --quiet https://github.com/mapnik/mapnik.git 
     cd mapnik
-    git checkout --quiet 2.3.x
+    git checkout --quiet v3.0.x
 
     # configure, build, install
     export SCONSFLAGS="-j 2"
-    python scons/scons.py configure CXX="ccache g++" CC="ccache gcc" SCONSFLAGS=$SCONSFLAGS
+    python scons/scons.py configure CXX="g++" CC="gcc" SCONSFLAGS=$SCONSFLAGS
     python scons/scons.py
     python scons/scons.py install
     cd ..
