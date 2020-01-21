@@ -51,6 +51,7 @@ apt-get install --quiet=2 --assume-yes \
     libapache2-mod-wsgi-py3 \
     libboost-python-dev \
     libbz2-dev \
+    libcairo2-dev \
     libgdal-dev \
     libkakasi2-dev \
     liblua5.3-dev \
@@ -110,8 +111,9 @@ apt-get install --quiet=2 --assume-yes \
     > /dev/null
 
 banner "python packages"
-pip3 install --ignore-installed \
+pip3 install \
      colour \
+     django-cookie-law \
      django-maintenance-mode \
      fastnumbers \
      geoalchemy2 \
