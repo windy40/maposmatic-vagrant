@@ -19,6 +19,7 @@ SELECT osm_id
 , tags->'aeroway' as "aeroway"
 , tags->'amenity' as "amenity"
 , tags->'barrier' as "barrier"
+, tags->'bicycle' as "bicycle"
 , tags->'boundary' as "boundary"
 , tags->'bridge' as "bridge"
 , tags->'building' as "building"
