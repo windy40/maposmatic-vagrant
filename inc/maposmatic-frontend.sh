@@ -22,6 +22,9 @@ cp $FILEDIR/config-files/config.py scripts/config.py
 cp $FILEDIR/config-files/settings_local.py www/settings_local.py
 cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
 
+# copy static files from django applications
+python3 manage.py collectstatic --no-input
+
 # create import bounds information
 cp /home/maposmatic/bounds/bbox.py www/settings_bounds.py
 echo "MAX_BOUNDING_OUTER='''" >> www/settings_bounds.py
