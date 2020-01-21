@@ -191,6 +191,16 @@ PAYPAL_ID = ''
 
 PIWIK_BASE_URL = ''
 
+# how long to store the submitter IP address in the database
+# value in hours, 0 for no storage at all, -1 for unlimited
+# storage without purging
+SUBMITTER_IP_LIFETIME=-1
+
+# how many hours to store the optonal submitter IP address in
+# the database after the related rendering job finished
+# set to 0 to keep them forever
+SUBMITTER_MAIL_LIFETIME=24
+
 # Weblate base URL - link to translation service
 WEBLATE_BASE_URL = 'https://translate.get-map.org/'
 
