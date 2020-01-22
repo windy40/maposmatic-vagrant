@@ -26,7 +26,7 @@ mkdir -p $SHAPEFILE_DIR
 
 URLS=""
 
-# osmpdata - maintained by Jochen Topf and Christof Hormann,
+# osmdata - maintained by Jochen Topf and Christof Hormann,
 #   hardware sponsored by FOSSGIS e.V., Germany
 OSMDATA=https://osmdata.openstreetmap.de/download
 
@@ -38,8 +38,8 @@ URLS+="$OSMDATA/coastlines-split-3857.zip "
 URLS+="$OSMDATA/antarctica-icesheet-outlines-3857.zip "
 URLS+="$OSMDATA/antarctica-icesheet-polygons-3857.zip "
 
-# legacy version of the service above, currently still in transition
-OSMDATA_OLD=http://data.openstreetmapdata.com
+# legacy files originally provided by osmdata, but discontinued
+OSMDATA_OLD=http://osm-baustelle.de/downloads
 
 URLS+="$OSMDATA_OLD/lakes-polygons-reduced-3857.zip "
 URLS+="$OSMDATA_OLD/ocean-polygons-reduced-3857.zip "
