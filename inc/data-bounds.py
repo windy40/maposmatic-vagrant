@@ -72,7 +72,7 @@ width_factor  = row_width / bbox_width
 height_factor = row_height / bbox_height
 
 
-if width_factor < 0.75 or height_factor < 0.75:
+if width_factor < 0.75 or height_factor < 0.75 or width_factor > 1.1 or height_factor > 1.1:
     query = """
 SELECT st_asgeojson(st_makeenvelope(%s, 4326))
      , st_asgeojson(st_difference(st_geomfromtext('Polygon((-180 90, 180 90, 180 -90, -180 -90, -180 90))', 4326), st_makeenvelope(%s, 4326)))
