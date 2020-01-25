@@ -76,7 +76,7 @@ if width_factor < 0.75 or height_factor < 0.75:
     query = """
 SELECT st_asgeojson(st_makeenvelope(%s, 4326))
      , st_asgeojson(st_difference(st_geomfromtext('Polygon((-180 90, 180 90, 180 -90, -180 -90, -180 90))', 4326), st_makeenvelope(%s, 4326)))
-""" % bbox_str
+""" % (bbox_str, bbox_str)
 else:
     query = """
 SELECT st_asgeojson(st_transform(st_simplify(way, 100), 4326))
