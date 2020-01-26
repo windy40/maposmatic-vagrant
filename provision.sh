@@ -130,7 +130,7 @@ banner "db import"
 . $INCDIR/osm2pgsql-import.sh
 
 banner "get bounds"
-python3 $INCDIR/data-bounds.sh $OSM_EXTRACT
+python3 $INCDIR/data-bounds.py $OSM_EXTRACT
 
 banner "DEM setup"
 . $INCDIR/elevation-data.sh
