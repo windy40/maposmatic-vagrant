@@ -29,6 +29,10 @@ with open("bbox.wkt", 'w') as f:
 with open("bbox.bash", 'w') as f:
     f.write('(%s %s %s %s)\n' % (bbox[0], bbox[1], bbox[2], bbox[3]))
 
+with open("bbox.py", 'w') as f:
+    f.write('(%s, %s, %s %s)\n' % (bbox[1], bbox[0], bbox[3], bbox[2]))
+
+
 js = { '_northEast': { 'lon': float(bbox[2]), 'lat': float(bbox[3]) },
        '_southWest': { 'lon': float(bbox[0]), 'lat': float(bbox[1]) }}
 
