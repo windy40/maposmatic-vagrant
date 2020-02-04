@@ -20,6 +20,11 @@ cd tools
 
 git clone --quiet https://github.com/giggls/mapnik-german-l10n.git
 cd mapnik-german-l10n
+for target in README INSTALL TODO
+do
+	make $target 2>/dev/null
+	make $target.html 2>/dev/null
+done
 make install
 sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION osml10n"
 
