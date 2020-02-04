@@ -4,6 +4,11 @@
 #
 #----------------------------------------------------
 
+# config tweaks
+# TODO how to auto-detect correct conf include dir?
+cp /vagrant/files/config-files/postgresql-extra.conf /etc/postgresql/11/main/conf.d/
+systemctl restart postgresql
+
 # add "gis" database users
 sudo --user=postgres createuser --superuser --no-createdb --no-createrole maposmatic
 sudo -u postgres createuser -g maposmatic root
