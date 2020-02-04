@@ -13,6 +13,7 @@ SELECT osm_id
 , osml10n_get_streetname_from_tags(tags,true,false,' - ','de', way) as localized_streetname
 , COALESCE(tags->'name:hsb',tags->'name:dsb',tags->'name')          as name_hrb
 -- hstore tag 'columns' (sorted)
+, tags->'access' as "access"
 , tags->'addr:housenumber' as "addr:housenumber"
 , tags->'admin_level' as "admin_level"
 , tags->'aerialway' as "aerialway"
