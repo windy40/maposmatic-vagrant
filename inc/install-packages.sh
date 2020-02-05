@@ -62,7 +62,6 @@ apt-get install --quiet=2 --assume-yes \
     libutf8proc-dev \
     mapnik-utils \
     mc \
-    npm \
     osm2pgsql \
     osmium-tool \
     osmosis \
@@ -136,7 +135,9 @@ gem install --pre asciidoctor-pdf > /dev/null
 
 # install extra npm packages
 banner "npm packages"
-(cd /usr/local/bin; ln -s /usr/bin/nodejs node)
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
 npm config set loglevel warn
 
 npm install -g carto

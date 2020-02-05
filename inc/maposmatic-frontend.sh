@@ -12,7 +12,7 @@ git checkout --quiet site-osm-baustelle
 
 
 # install dependencies
-(cd www/static; npm install)
+(cd www/static; HOME=/root npm install)
 
 # create needed directories and tweak permissions
 mkdir -p logs rendering/results media
