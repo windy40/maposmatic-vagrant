@@ -2,11 +2,14 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/disco64"
+  config.vm.box = "generic/ubuntu1904"
 
   config.vm.network "forwarded_port", guest: 80, host: 8000
 
+  config.vm.synced_folder ".", "/vagrant/", mount_options: ["dmode=777"]
   config.vm.synced_folder "test", "/vagrant/test", mount_options: ["dmode=777"]
+
+  config.vm.boot_timeout = 600
 
   config.vm.provider "virtualbox" do |vb|
     # vb.gui = true
