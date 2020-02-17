@@ -114,6 +114,7 @@ pip3 install \
      colour \
      django-cookie-law \
      django-maintenance-mode \
+     django-multiupload \
      fastnumbers \
      geoalchemy2 \
      geopy \
