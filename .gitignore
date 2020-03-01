@@ -55,6 +55,9 @@ test/thumbnails/index.html
 cache
 files/shapefiles
 
+# ignore render config file
+.ocitysmap.conf
+
 # editor backup file patterns
 *~
 .*.swp 
