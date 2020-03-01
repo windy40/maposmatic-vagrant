@@ -122,13 +122,19 @@ pip3 install \
      osmium \
      pillow \
      pluginbase \
-     pycairo \
      pyproj \
      qrcode \
      "sqlalchemy==1.2" \
      "sqlalchemy-utils==0.35" \
      utm \
      > /dev/null
+
+# we can't uninstall the Ubuntu python3-pycairo package
+# due to too many dependencies, but we need to make sure
+# that we actually use the current pip pacakge to get
+# support for PDF set_page_label() which the version
+# of pycairo that comes with Ubuntu does not have yet
+pip3 install --ignore-installed pycairo
 
 banner "ruby packages"
 gem install --pre asciidoctor-pdf > /dev/null
