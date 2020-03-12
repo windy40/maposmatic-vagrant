@@ -34,8 +34,8 @@ then
     shift
   done
 else
-  STYLES=$(grep name: $CONFIG | grep -v '#' | grep -vi 'Overlay' | sed -e 's/name://g' | sort)
-  OVERLAYS=$(grep name: $CONFIG | grep -v '#' | grep -i Overlay | sed -e 's/name://g' | sort)
+  STYLES=$(grep name= $CONFIG | grep -v '#' | grep -vi 'Overlay' | sed -e 's/name=//g' | sort)
+  OVERLAYS=$(grep name= $CONFIG | grep -v '#' | grep -i Overlay | sed -e 's/name=//g' | sort)
   rm -rf test-* thumbnails/test-*
 fi
 
