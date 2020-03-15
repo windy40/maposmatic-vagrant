@@ -9,7 +9,10 @@ cd /home/maposmatic/styles
 git clone --quiet https://github.com/giggls/openstreetmap-carto-de.git
 
 cd openstreetmap-carto-de
-git checkout --quiet v4.24.0-l10n0
+
+latest_tag=$(php /vagrant/files/tools/get-latest-tag.php 'v.*-de\d+')
+
+git checkout --quiet v4.24.0-de1
 
 sed -i -e's/dbname: "osm"/dbname: "gis"/' project.mml
 sed -i -e's/carto /carto -q /g' Makefile
