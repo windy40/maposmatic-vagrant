@@ -8,18 +8,25 @@ $results = [];
 $types   = [];
 
 foreach (glob("../test*.png") as $test) {
-    preg_match('|test-(\w+)-(\w+)-(\w+).png|', $test, $m);
+    if (preg_match('|test-(\w+)-([-\w]+)-(\w+)\.png|', $test, $m)) {
+      $type   = $m[1];
+      $style  = $m[2];
+      $format = $m[3];
 
-    $type   = $m[1];
-    $style  = $m[2];
-    $format = $m[3];
+      if (!isset($results[$type])) {
+          $results[$type] = array();
+      }
 
-    if (!isset($results[$type])) $results[$type] = array();
-    if (!isset($results[$type][$style])) $results[$type][$style] = array();
+      if (!isset($results[$type][$style])) {
+          $results[$type][$style] = array();
+      }
 
-    $results[$type][$style][$format] = basename($test, ".png");
+      $results[$type][$style][$format] = basename($test, ".png");
 
-    $types[$type] = $type;
+      $types[$type] = $type;
+    } else {
+        error_log("unmatch: $test\n");
+    }
 }
 
 foreach ($types as $type) {

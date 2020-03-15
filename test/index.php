@@ -12,18 +12,25 @@ $format_names = ["multi", "pdf", "png", "svgz"];
 $time_files = glob("test*.time");
 sort($time_files);
 foreach ($time_files as $test) {
-    preg_match('|test-(\w+)-(\w+)-(\w+).time|', $test, $m);
+    if (preg_match('|test-(\w+)-([-\w]+)-(\w+)\.time|', $test, $m)) {
+        $type   = $m[1];
+        $style  = $m[2];
+        $format = $m[3];
 
-    $type   = $m[1];
-    $style  = $m[2];
-    $format = $m[3];
+        if (!isset($results[$type])) {
+	    $results[$type] = array();
+        }
 
-    if (!isset($results[$type])) $results[$type] = array();
-    if (!isset($results[$type][$style])) $results[$type][$style] = array();
+        if (!isset($results[$type][$style])) {
+            $results[$type][$style] = array();
+        }
 
-    $results[$type][$style][$format] = basename($test, ".time");
+	$results[$type][$style][$format] = basename($test, ".time");
 
-    $types[$type] = $type;
+	$types[$type] = $type;
+    } else {
+        error_log("unmatch: $test\n");
+    }
 }
 
 foreach ($types as $type) {
@@ -38,6 +45,7 @@ foreach ($types as $type) {
   echo "</tr>\n";
 
   foreach($results[$type] as $style => $formats) {
+    $style = str_ireplace("-$type", "", $style);
     echo "<tr><td>$style</td>";
 
     foreach($formats as $format => $base) {
