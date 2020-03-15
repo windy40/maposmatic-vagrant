@@ -3,8 +3,8 @@
 PROJECT="/home/maposmatic"
 CONFIG="$PROJECT/.ocitysmap.conf"
 
-LAYOUT="single_page_index_side"
-ORIENTATION="landscape"
+LAYOUT="plain"
+ORIENTATION="portrait"
 
 BBOX="52.0100,8.5122 52.0300,8.5432" # Bielefeld
 
