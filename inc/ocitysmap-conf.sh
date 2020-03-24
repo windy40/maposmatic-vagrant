@@ -28,7 +28,7 @@ EOF
 echo -n "available_stylesheets= " >> $CONF
 grep --no-filename '\[.*\]' /vagrant/inc/styles/*.ini | sed -e 's/\[//g' -e 's/\]//g' | paste -sd "," >> $CONF
 
-echo -n "available_overlays= compass_rose,scalebar,osm_notes,qrcode,surveillance," >> $CONF
+echo -n "available_overlays= " >> $CONF
 grep --no-filename '\[.*\]' /vagrant/inc/overlays/*.ini | sed -e 's/\[//g' -e 's/\]//g' | paste -sd "," >> $CONF
 
 cat /vagrant/inc/styles/*.ini /vagrant/inc/overlays/*.ini >> $CONF
