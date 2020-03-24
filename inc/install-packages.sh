@@ -98,6 +98,9 @@ apt-get install --quiet=2 --assume-yes \
     python3-urllib3 \
     subversion \
     sysvbanner \
+    texlive-extra-utils \
+    texlive-latex-base \
+    texlive-latex-recommended \
     time \
     transifex-client \
     tree \
