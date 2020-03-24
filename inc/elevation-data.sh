@@ -81,6 +81,7 @@ do
 done
 
 # merge all elevation data into one single large tiled file
+echo "merging data into single file"
 gdal_merge.py -n 32767 -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -o raw.tif *.hgt.tif -q
 
 ln -s raw.tif dem-srtm.tiff
@@ -90,15 +91,18 @@ ln -s raw.tif dem_srtm.tiff
 interpolation=cubicspline
 for r in 90 500 1000 5000
 do
+  echo "interpolation $r"
   gdalwarp -co BIGTIFF=YES -co TILED=YES -co COMPRESS=LZW -co PREDICTOR=2 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m" -r $interpolation -tr $r $r raw.tif warp-$r.tif -q
   interpolation=bilinear
 done
 
 # create colored reliefs for low zoom levels
+echo "low color reliefs"
 gdaldem color-relief -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-5000.tif relief_color_text_file.txt relief-5000.tif -q
 gdaldem color-relief -co COMPRESS=LZW -co PREDICTOR=2 -alpha warp-500.tif  relief_color_text_file.txt relief-500.tif -q
 
 # create hillshading 
+echo "hillshading"
 gdaldem hillshade -z 7 -compute_edges -co COMPRESS=JPEG warp-5000.tif hillshade-5000.tif -q
 gdaldem hillshade -z 7 -compute_edges -co BIGTIFF=YES -co TILED=YES -co COMPRESS=JPEG warp-1000.tif hillshade-1000.tif -q
 gdaldem hillshade -z 4 -compute_edges -co BIGTIFF=YES -co TILED=YES -co COMPRESS=JPEG warp-500.tif hillshade-500.tif -q
@@ -106,10 +110,13 @@ gdaldem hillshade -z 7 -combined -compute_edges -co compress=lzw -co predictor=2
 # TODO: not used? gdal_translate -co compress=JPEG -co bigtiff=yes -co tiled=yes hillshade-90.tif hillshade-90-jpeg.tif -q
 
 # set up countours database and table schema
+echo "create contour db"
 sudo -u maposmatic psql --quiet gis < /vagrant/files/database/db_dumps/contours_schema.sql 
 
 # create contours shapefile and imports its data into the database
-gdal_contour -i 10 -a ele warp-90.tif . -q
+echo "gdal_contour"
+gdal_contour -i 10 -a ele warp-90.tif contour.shp -q
+echo "shp2pgsql"
 shp2pgsql -a -g way -s 3857 contour.shp contours | psql --quiet contours 
 
 cd ..
