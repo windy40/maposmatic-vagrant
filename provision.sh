@@ -32,6 +32,9 @@ fi
 
 mkdir -p $CACHEDIR
 
+# store memory size in KB in $MemTotal
+export $(grep MemTotal /proc/meminfo | sed -e's/kB//' -e's/ //g' -e's/:/=/')
+
 #----------------------------------------------------
 #
 # check for an OSM PBF extract to import
