@@ -19,6 +19,9 @@ then
   wget https://raw.githubusercontent.com/giggls/openstreetmap-carto-de/master/openstreetmap-carto.lua
 fi
 
+let CacheSize=$MemTotal/3072
+echo "osm2pgsql cache size: $CacheSize"
+
 # import data
 sudo --user=maposmatic osm2pgsql \
      --create \
@@ -26,8 +29,8 @@ sudo --user=maposmatic osm2pgsql \
      --database=gis \
      --merc \
      --hstore-all \
-     --cache=1000 \
-     --number-processes=2 \
+     --cache=$CacheSize \
+     --number-processes=$(nproc) \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
