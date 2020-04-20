@@ -68,7 +68,7 @@ apt-get install --quiet=2 --assume-yes \
     pandoc \
     php-cli \
     php-http-request2 \
-    php7.2-xml \
+    php7.4-xml \
     pngquant \
     poedit \
     postgis \
