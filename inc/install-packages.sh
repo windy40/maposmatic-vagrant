@@ -75,12 +75,6 @@ apt-get install --quiet=2 --assume-yes \
     postgresql \
     postgresql-contrib \
     postgresql-server-dev-all \
-    python-gdal \
-    python-mapnik \
-    python-setuptools \
-    python-matplotlib \
-    python-beautifulsoup \
-    python-numpy \
     python3-django \
     python3-future \
     python3-feedparser \
