@@ -25,6 +25,7 @@ apt-get update --quiet=2
 # install needed extra deb pacakges
 apt-get install --quiet=2 --assume-yes \
     apache2 \
+    apt-src \
     asciidoctor \
     cabextract \
     cmake \
@@ -83,7 +84,6 @@ apt-get install --quiet=2 --assume-yes \
     python3-gi-cairo \
     python3-gpxpy \
     python3-lxml \
-    python3-mapnik \
     python3-pip \
     python3-pil \
     python3-psycopg2 \
@@ -132,6 +132,22 @@ pip3 install \
 # support for PDF set_page_label() which the version
 # of pycairo that comes with Ubuntu does not have yet
 pip3 install --ignore-installed pycairo
+
+
+# for now on Ubunto Focal we need to install from source packages,
+# see https://bugs.launchpad.net/ubuntu/+source/python-mapnik/+bug/1873670
+
+sed -i -e 's/^# deb-src/deb-src/g' /etc/apt/sources.list
+apt-get update
+
+mkdir -p /home/maposmatic/build-from-src/python3-mapnik
+cd /home/maposmatic/build-from-src/python3-mapnik
+apt-get build-dep -y python3-mapnik
+apt-src install python3-mapnik
+apt-src build python3-mapnik
+dpkg -i python3-mapnik*.deb
+
+
 
 banner "ruby packages"
 gem install --pre asciidoctor-pdf > /dev/null
