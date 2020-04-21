@@ -111,7 +111,6 @@ pip3 install \
      colour \
      django-cookie-law \
      django-maintenance-mode \
-     django-multiupload \
      fastnumbers \
      geoalchemy2 \
      geopy \
@@ -125,6 +124,9 @@ pip3 install \
      "sqlalchemy-utils==0.35" \
      utm \
      > /dev/null
+
+# pip repository version of django-multiupload not compatible with Django 2.1+ yet
+pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload >/dev/null
 
 # we can't uninstall the Ubuntu python3-pycairo package
 # due to too many dependencies, but we need to make sure
