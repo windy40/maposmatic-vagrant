@@ -98,12 +98,13 @@ apt-get install --quiet=2 --assume-yes \
     transifex-client \
     tree \
     ttf-dejavu \
+    ttf-mscorefonts-installer \
     ttf-unifont \
     unifont \
     unifont-bin \
     unzip \
     wkhtmltopdf \
-    > /dev/null
+    > /dev/null || exit 3
 
 banner "python packages"
 pip3 install \
@@ -122,17 +123,17 @@ pip3 install \
      "sqlalchemy==1.2" \
      "sqlalchemy-utils==0.35" \
      utm \
-     > /dev/null
+     > /dev/null || exit 3
 
 # pip repository version of django-multiupload not compatible with Django 2.1+ yet
-pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload >/dev/null
+pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload > /dev/null || exit 3
 
 # we can't uninstall the Ubuntu python3-pycairo package
 # due to too many dependencies, but we need to make sure
 # that we actually use the current pip pacakge to get
 # support for PDF set_page_label() which the version
 # of pycairo that comes with Ubuntu does not have yet
-pip3 install --ignore-installed pycairo
+pip3 install --ignore-installed pycairo > /dev/null || exit 3
 
 
 # for now on Ubunto Focal we need to install from source packages,
@@ -151,7 +152,7 @@ dpkg -i python3-mapnik*.deb
 
 
 banner "ruby packages"
-gem install --pre asciidoctor-pdf > /dev/null
+gem install --pre asciidoctor-pdf > /dev/null || exit 3 
 
 
 # install extra npm packages
@@ -161,17 +162,5 @@ sudo apt-get install -y nodejs
 
 npm config set loglevel warn
 
-npm install -g carto
-
-# this package is currently broken in Ubuntu, see e.g. 
-# https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535
-# so we need to use the working upstream Debian package
-
-banner "ms fonts"
-if ! dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb > /dev/null 2>/tmp/ms-fonts.log
-then
-	cat 1>&2 /tmp/ms-fonts.log
-fi
-
-
+npm install -g carto > /dev/null || exit 3
 
