@@ -94,6 +94,8 @@ else
     mkdir -p ~/.ccache
 fi
 
+# add "maposmatic" system user that will own the database and all locally installed stuff
+useradd --create-home maposmatic
 
 # installing apt, pip and npm packages
 
@@ -101,9 +103,6 @@ fi
 
 # initial git configuration
 . $INCDIR/git-setup.sh
-
-# add "maposmatic" system user that will own the database and all locally installed stuff
-useradd --create-home maposmatic
 
 # add host entry for gis-db
 sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
