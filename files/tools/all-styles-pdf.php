@@ -75,7 +75,7 @@ foreach ($style_groups as $name => $group) {
   $style_files[] = "/vagrant/test/test-overlay-".str_replace('_','-',$style["name"])."-pdf.pdf";
 }
 
-$cmd = "pdfnup --quiet --nup 5x5 --papersize '{594mm,841mm}' --outfile all-styles-poster.pdf " . join(" ", $style_files);
+$cmd = "pdfjam --suffix nup --quiet --nup 5x5 --papersize '{594mm,841mm}' --outfile all-styles-poster.pdf " . join(" ", $style_files);
 
 system($cmd);
 
@@ -84,7 +84,7 @@ foreach ($overlay_groups as $name => $group) {
   $style_files[] = "/vagrant/test/test-overlay-".str_replace('_','-',$style["name"])."-pdf.pdf";
 }
 
-$cmd = "pdfnup --quiet --nup 5x5 --papersize '{594mm,841mm}' --outfile all-overlays-poster.pdf " . join(" ", $style_files);
+$cmd = "pdfjum --suffix nup --quiet --nup 5x5 --papersize '{594mm,841mm}' --outfile all-overlays-poster.pdf " . join(" ", $style_files);
 
 system($cmd);
 
