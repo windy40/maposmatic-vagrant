@@ -63,7 +63,6 @@ apt-get install --quiet=2 --assume-yes \
     libutf8proc-dev \
     mapnik-utils \
     mc \
-    osm2pgsql \
     osmium-tool \
     osmosis \
     pandoc \

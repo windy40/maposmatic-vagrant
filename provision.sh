@@ -123,8 +123,8 @@ banner "db l10n"
 banner "building osgende"
 . $INCDIR/osgende.sh
 
-# banner "building osm2pgsql"
-# . $INCDIR/osm2pgsql-build.sh
+banner "building osm2pgsql"
+. $INCDIR/osm2pgsql-build.sh
 
 banner "building phyghtmap" # needed by OpenTopoMap
 . $INCDIR/phyghtmap.sh
