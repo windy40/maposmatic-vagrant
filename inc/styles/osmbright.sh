@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/styles
 
-git clone --quiet https://github.com/mapbox/osm-bright.git
+git clone --quiet https://github.com/hholzgra/osm-bright.git
 
 cd osm-bright
 
