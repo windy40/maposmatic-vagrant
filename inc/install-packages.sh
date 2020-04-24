@@ -18,6 +18,7 @@ echo " #    #  #          #            #       #    #   ####   #    #  #    #   
 
 # prevent configuration dialogs from popping up, we want fully automatic install
 export DEBIAN_FRONTEND=noninteractive
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 
 # bring apt package database up to date
 apt-get update --quiet=2
