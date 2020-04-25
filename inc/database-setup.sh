@@ -24,6 +24,7 @@ sudo --user=postgres createdb --encoding=UTF8 --locale=en_US.UTF-8 --template=te
 sudo --user=postgres psql --dbname=gis --command="CREATE EXTENSION postgis"
 sudo --user=postgres psql --dbname=gis --command="ALTER TABLE geometry_columns OWNER TO maposmatic"
 sudo --user=postgres psql --dbname=gis --command="ALTER TABLE spatial_ref_sys OWNER TO maposmatic"
+sudo --user=postgres psql --dbname=gis --command="CREATE EXTENSION postgis_sfcgal"
 
 # enable hstore extension
 sudo --user=postgres psql --dbname=gis --command="CREATE EXTENSION hstore"

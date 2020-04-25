@@ -64,6 +64,7 @@ apt-get install --quiet=2 --assume-yes \
     libutf8proc-dev \
     mapnik-utils \
     mc \
+    mmv \
     osmium-tool \
     osmosis \
     pandoc \
