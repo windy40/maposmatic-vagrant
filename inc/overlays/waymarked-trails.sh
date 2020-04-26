@@ -58,4 +58,6 @@ then
     cp /vagrant/files/systemd/waymarked-update.* /etc/systemd/system
     chmod 644 /etc/systemd/system/waymarked-update.*
     systemctl daemon-reload
+    systemctl enable waymarked-update.timer
+    systemctl start waymarked-update.timer
 fi
