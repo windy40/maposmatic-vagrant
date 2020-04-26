@@ -66,7 +66,6 @@ apt-get install --quiet=2 --assume-yes \
     mc \
     mmv \
     osmium-tool \
-    osmosis \
     pandoc \
     php-cli \
     php-http-request2 \
