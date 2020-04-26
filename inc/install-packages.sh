@@ -122,7 +122,7 @@ pip3 install \
      pluginbase \
      pyproj \
      qrcode \
-     "sqlalchemy==1.2" \
+     sqlalchemy \
      "sqlalchemy-utils==0.35" \
      utm \
      > /dev/null || exit 3
