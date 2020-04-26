@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic
+cd /home/maposmatic/tools
 
 apt-get build-dep osm2pgsql
 
@@ -11,5 +11,5 @@ cd osm2pgsql
 mkdir _build
 cd _build
 
-cmake ..
-make install
+cmake .. >/dev/null
+make -j$(nproc) install >/dev/null
