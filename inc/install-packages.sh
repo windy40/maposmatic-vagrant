@@ -20,6 +20,9 @@ echo " #    #  #          #            #       #    #   ####   #    #  #    #   
 export DEBIAN_FRONTEND=noninteractive
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 
+# enable deb-src entries in apt sources list, needed for "apt build-dep"
+sed -i -e 's/^# deb-src/deb-src/g' /etc/apt/sources.list
+
 # bring apt package database up to date
 apt-get update --quiet=2
 
@@ -84,6 +87,7 @@ apt-get install --quiet=2 --assume-yes \
     python3-gi-cairo \
     python3-gpxpy \
     python3-lxml \
+    python3-mapnik \
     python3-pip \
     python3-pil \
     python3-psycopg2 \
@@ -135,21 +139,6 @@ pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupl
 # support for PDF set_page_label() which the version
 # of pycairo that comes with Ubuntu does not have yet
 pip3 install --ignore-installed pycairo > /dev/null || exit 3
-
-
-# for now on Ubunto Focal we need to install from source packages,
-# see https://bugs.launchpad.net/ubuntu/+source/python-mapnik/+bug/1873670
-
-sed -i -e 's/^# deb-src/deb-src/g' /etc/apt/sources.list
-apt-get update
-
-mkdir -p /home/maposmatic/build-from-src/python3-mapnik
-cd /home/maposmatic/build-from-src/python3-mapnik
-apt-get build-dep -y python3-mapnik
-apt-src install python3-mapnik
-apt-src build python3-mapnik
-dpkg -i python3-mapnik*.deb
-
 
 
 banner "ruby packages"
