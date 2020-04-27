@@ -2,7 +2,7 @@
 
 cd /home/maposmatic/tools
 
-apt-get build-dep osm2pgsql
+apt-get build-dep -y osm2pgsql
 
 git clone --quiet https://github.com/openstreetmap/osm2pgsql.git
 
