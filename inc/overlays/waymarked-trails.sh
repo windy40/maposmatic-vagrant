@@ -24,7 +24,7 @@ chown -R maposmatic .
 sudo -u maposmatic dropdb --if-exists $DBNAME
 
 echo "Importing main DB"
-time sudo -u maposmatic python3 makedb.py -d $DBNAME -j 8 -f $FILE $REPLICATION_BASE_OPTION db import
+time sudo -u maposmatic python3 makedb.py -d $DBNAME -j $(nproc) -f $FILE $REPLICATION_BASE_OPTION db import
 
 echo "Indexing main DB"
 time sudo -u maposmatic python3 makedb.py -d $DBNAME db prepare
@@ -45,7 +45,7 @@ do
   time sudo -u maposmatic python3 makedb.py -d $DBNAME $style create
 
   echo "Importing $style DB"
-  time sudo -u maposmatic python3 makedb.py -d $DBNAME $style import
+  time sudo -u maposmatic python3 makedb.py -j $(nproc) -d $DBNAME $style import
 done
 
 sudo -u maposmatic psql planet -c "create table waymarked_admin(last_update timestamp)"
