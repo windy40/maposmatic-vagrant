@@ -4,7 +4,7 @@ DBNAME=planet
 FILE="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 FILEDATE=$(date -r $FILE "+%Y-%m-%d %H:%M:%S")
 STYLES="hiking cycling mtb riding skating slopes"
-REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${OSM_EXTRACT}")"
+REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${FILE}")"
 if test -z "$REPLICATION_BASE_URL"
 then
 	REPLICATION_BASE_OPTION=''
