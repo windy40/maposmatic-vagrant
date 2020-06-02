@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "generic/ubuntu1904"
+  config.vm.box = "ubuntu/focal64"
 
   config.vm.network "forwarded_port", guest: 80, host: 8000
 
@@ -25,6 +25,10 @@ Vagrant.configure(2) do |config|
     config.cache.synced_folder_opts = {
       owner: "_apt"
     }
+  end
+
+  unless Vagrant.has_plugin?("vagrant-vbguest")
+    raise 'vbguest plugin is not installed - run "vagrant plugin install vagrant-vbguest" first'
   end
 
   unless Vagrant.has_plugin?("vagrant-disksize")

@@ -18,6 +18,10 @@ echo " #    #  #          #            #       #    #   ####   #    #  #    #   
 
 # prevent configuration dialogs from popping up, we want fully automatic install
 export DEBIAN_FRONTEND=noninteractive
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+
+# enable deb-src entries in apt sources list, needed for "apt build-dep"
+sed -i -e 's/^# deb-src/deb-src/g' /etc/apt/sources.list
 
 # bring apt package database up to date
 apt-get update --quiet=2
@@ -25,6 +29,7 @@ apt-get update --quiet=2
 # install needed extra deb pacakges
 apt-get install --quiet=2 --assume-yes \
     apache2 \
+    apt-src \
     asciidoctor \
     cabextract \
     cmake \
@@ -62,25 +67,18 @@ apt-get install --quiet=2 --assume-yes \
     libutf8proc-dev \
     mapnik-utils \
     mc \
-    osm2pgsql \
+    mmv \
     osmium-tool \
-    osmosis \
     pandoc \
     php-cli \
     php-http-request2 \
-    php7.2-xml \
+    php7.4-xml \
     pngquant \
     poedit \
     postgis \
     postgresql \
     postgresql-contrib \
     postgresql-server-dev-all \
-    python-gdal \
-    python-mapnik \
-    python-setuptools \
-    python-matplotlib \
-    python-beautifulsoup \
-    python-numpy \
     python3-django \
     python3-future \
     python3-feedparser \
@@ -105,12 +103,13 @@ apt-get install --quiet=2 --assume-yes \
     transifex-client \
     tree \
     ttf-dejavu \
+    ttf-mscorefonts-installer \
     ttf-unifont \
     unifont \
     unifont-bin \
     unzip \
     wkhtmltopdf \
-    > /dev/null
+    > /dev/null || exit 3
 
 # this may cause crashes on fetching OSM diffs with osmium, so lets remove it for now
 apt-get remove -y python3-apport > /dev/null
@@ -120,7 +119,6 @@ pip3 install \
      colour \
      django-cookie-law \
      django-maintenance-mode \
-     django-multiupload \
      fastnumbers \
      geoalchemy2 \
      geopy \
@@ -130,20 +128,24 @@ pip3 install \
      pluginbase \
      pyproj \
      qrcode \
-     "sqlalchemy==1.2" \
+     sqlalchemy \
      "sqlalchemy-utils==0.35" \
      utm \
-     > /dev/null
+     > /dev/null || exit 3
+
+# pip repository version of django-multiupload not compatible with Django 2.1+ yet
+pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload > /dev/null || exit 3
 
 # we can't uninstall the Ubuntu python3-pycairo package
 # due to too many dependencies, but we need to make sure
 # that we actually use the current pip pacakge to get
 # support for PDF set_page_label() which the version
 # of pycairo that comes with Ubuntu does not have yet
-pip3 install --ignore-installed pycairo
+pip3 install --ignore-installed pycairo > /dev/null || exit 3
+
 
 banner "ruby packages"
-gem install --pre asciidoctor-pdf > /dev/null
+gem install --pre asciidoctor-pdf > /dev/null || exit 3 
 
 
 # install extra npm packages
@@ -153,17 +155,5 @@ sudo apt-get install -y nodejs
 
 npm config set loglevel warn
 
-npm install -g carto
-
-# this package is currently broken in Ubuntu, see e.g. 
-# https://bugs.launchpad.net/ubuntu/+source/msttcorefonts/+bug/1607535
-# so we need to use the working upstream Debian package
-
-banner "ms fonts"
-if ! dpkg -i /vagrant/files/ttf-mscorefonts-installer_3.6_all.deb > /dev/null 2>/tmp/ms-fonts.log
-then
-	cat 1>&2 /tmp/ms-fonts.log
-fi
-
-
+npm install -g carto > /dev/null || exit 3
 

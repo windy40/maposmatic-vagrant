@@ -1,20 +1,27 @@
 #! /bin/bash
 
-cd /home/maposmatic
+cd /home/maposmatic/osm2pgsql-import
 
-WORKOSM_DIR=/home/maposmatic/osmosis-diffimport/
+STATEFILE=sequence_number
+DIFFFILE=pyosmium.osc
+BASE_URL=$(cat replication_url)
 
-if ! test -f $WORKOSM_DIR/state.txt
+if ! test -f $STATEFILE
 then
     echo "No OSM import state file found"
     exit 3
 fi
 
-cp $WORKOSM_DIR/state.txt $WORKOSM_DIR/state.old
+cp $STATEFILE $STATEFILE.old
 
-osmosis --read-replication-interval workingDirectory=${WORKOSM_DIR} \
-	--simplify-change --write-xml-change $WORKOSM_DIR/changes.xml \
-	|| exit 3
+rm -f $DIFFFILE
+if ! pyosmium-get-changes -v --size 10 --sequence-file $STATEFILE --outfile $DIFFFILE  --server=$BASE_URL
+then
+    echo "getting changes failed"
+    mv $STATEFILE.old $STATEFILE
+    rm -f $DIFFFILE
+    exit 3
+fi
 
 if sudo -u maposmatic osm2pgsql \
      --append \
@@ -27,14 +34,15 @@ if sudo -u maposmatic osm2pgsql \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
-     $WORKOSM_DIR/changes.xml
+     $DIFFFILE 
 then
-    echo "OSM data imported up to $timestamp"
-    . $WORKOSM_DIR/state.txt # get timestamp from osmosis state.txt file
+    timestamp=$(osmium fileinfo --extended --no-progress --get data.timestamp.last $DIFFFILE)
     sudo -u maposmatic psql gis -c "update maposmatic_admin set last_update='$timestamp'"
+    rm -f $DIFFFILE
 else
     echo "OSM data import failed"
-    rm -f $WORKOSM_DIR/changes.xml
-    mv $WORKOSM_DIR/state.old $WORKOSM_DIR/state.txt
+    rm -f $DIFFFILE
+    mv $STATEFILE.old $STATEFILE
+    exit 3
 fi
 

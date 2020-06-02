@@ -4,7 +4,7 @@ Wants=postgresql.service
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/maposmatic/osmosis-diffimport
+WorkingDirectory=/home/maposmatic/osm2pgsql-import
 ExecStart=/vagrant/inc/osm2pgsql-update.sh
 
 

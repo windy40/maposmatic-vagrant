@@ -8,6 +8,9 @@ OSM_EXTRACT="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 
 cd /home/maposmatic
 
+mkdir -p osm2pgsql-import
+cd osm2pgsql-import
+
 # get style file
 
 if ! test -f hstore-only.style
@@ -48,42 +51,24 @@ done
 
 
 # prepare for diff imports
-OSMOSIS_DIFFIMPORT=/home/maposmatic/osmosis-diffimport
-mkdir -p $OSMOSIS_DIFFIMPORT
-
-REPLICATION_BASE_URL="$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${OSM_EXTRACT}")"
+REPLICATION_BASE_URL=$(osmium fileinfo -g 'header.option.osmosis_replication_base_url' "${OSM_EXTRACT}")
 if ! test -z "$REPLICATION_BASE_URL"
 then
-    echo -e "baseUrl=${REPLICATION_BASE_URL}\nmaxInterval=3600" > "${OSMOSIS_DIFFIMPORT}/configuration.txt"
+    REPLICATION_SEQUENCE_NUMBER=$(osmium fileinfo -g 'header.option.osmosis_replication_sequence_number' ${OSM_EXTRACT})
+    REPLICATION_TIMESTAMP=$(osmium fileinfo -g 'header.option.osmosis_replication_timestamp' ${OSM_EXTRACT})
 
-    REPLICATION_SEQUENCE_NUMBER="$( printf "%09d" "$(osmium fileinfo -g 'header.option.osmosis_replication_sequence_number' "${OSM_EXTRACT}")" | sed ':a;s@\B[0-9]\{3\}\>@/&@;ta' )"
+    echo -n $REPLICATION_BASE_URL > replication_url
+    echo -n $REPLICATION_SEQUENCE_NUMBER > sequence_number
 
     cp /vagrant/files/systemd/osm2pgsql-update.* /etc/systemd/system
     chmod 644 /etc/systemd/system/osm2pgsql-update.*
     systemctl daemon-reload
-
-
-    
-    if curl -f -s -L -o "${OSMOSIS_DIFFIMPORT}/state.txt" "${REPLICATION_BASE_URL}/${REPLICATION_SEQUENCE_NUMBER}.state.txt"
-    then
-      # update import timestamp by osmosis state file
-      . ${OSMOSIS_DIFFIMPORT}/state.txt # get timestamp from osmosis state.txt file
-    fi
+    systemctl enable osm2pgsql-update.timer
+    systemctl start osm2pgsql-update.timer
+else
+    # fallback: take timestamp from actual file contents
+    REPLICATION_TIMESTAMP=$(osmium fileinfo -e -g date.timestamp.last $OSM_EXTRACT)
 fi
 
-if test -z "$timestamp"
-then
-    # fallback: take timestamp from file metadata	
-    timestamp=$(osmium fileinfo -g header.option.osmosis_replication_timestamp $OSM_EXTRACT)
-
-    if test -z "$timestamp"
-    then
-        # 2nd fallback:
-        # update import timestamp by osm file timestamp
-        timestamp=$(stat --format='%Y' $OSM_EXTRACT)
-        timestring=$(date --utc --date="@$timestamp" +"%FT%TZ")
-    fi
-fi
-
-sudo -u maposmatic psql gis -c "update maposmatic_admin set last_update='$timestamp'"
+sudo -u maposmatic psql gis -c "update maposmatic_admin set last_update='$REPLICATION_TIMESTAMP'"
 

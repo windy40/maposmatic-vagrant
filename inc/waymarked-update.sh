@@ -4,7 +4,7 @@ cd /home/maposmatic/styles/waymarked-trails-site
 
 IMPORT_SIZE=60
 
-REP_SERVICE=$(cat /home/maposmatic/osmosis-diffimport/baseurl.txt)
+REP_SERVICE=$(cat /home/maposmatic/osm2pgsql-import/replication_url)
 
 PROCESSES=2
 
