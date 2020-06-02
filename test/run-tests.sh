@@ -11,7 +11,8 @@ BBOX="52.0100,8.5122 52.0300,8.5432" # Bielefeld
 PAPER="Din A4"
 THUMB_WIDTH="400"
 
-BASE_FOR_OVERLAY="CartoOsmBW"
+#BASE_FOR_OVERLAY="CartoOsmBW"
+BASE_FOR_OVERLAY="Empty"
 PREVIEW_DIR=/home/maposmatic/maposmatic/www/static/img/
 
 # PYTHON="python"
