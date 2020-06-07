@@ -24,7 +24,13 @@ echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select tr
 sed -i -e 's/^# deb-src/deb-src/g' /etc/apt/sources.list
 
 # bring apt package database up to date
-apt-get update --quiet=2
+#
+# recent Ubuntu base boxes seem to do perform some apt action on startup, too,
+# causing lock errors here, so we try until success
+until apt-get update --quiet=2
+do
+  sleep 3
+done
 
 # install needed extra deb pacakges
 apt-get install --quiet=2 --assume-yes \
