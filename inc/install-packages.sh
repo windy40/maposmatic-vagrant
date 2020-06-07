@@ -117,6 +117,9 @@ apt-get install --quiet=2 --assume-yes \
     wkhtmltopdf \
     > /dev/null || exit 3
 
+# this may cause crashes on fetching OSM diffs with osmium, so lets remove it for now
+apt-get remove -y python3-apport > /dev/null
+
 banner "python packages"
 pip3 install \
      colour \

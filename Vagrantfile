@@ -10,6 +10,8 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "test", "/vagrant/test", mount_options: ["dmode=777"]
 
   config.vm.boot_timeout = 600
+  config.ssh.forward_agent = true
+  config.ssh.forward_x11 = true
 
   config.vm.provider "virtualbox" do |vb|
     # vb.gui = true
