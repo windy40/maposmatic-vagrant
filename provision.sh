@@ -117,16 +117,16 @@ banner "places db"
 . $INCDIR/places-database.sh
 
 banner "db l10n"
-. $INCDIR/mapnik-german-l10n.sh
+. $INCDIR/from-source/mapnik-german-l10n.sh
 
 banner "building osgende"
-. $INCDIR/osgende.sh
+. $INCDIR/from-source/osgende.sh
 
 banner "building osm2pgsql"
 . $INCDIR/from-source/osm2pgsql-build.sh
 
 banner "building phyghtmap" # needed by OpenTopoMap
-. $INCDIR/phyghtmap.sh
+. $INCDIR/from-source/phyghtmap.sh
 
 banner "db import" 
 . $INCDIR/osm2pgsql-import.sh
