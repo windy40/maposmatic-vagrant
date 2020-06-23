@@ -1,0 +1,33 @@
+#! /bin/bash
+
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title Database import lag in minutes
+graph_vlabel Lag (minutes) 
+graph_category OSM
+lag.label OSM Lag
+lag.type GAUGE
+waymarked.label Waymarked Lag
+waymarked.type GAUGE
+EOM
+        exit 0;;
+   suggest)
+        cat <<'EOM'
+suggest called
+EOM
+        exit 0;;
+   autoconf)
+        cat <<'EOM'
+autoconf yes
+EOM
+        exit 0;;
+
+esac
+
+echo -n "lag.value "
+PGPASSWORD=secret PGTZ=UTC psql --host=gis-db --user=maposmatic gis -t -c "select extract (epoch from (now() - last_update))::integer/60 from maposmatic_admin" --no-align
+
+echo -n "waymarked.value "
+PGPASSWORD=secret psql --host=gis-db --user=maposmatic planet -t -c "select extract (epoch from now() - min(date))::integer / 60 from status;" --no-align
+

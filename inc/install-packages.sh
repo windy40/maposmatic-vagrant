@@ -58,11 +58,13 @@ apt-get install --quiet=2 --assume-yes \
     gettext \
     git \
     imagemagick \
+    libapache2-mod-fcgid \
     libapache2-mod-php \
     libapache2-mod-wsgi-py3 \
     libboost-python-dev \
     libbz2-dev \
     libcairo2-dev \
+    libcgi-fast-perl \
     libgdal-dev \
     libkakasi2-dev \
     liblua5.3-dev \
@@ -74,6 +76,9 @@ apt-get install --quiet=2 --assume-yes \
     mapnik-utils \
     mc \
     mmv \
+    munin \
+    munin-node \
+    munin-plugins-extra \
     osmium-tool \
     pandoc \
     php-cli \

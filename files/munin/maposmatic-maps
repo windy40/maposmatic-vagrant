@@ -1,0 +1,45 @@
+#! /bin/bash
+
+case $1 in
+   config)
+        cat <<'EOM'
+graph_title MapOSMAtic rendering requests
+graph_vlabel Maps
+graph_category OSM
+maps_today.label MapOSMatic maps
+maps_today.type GAUGE
+failed_today.label MapOSMatic failed
+failed_today.type GAUGE
+canceled_today.label MapOSMatic canceled
+canceled_today.type GAUGE
+lag.label lag
+lag.type GAUGE
+EOM
+        exit 0;;
+   suggest)
+        cat <<'EOM'
+suggest called
+EOM
+        exit 0;;
+   autoconf)
+        cat <<'EOM'
+autoconf yes
+EOM
+        exit 0;;
+
+esac
+
+echo -n "maps_today.value "
+PGPASSWORD=secret psql --host=gis-db --user=maposmatic maposmatic -t --no-align -c "select count(*) from maposmatic_maprenderingjob where submission_time >= now()::date"
+
+echo -n "failed_today.value "
+PGPASSWORD=secret psql --host=gis-db --user=maposmatic maposmatic -t --no-align -c "select count(*) from maposmatic_maprenderingjob where submission_time >= now()::date and resultmsg IN ('rendering failed','rendering took too long, canceled','data preparation failed','rendering interrupted')"
+
+echo -n "canceled_today.value "
+PGPASSWORD=secret psql --host=gis-db --user=maposmatic maposmatic -t --no-align -c "select count(*) from maposmatic_maprenderingjob where submission_time >= now()::date and resultmsg='rendering cancelled'" 
+
+echo -n "lag.value "
+PGPASSWORD=secret psql --host=gis-db --user=maposmatic maposmatic -t --no-align -c "select count(*) from maposmatic_maprenderingjob where status < 2" 
+
+
+
