@@ -48,6 +48,7 @@ SELECT osm_id
 , tags->'lock' as "lock"
 , tags->'man_made' as "man_made"
 , tags->'motorboat' AS "motorboat"
+, tags->'motorcar' as "motorcar"
 , tags->'name' as "name"
 , tags->'name:de' as "name:de"
 , tags->'name:en' as "name:en"
