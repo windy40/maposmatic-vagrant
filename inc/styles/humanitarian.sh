@@ -6,16 +6,14 @@
 
 cd /home/maposmatic/styles
 
-git clone --quiet https://github.com/hholzgra/HDM-CartoCSS.git
+git clone --quiet https://github.com/hotosm/HDM-CartoCSS.git
 
 cd HDM-CartoCSS
 
-git checkout --quiet nohillshade
-
 sed -e's|/ybon/Data/geo/shp/|/maposmatic/shapefiles/|g' \
     -e's|/ybon/Code/maps/hdm/|/maposmatic/styles/HDM-CartoCSS/|g' \
-    -e's|http://data.openstreetmapdata.com/land-polygons-split-3857.zip|/home/maposmatic/shapefiles/land-polygons-split-3857/land_polygons.shp|g' \
-    -e's|http://data.openstreetmapdata.com/simplified-land-polygons-complete-3857.zip|/home/maposmatic/shapefiles/simplified-land-polygons-complete-3857/simplified_land_polygons.shp|g' \
+    -e's|file:.*/land-polygons-split-3857.zip|file: /home/maposmatic/shapefiles/land-polygons-split-3857/land_polygons.shp|g' \
+    -e's|file:.*/simplified-land-polygons-complete-3857.zip|file: /home/maposmatic/shapefiles/simplified-land-polygons-complete-3857/simplified_land_polygons.shp|g' \
     -e"s|layer \~|tags->'layer' \~|g" \
     -e's|dbname: osm|dbname: gis|g' \
     -e'/host:/d' \
