@@ -5,6 +5,8 @@ cd /home/maposmatic/styles
 git clone --quiet https://github.com/cyclosm/cyclosm-cartocss-style
 cd cyclosm-cartocss-style
 
+git checkout v0.3.7
+
 ln -s /home/maposmatic/shapefiles data
 
 cd dem
