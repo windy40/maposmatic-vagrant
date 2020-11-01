@@ -75,6 +75,7 @@ SELECT osm_id
 , tags->'voltage' AS "voltage"
 , tags->'waterway' as "waterway"
 , tags->'width' as "width"
+, tags->'amenity' as "amenity"
 -- after initial import add further columns below this line only
 FROM planet_osm_hstore_line;
 
