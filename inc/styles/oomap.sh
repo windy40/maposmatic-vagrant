@@ -4,11 +4,11 @@ cd /home/maposmatic/styles
 
 git clone https://github.com/oobrien/oomap
 
-cd oomap/maptiler/d$styles
+cd oomap/maptiler/
 
-cp /vagrant/files/stles/oomap/* styles/inc/
+cp /vagrant/files/styles/oomap/* styles/inc/
 
-ln -s /home/maposmatic/shapefiles
+ln -s /home/maposmatic/shapefiles .
 
 
 
