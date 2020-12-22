@@ -5,17 +5,19 @@ $outfile = "osm-bw.xml";
 
 function reduce_color($results)
 {
-  preg_match('|#(..)(..)(..)|', $results[0], $matches);
+    if(! preg_match('|#(..)(..)(..)|', $results[0], $matches)) {
+        echo "$results[0]\n";
+    }
 
-  $r = hexdec($matches[1]);
-  $g = hexdec($matches[2]);
-  $b = hexdec($matches[3]);
+    $r = hexdec($matches[1]);
+    $g = hexdec($matches[2]);
+    $b = hexdec($matches[3]);
 
-  $avg = (int)(($r + $g + $b) / 3); 
-  # $avg = (int)(0.21*$r + 0.72*$g + 0.07*$b);
-  # $avg = (int)((max($r,$g,$b)+min($r, $g, $b))/2);
+    $avg = (int)(($r + $g + $b) / 3);
+    # $avg = (int)(0.21*$r + 0.72*$g + 0.07*$b);
+    # $avg = (int)((max($r,$g,$b)+min($r, $g, $b))/2);
 
-  return sprintf("#%02x%02x%02x", $avg, $avg, $avg);
+    return sprintf("#%02x%02x%02x", $avg, $avg, $avg);
 }
 
 $in  = fopen($infile,  "r");
@@ -26,7 +28,7 @@ while (!feof($in)) {
 
   $line = preg_replace_callback('|#[0-9a-f]+|i', "reduce_color", $line);
 
-  $line = str_replace('symbols/shields/', 'symbols/shields-bw/', $line);
+  $line = str_replace('symbols/', 'symbols-bw/', $line);
 
   fwrite($out, $line);
 }
@@ -34,27 +36,46 @@ while (!feof($in)) {
 fclose($in);
 fclose($out);
 
-if (!is_dir("symbols/shields-bw")) {
-  mkdir("symbols/shields-bw");
+if (!is_dir("symbols-bw")) {
+  mkdir("symbols-bw");
 }
 
-foreach (glob("symbols/shields/*.svg") as $svg) {
-  $base = basename($svg);
 
-  $in = fopen($svg, "r");
-  $out = fopen("symbols/shields-bw/$base", "w");
+chdir("symbols");
 
-  while (!feof($in)) {
-    $line = fgets($in);
+$directory = new \RecursiveDirectoryIterator(".");
+$iterator = new \RecursiveIteratorIterator($directory);
+$files = array();
+foreach ($iterator as $info) {
+    $path = $info->getPathname();
 
-    $line = preg_replace_callback('|#[0-9a-f]+|i', "reduce_color", $line);
+    if(!is_dir("../symbols-bw/".dirname($path))) {
+        mkdir("../symbols-bw/".dirname($path));
+    }
 
-    fwrite($out, $line);
-  }
+    switch (pathinfo($path, PATHINFO_EXTENSION)) {
+    case 'png':
+        system("convert $path -grayscale average ../symbols-bw/$path");
+        break;
+    case 'svg':
+        $in = fopen($path, "r");
+        $out = fopen("../symbols-bw/$path", "w");
 
-  fclose($in);
-  fclose($out);
+        while (!feof($in)) {
+            $line = fgets($in);
+
+            $line = preg_replace_callback('|#[0-9a-f]{6}|i', "reduce_color", $line);
+
+            fwrite($out, $line);
+        }
+
+        fclose($in);
+        fclose($out);
+       break;
+    }
 }
+
+
 
 
 
