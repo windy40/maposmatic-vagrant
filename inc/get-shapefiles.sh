@@ -90,7 +90,7 @@ URLS+="$OSM_HISTORICAL/processed_p.tar.bz2 "
 # legacy files no longer online elsewhere, so that I'm hosting my own copies
 # TODO: these are not containing actual shapefiles, so should be downloaded
 # separately?
-OSM_BAUSTELLE=http://www.osm-baustelle.de
+OSM_BAUSTELLE=http://www.osm-baustelle.de/downloads
 
 URLS+="$OSM_BAUSTELLE/mercator_tiffs.tar.bz2"
 
@@ -113,8 +113,36 @@ do
     rm -f $archive.1
 
     # download the file only if newer than the localy cached copy
-    wget --quiet --timestamping --backups=1 --no-check-certificate $url
+    if ! wget --quiet --timestamping --backups=1 --no-check-certificate $url
+    then
+	echo " ... wget failed"
+	continue
+    fi
 
+    file_type=$(file -bi $archive | sed -e's/;.*$//g')
+    case $file_type in
+	application/gzip)
+        ;;
+	application/x-bzip2)
+        ;;
+	application/x-xz)
+        ;;
+	application/zip)
+        ;;
+	*)
+	    # download is not a known archive type, so something seems
+	    # to have gone wrong and we try to roll back to the previous
+	    # downloaded version
+	    rm $archive
+	    if test -f $archive.1
+	    then
+		mv $archive.1 $archive
+	    fi
+	    echo " ... wrong file type $file_type"
+	    continue
+	;;
+    esac
+	
     # renew actual shapefile if a more recent version was downloaded (new backup exists)
     # or process shapefile archive (from download or cache) if actual shapefile not found
     if [ \( -f $DOWNLOAD_DIR/$archive.1 \) -o \( ! -d $SHAPEFILE_DIR/$archbase \) ]
@@ -171,7 +199,7 @@ do
         fi
 	echo
     else
-	echo "... unchanged"
+	echo " ... unchanged"
     fi
 done
 
