@@ -13,11 +13,19 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
 
-  config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb, override|
     # vb.gui = true
     vb.name = "maposmatic"
     vb.memory = "3072"
     vb.cpus   = "2"
+
+    config.vm.synced_folder ".", "/vagrant/", mount_options: ["dmode=777"]
+    config.vm.synced_folder "test", "/vagrant/test", mount_options: ["dmode=777"]
+  end
+
+  config.vm.provider "hyperv" do |h, override|
+    config.vm.synced_folder ".", "/vagrant/", mount_options: ["dir_mode=777"]
+    config.vm.synced_folder "test", "/vagrant/test", mount_options: ["dir_mode=777"]
   end
 
   if Vagrant.has_plugin?("vagrant-cachier")
@@ -44,5 +52,5 @@ Vagrant.configure(2) do |config|
       "GIT_AUTHOR_EMAIL": "#{ENV['GIT_AUTHOR_EMAIL']}"
     },
     path: "provision.sh"
-  
+
 end
