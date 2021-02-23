@@ -6,9 +6,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "forwarded_port", guest: 80, host: 8000
 
-  config.vm.synced_folder ".", "/vagrant/", mount_options: ["dmode=777"]
-  config.vm.synced_folder "test", "/vagrant/test", mount_options: ["dmode=777"]
-
   config.vm.boot_timeout = 600
   config.ssh.forward_agent = true
   config.ssh.forward_x11 = true
@@ -19,13 +16,13 @@ Vagrant.configure(2) do |config|
     vb.memory = "3072"
     vb.cpus   = "2"
 
-    config.vm.synced_folder ".", "/vagrant/", mount_options: ["dmode=777"]
-    config.vm.synced_folder "test", "/vagrant/test", mount_options: ["dmode=777"]
+    override.vm.synced_folder ".", "/vagrant/", mount_options: ["dmode=777"]
+    override.vm.synced_folder "test", "/vagrant/test", mount_options: ["dmode=777"]
   end
 
   config.vm.provider "hyperv" do |h, override|
-    config.vm.synced_folder ".", "/vagrant/", mount_options: ["dir_mode=777"]
-    config.vm.synced_folder "test", "/vagrant/test", mount_options: ["dir_mode=777"]
+    override.vm.synced_folder ".", "/vagrant/", mount_options: ["dir_mode=777"]
+    override.vm.synced_folder "test", "/vagrant/test", mount_options: ["dir_mode=777"]
   end
 
   if Vagrant.has_plugin?("vagrant-cachier")
