@@ -4,6 +4,8 @@
 #
 #----------------------------------------------------
 
+FILEDIR=${FILEDIR:-/vagrant/files}
+
 OSM_EXTRACT="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 
 cd /home/maposmatic
@@ -43,7 +45,7 @@ sudo --user=maposmatic osm2pgsql \
 
 for dir in db_indexes db_functions db_views
 do
-  for sql in /vagrant/files/database/$dir/*.sql
+  for sql in $FILEDIR/database/$dir/*.sql
   do
     sudo -u maposmatic psql gis < $sql
   done
@@ -60,7 +62,7 @@ then
     echo -n $REPLICATION_BASE_URL > replication_url
     echo -n $REPLICATION_SEQUENCE_NUMBER > sequence_number
 
-    cp /vagrant/files/systemd/osm2pgsql-update.* /etc/systemd/system
+    cp $FILEDIR/systemd/osm2pgsql-update.* /etc/systemd/system
     chmod 644 /etc/systemd/system/osm2pgsql-update.*
     systemctl daemon-reload
     systemctl enable osm2pgsql-update.timer
@@ -70,7 +72,7 @@ fi
 if test -z "$REPLICATION_TIMESTAMP"
 then
     # fallback: take timestamp from actual file contents
-    REPLICATION_TIMESTAMP=$(osmium fileinfo -e -g date.timestamp.last $OSM_EXTRACT)
+    REPLICATION_TIMESTAMP=$(osmium fileinfo -e -g data.timestamp.last $OSM_EXTRACT)
 fi
 
 sudo -u maposmatic psql gis -c "update maposmatic_admin set last_update='$REPLICATION_TIMESTAMP'"

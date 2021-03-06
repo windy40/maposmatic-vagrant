@@ -1,6 +1,7 @@
 #! /bin/sh
 
 CONF=/home/maposmatic/.ocitysmap.conf
+INCDIR=${INCDIR:-/vagrant/inc}
 
 cat <<EOF > $CONF
 [datasource]
@@ -26,12 +27,12 @@ US letter= 216x279
 EOF
 
 echo -n "available_stylesheets= " >> $CONF
-grep --no-filename '\[.*\]' /vagrant/inc/styles/*.ini | sed -e 's/\[//g' -e 's/\]//g' | paste -sd "," >> $CONF
+grep --no-filename '\[.*\]' $INCDIR/styles/*.ini | sed -e 's/\[//g' -e 's/\]//g' | paste -sd "," >> $CONF
 
 echo -n "available_overlays= " >> $CONF
-grep --no-filename '\[.*\]' /vagrant/inc/overlays/*.ini | sed -e 's/\[//g' -e 's/\]//g' | paste -sd "," >> $CONF
+grep --no-filename '\[.*\]' $INCDIR/overlays/*.ini | sed -e 's/\[//g' -e 's/\]//g' | paste -sd "," >> $CONF
 
-cat /vagrant/inc/styles/*.ini /vagrant/inc/overlays/*.ini >> $CONF
+cat $INCDIR/styles/*.ini $INCDIR/overlays/*.ini >> $CONF
 
 rm -f /root/.ocitysmap.conf
 ln -s $CONF /root/.ocitysmap.conf
