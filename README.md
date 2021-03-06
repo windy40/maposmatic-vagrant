@@ -41,6 +41,7 @@ The following components will be installed into the VM:
 ## Requirements
 
 * A working Vagrant (>= v2.2) / Virtualbox (>= v5.2) setup
+* The `vagrant-vbguest` plugin to automatically install the host's VirtualBox Guest Additions on the guest system, install with `vagrant plugin install vagrant-vbguest` (only for VirtualBox Vagrant's provider).
 * The `vagrant-disksize` plugin to grow the VMs disk space, install with `vagrant plugin install vagrant-disksize`
 * Optional:  The `vagrant-cachier` plugin, to cache apt, gem, npm, pip packages, install with `vagrant plugin install vagrant-cachier`
 * A minimum of 4GB available RAM, 3GB for the VM, and 1GB extra head room for the host system
@@ -288,7 +289,7 @@ the project into directory `/vagrant`, put a PBF file to import there,
 and then run the master provisioning script manually:
 
 ```bash
-  git checkout https://github.com/hholzgra/maposmatic-vagrant/ /vagrant
+  git clone https://github.com/hholzgra/maposmatic-vagrant/ /vagrant
   cd /vagrant
   ... copy, symlink or download .osm.pbf file to this director ...
   bash provision.sh
