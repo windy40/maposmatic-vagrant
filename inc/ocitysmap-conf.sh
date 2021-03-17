@@ -24,6 +24,7 @@ Din A4= 210x297
 US letter= 216x279
 
 [rendering]
+font-path=/usr/share/fonts/:/usr/local/share/fonts/
 EOF
 
 echo -n "available_stylesheets= " >> $CONF

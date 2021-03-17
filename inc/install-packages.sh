@@ -45,8 +45,6 @@ apt-get install --quiet=2 --assume-yes \
     fonts-arkpandora \
     fonts-droid-fallback \
     fonts-khmeros \
-    fonts-noto \
-    fonts-noto-color-emoji \
     fonts-sil-padauk \
     fonts-sipa-arundina \
     fonts-taml-tscu \
@@ -167,4 +165,8 @@ sudo apt-get install -y nodejs
 npm config set loglevel warn
 
 npm install -g carto > /dev/null || exit 3
+
+# download / install extra fonts
+banner "extra fonts"
+(cd $INCDIR/fonts; for script in *.sh; do basename $script ".sh"; ( . $script ); done )
 
