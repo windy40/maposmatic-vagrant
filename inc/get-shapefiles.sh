@@ -48,7 +48,7 @@ URLS+="$OSMDATA_OLD/simplified-water-polygons-complete-3857.zip "
 URLS+="$OSMDATA_OLD/water-polygons-generalized-3857.zip "
 
 # Natural Earth shapefiles
-NATURAL_EARTH=http://www.naturalearthdata.com/http//www.naturalearthdata.com/download
+NATURAL_EARTH=https://www.naturalearthdata.com/http//www.naturalearthdata.com/download
 
 URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip "
 URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_admin_0_boundary_lines_map_units.zip "
@@ -116,7 +116,12 @@ do
     if ! wget --quiet --timestamping --backups=1 --no-check-certificate $url
     then
 	echo " ... wget failed"
-	continue
+
+	if ! test -f $archive
+	then
+	    # only continue with next download file if no prior copy is available
+  	    continue
+	fi
     fi
 
     file_type=$(file -bi $archive | sed -e's/;.*$//g')
