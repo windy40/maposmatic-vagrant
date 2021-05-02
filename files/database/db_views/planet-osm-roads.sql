@@ -28,6 +28,7 @@ SELECT osm_id
 , tags->'highway' as "highway"
 , tags->'historic' as "historic"
 , tags->'int_name' as "int_name"
+, tags->'junction' as "junction"
 , tags->'lock' as "lock"
 , tags->'man_made' as "man_made"
 , tags->'name' as "name"
