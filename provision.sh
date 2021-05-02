@@ -143,44 +143,18 @@ banner "renderer setup"
 banner "locales"
 . $INCDIR/locales.sh
 
-#----------------------------------------------------
-#
-# Set up various stylesheets 
-#
-#----------------------------------------------------
 
 banner "shapefiles"
+# install shapefiles
 . $INCDIR/get-shapefiles.sh
+# set up shapefile update job
 cp /vagrant/files/systemd/shapefile-update.* /etc/systemd/system
 systemctl daemon-reload
 
-mkdir /home/maposmatic/styles
 
-for style in /vagrant/inc/styles/*.sh
-do
-  banner $(basename $style .sh)" style"
-  . $style
-done
+banner "styles"
+. $INCDIR/styles.sh
 
-for overlay in /vagrant/inc/overlays/*.sh
-do
-  banner $(basename $overlay .sh)" overlay"
-  . $overlay
-done
-
-#----------------------------------------------------
-#
-# Postprocess all generated style sheets
-#
-#----------------------------------------------------
-
-banner "postprocessing styles"
-
-. $INCDIR/ocitysmap-conf.sh
-
-# cd /home/maposmatic/styles
-# find . -name osm.xml | xargs \
-#    sed -i -e's/background-color="#......"/background-color="#FFFFFF"/g'
 
 #----------------------------------------------------
 #
