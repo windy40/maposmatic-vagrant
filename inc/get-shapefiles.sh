@@ -48,32 +48,32 @@ URLS+="$OSMDATA_OLD/simplified-water-polygons-complete-3857.zip "
 URLS+="$OSMDATA_OLD/water-polygons-generalized-3857.zip "
 
 # Natural Earth shapefiles
-NATURAL_EARTH=http://www.naturalearthdata.com/http//www.naturalearthdata.com/download
+NATURAL_EARTH=https://naturalearth.s3.amazonaws.com
 
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_admin_0_boundary_lines_land.zip "
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_admin_0_boundary_lines_map_units.zip "
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_admin_0_countries_lakes.zip "
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_admin_1_states_provinces_lines.zip "
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_airports.zip "
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_populated_places.zip "
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_populated_places_simple.zip "
-URLS+="$NATURAL_EARTH/10m/cultural/ne_10m_roads.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_admin_0_boundary_lines_land.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_admin_0_boundary_lines_map_units.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_admin_0_countries_lakes.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_admin_1_states_provinces_lines.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_airports.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_populated_places.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_populated_places_simple.zip "
+URLS+="$NATURAL_EARTH/10m_cultural/ne_10m_roads.zip "
 
-URLS+="$NATURAL_EARTH/10m/physical/ne_10m_coastline.zip "
-URLS+="$NATURAL_EARTH/10m/physical/ne_10m_geography_marine_polys.zip "
-URLS+="$NATURAL_EARTH/10m/physical/ne_10m_lakes.zip "
-URLS+="$NATURAL_EARTH/10m/physical/ne_10m_land.zip "
-URLS+="$NATURAL_EARTH/10m/physical/ne_10m_ocean.zip "
+URLS+="$NATURAL_EARTH/10m_physical/ne_10m_coastline.zip "
+URLS+="$NATURAL_EARTH/10m_physical/ne_10m_geography_marine_polys.zip "
+URLS+="$NATURAL_EARTH/10m_physical/ne_10m_lakes.zip "
+URLS+="$NATURAL_EARTH/10m_physical/ne_10m_land.zip "
+URLS+="$NATURAL_EARTH/10m_physical/ne_10m_ocean.zip "
 
-URLS+="$NATURAL_EARTH/50m/cultural/ne_50m_admin_0_boundary_lines_land.zip "
-URLS+="$NATURAL_EARTH/50m/cultural/ne_50m_admin_0_countries_lakes.zip "
-URLS+="$NATURAL_EARTH/50m/cultural/ne_50m_admin_1_states_provinces_lines.zip "
-URLS+="$NATURAL_EARTH/50m/physical/ne_50m_geography_marine_polys.zip "
-URLS+="$NATURAL_EARTH/50m/physical/ne_50m_lakes.zip "
-URLS+="$NATURAL_EARTH/50m/physical/ne_50m_land.zip "
+URLS+="$NATURAL_EARTH/50m_cultural/ne_50m_admin_0_boundary_lines_land.zip "
+URLS+="$NATURAL_EARTH/50m_cultural/ne_50m_admin_0_countries_lakes.zip "
+URLS+="$NATURAL_EARTH/50m_cultural/ne_50m_admin_1_states_provinces_lines.zip "
+URLS+="$NATURAL_EARTH/50m_physical/ne_50m_geography_marine_polys.zip "
+URLS+="$NATURAL_EARTH/50m_physical/ne_50m_lakes.zip "
+URLS+="$NATURAL_EARTH/50m_physical/ne_50m_land.zip "
 
-URLS+="$NATURAL_EARTH/110m/cultural/ne_110m_admin_0_boundary_lines_land.zip "
-URLS+="$NATURAL_EARTH/110m/physical/ne_110m_geography_marine_polys.zip "
+URLS+="$NATURAL_EARTH/110m_cultural/ne_110m_admin_0_boundary_lines_land.zip "
+URLS+="$NATURAL_EARTH/110m_physical/ne_110m_geography_marine_polys.zip "
 
 # Shapefile(s) specific to the Veloroad style
 VELOROAD=http://zverik.openstreetmap.ru
@@ -115,8 +115,13 @@ do
     # download the file only if newer than the localy cached copy
     if ! wget --quiet --timestamping --backups=1 --no-check-certificate $url
     then
-	echo " ... wget failed"
-	continue
+	echo " ... wget failed: $url"
+
+	if ! test -f $archive
+	then
+	    # only continue with next download file if no prior copy is available
+  	    continue
+	fi
     fi
 
     file_type=$(file -bi $archive | sed -e's/;.*$//g')
