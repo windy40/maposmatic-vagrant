@@ -53,6 +53,7 @@ apt-get install --quiet=2 --assume-yes \
     fonts-sipa-arundina \
     fonts-taml-tscu \
     g++ \
+    ghostscript \
     gir1.2-pango-1.0 \
     gir1.2-rsvg-2.0 \
     gobject-introspection \
