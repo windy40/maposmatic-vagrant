@@ -9,9 +9,11 @@
 
     cd /home/maposmatic/styles
 
-    svn co -q http://svn.openstreetmap.org/applications/rendering/mapnik mapnik2-osm
+    git clone https://github.com/openstreetmap/mapnik-stylesheets mapnik2-osm
     cd mapnik2-osm
     ln -s /home/maposmatic/shapefiles/world_boundaries .
+
+    cp /vagrant/files/styles/mapnik2-osm/* inc
 
     cd ..
 
