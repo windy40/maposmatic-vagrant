@@ -39,6 +39,7 @@ sudo --user=maposmatic osm2pgsql \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
+     --disable-parallel-indexing \
      $OSM_EXTRACT
 
 # install views to provide expected table layouts from hstore-only bas tables
