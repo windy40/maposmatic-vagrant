@@ -4,6 +4,8 @@ cd /home/maposmatic/styles
 
 git clone --quiet https://github.com/yohanboniface/OpenRiverboatMap.git
 
+cd OpenRiverboatMap
+
 ln -s /home/maposmatic/shapefiles data
 
 sed -e 's/dbname: osm/dbname: gis/g' \
