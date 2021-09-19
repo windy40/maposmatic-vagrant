@@ -41,7 +41,10 @@ fi
 for style in $STYLES
 do
   echo "Testing '$style' style"
-  rm -f test-base-$style*
+  for format in png pdf svgz multi
+  do
+    rm -f test-base-$style-$format.*
+  done
   for format in png pdf svgz
   do
     base=test-base-$style-$format
