@@ -27,8 +27,11 @@ fi
 let CacheSize=$MemTotal/3072
 echo "osm2pgsql cache size: $CacheSize"
 
+mkdir -p /home/maposmatic/osm-import/
+chown maposmatic /home/maposmatic/osm-import/
+
 # import data
-sudo --user=maposmatic osm2pgsql \
+time sudo --user=maposmatic osm2pgsql \
      --create \
      --slim \
      --database=gis \
@@ -39,6 +42,9 @@ sudo --user=maposmatic osm2pgsql \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
+     --flat-nodes=/home/maposmatic/osm-import/osm2pgsql-nodes.dat \
+     --disable-parallel-indexing \
+     --keep-coastlines \
      $OSM_EXTRACT
 
 # install views to provide expected table layouts from hstore-only bas tables
