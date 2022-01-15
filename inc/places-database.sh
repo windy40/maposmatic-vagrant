@@ -5,7 +5,7 @@ DBDIR=$CACHEDIR/postgres
 mkdir -p $DBDIR
 
 # create places table for replacing nominatim search
-if ! test -f $DBDIR/place.sql.gz
+if ! test -f $DBDIR/places.sql.gz
 then
 	wget https://www.osm-baustelle.de/downloads/places.sql.gz -O $DBDIR/places.sql.gz
 fi
