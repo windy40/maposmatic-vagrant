@@ -6,10 +6,10 @@ git clone --quiet https://github.com/imagico/osm-carto-alternative-colors
 
 cd osm-carto-alternative-colors
 
-for sql in line-widths-generated z
+for sql in z line-widths-generated scale_factor roads
 do
     echo "Importing $sql"
-    sed -e 's/900913/3857/g' < $sql.sql | sudo -u maposmatic psql gis 
+    sed -e 's/900913/3857/g' < sql/$sql.sql | sudo -u maposmatic psql gis 
 done
 
 ln -s /home/maposmatic/shapefiles data
