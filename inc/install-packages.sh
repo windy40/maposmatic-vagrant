@@ -113,7 +113,6 @@ apt-get install --quiet=2 --assume-yes \
     python3-gdal \
     python3-gdbm \
     python3-gi-cairo \
-    python3-gpxpy \
     python3-lxml \
     python3-mako \
     python3-mapnik \
@@ -154,6 +153,7 @@ pip3 install \
      fastnumbers \
      geoalchemy2 \
      geopy \
+     gpxpy \
      natsort \
      osmium \
      pillow \
