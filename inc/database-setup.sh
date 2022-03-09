@@ -15,6 +15,7 @@ systemctl restart postgresql
 sudo --user=postgres createuser --superuser --no-createdb --no-createrole maposmatic
 sudo -u postgres createuser -g maposmatic root
 sudo -u postgres createuser -g maposmatic vagrant
+sudo -u postgres createuser -g maposmatic www-data
 
 
 # creade database for osm2pgsql import 
