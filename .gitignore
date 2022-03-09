@@ -74,3 +74,6 @@ files/shapefiles
 
 # include stuff that should not end up on git
 not-for-git
+
+# ignore local test setting overrides filey
+test/run-tests-local-config

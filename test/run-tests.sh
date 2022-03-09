@@ -16,6 +16,11 @@ PREVIEW_DIR=/home/maposmatic/maposmatic/www/static/img/
 
 PYTHON="python3"
 
+if test -f ./run-tests-local-config
+then
+	. ./run-tests-local-config
+fi
+
 if test $# -gt 0
 then
   STYLES=""
@@ -54,6 +59,7 @@ do
     /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
     cat $base.time
   done
+
   base=test-base-$style-multi
   printf "... %-4s " mpdf
   echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $style (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style=$style" > $base.sh
