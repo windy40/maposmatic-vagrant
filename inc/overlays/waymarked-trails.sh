@@ -11,23 +11,25 @@ then
 else
 	REPLICATION_BASE_OPTION="-r $REPLICATION_BASE_URL"
 fi
- 
-cd /home/maposmatic/styles
 
-git clone --quiet https://github.com/lonvia/waymarked-trails-site.git
-cd waymarked-trails-site
+cd /home/maposmatic/styles/
 
-sed -ie 's/www-data/maposmatic/g' config/defaults.py
+pip3 install  git+https://github.com/waymarkedtrails/osgende@master \
+	      git+https://github.com/waymarkedtrails/waymarkedtrails-shields@master
 
-chown -R maposmatic .
+git clone  https://github.com/waymarkedtrails/waymarkedtrails-backend
+
+cd waymarkedtrails-backend
+
+pip3 install .
+
+mkdir symbols
+chown maposmatic symbols
 
 sudo -u maposmatic dropdb --if-exists $DBNAME
 
 echo "Importing main DB"
-time sudo -u maposmatic python3 makedb.py -d $DBNAME -j $(nproc) -f $FILE $REPLICATION_BASE_OPTION db import
-
-echo "Indexing main DB"
-time sudo -u maposmatic python3 makedb.py -d $DBNAME db prepare
+sudo -u maposmatic wmt-makedb -f $FILE db import
 
 echo "Importing countries table"
 (
@@ -39,13 +41,22 @@ echo "Importing countries table"
 zcat $CACHEDIR/postgres/country_grid.sql.gz | sudo -u maposmatic psql -d $DBNAME
 sudo -u maposmatic psql -d $DBNAME -c "ALTER TABLE country_osm_grid ADD COLUMN geom geometry(Geometry,3857); UPDATE country_osm_grid SET geom=ST_Transform(geometry, 3857); ALTER TABLE country_osm_grid DROP COLUMN geometry"
 
+echo "Indexing main DB"
+sudo -u maposmatic wmt-makedb db prepare
+
 for style in $STYLES
 do
   echo "Creating $style DB"
-  time sudo -u maposmatic python3 makedb.py -d $DBNAME $style create
+  time sudo -u maposmatic wmt-makedb $style create
 
   echo "Importing $style DB"
-  time sudo -u maposmatic python3 makedb.py -j $(nproc) -d $DBNAME $style import
+  time sudo -u maposmatic wmt-makedb $style import
+
+  echo "Indexing $style DB"
+  time sudo -u maposmatic wmt-makedb $style dataview
+
+  echo "Creating $style stylefile"
+  wmt-makedb $style mapstyle > $style.xml
 done
 
 sudo -u maposmatic psql planet -c "create table waymarked_admin(last_update timestamp)"
@@ -61,3 +72,4 @@ then
     systemctl enable waymarked-update.timer
     systemctl start waymarked-update.timer
 fi
+

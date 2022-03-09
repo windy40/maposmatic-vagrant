@@ -161,8 +161,8 @@ pip3 install \
      psutil \
      pyproj \
      qrcode \
-     "sqlalchemy==1.3.23" \
-     "sqlalchemy-utils==0.35" \
+     "sqlalchemy>=1.4,<2.0" \
+     "sqlalchemy-utils" \
      utm \
      > /dev/null || exit 3
 
