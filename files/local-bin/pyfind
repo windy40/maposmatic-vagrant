@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find -L . -name "*.py" 2>/dev/null | xargs grep --color "$@" 

@@ -101,6 +101,9 @@ useradd --create-home maposmatic
 
 . $INCDIR/install-packages.sh
 
+# install local tools
+. $INCDIR/install-tools.sh
+
 # initial git configuration
 . $INCDIR/git-setup.sh
 
