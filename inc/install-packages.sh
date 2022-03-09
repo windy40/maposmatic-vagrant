@@ -90,6 +90,7 @@ apt-get install --quiet=2 --assume-yes \
     munin \
     munin-node \
     munin-plugins-extra \
+    osmctools \
     osmium-tool \
     pandoc \
     php-cli \
