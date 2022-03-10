@@ -17,13 +17,14 @@ fi
 #
 #----------------------------------------------------
 
-FILEDIR=/vagrant/files
-INCDIR=/vagrant/inc
+VAGRANT=/vagrant
+FILEDIR=$VAGRANT/files
+INCDIR=$VAGRANT/inc
 
-if touch /vagrant/can_write_here
+if touch $VAGRANT/can_write_here
 then
-	CACHEDIR=/vagrant/cache
-	rm /vagrant/can_write_here
+	CACHEDIR=$VAGRANT/cache
+	rm $VAGRANT/can_write_here
 else
 	mkdir -p /home/cache
 	chmod a+rwx /home/cache
@@ -44,7 +45,7 @@ export $(grep MemTotal /proc/meminfo | sed -e's/kB//' -e's/ //g' -e's/:/=/')
 #
 #----------------------------------------------------
 
-export OSM_EXTRACT=$(ls /vagrant/*.pbf | head -1)
+export OSM_EXTRACT=$(ls $VAGRANT/*.pbf | head -1)
 
 if test -f "$OSM_EXTRACT"
 then
@@ -151,7 +152,7 @@ banner "shapefiles"
 # install shapefiles
 . $INCDIR/get-shapefiles.sh
 # set up shapefile update job
-cp /vagrant/files/systemd/shapefile-update.* /etc/systemd/system
+cp $FILEDIR/systemd/shapefile-update.* /etc/systemd/system
 systemctl daemon-reload
 
 

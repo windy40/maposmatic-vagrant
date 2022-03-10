@@ -13,7 +13,7 @@
     cd mapnik2-osm
     ln -s /home/maposmatic/shapefiles/world_boundaries .
 
-    cp /vagrant/files/styles/mapnik2-osm/* inc
+    cp $FILEDIR/styles/mapnik2-osm/* inc
 
     cd ..
 

@@ -10,9 +10,9 @@ git checkout maposmatic
 
 cd maptiler/
 
-cp /vagrant/files/styles/oomap/* styles/inc/
+cp $FILEDIR/styles/oomap/* styles/inc/
 
 ln -s /home/maposmatic/shapefiles .
 
-psql gis < /vagrant/inc/styles/oomap.sql
+psql gis < $INCDIR/styles/oomap.sql
 shp2pgsql -g way /home/maposmatic/shapefiles/water-polygons-split-3857/water_polygons.shp public.water | psql gis > /dev/null

@@ -10,7 +10,7 @@ git clone --quiet https://github.com/giggls/openstreetmap-carto-de.git
 
 cd openstreetmap-carto-de
 
-latest_tag=$(php /vagrant/files/tools/get-latest-tag.php 'v.*-de\d+')
+latest_tag=$(php $FILEDIR/tools/get-latest-tag.php 'v.*-de\d+')
 
 git checkout --quiet v4.24.0-de1
 
@@ -20,7 +20,7 @@ make
 
 for a in *.xml
 do
-    php /vagrant/files/tools/postprocess-style.php $a
+    php $FILEDIR/tools/postprocess-style.php $a
 done
 
 ln -s /home/maposmatic/shapefiles data

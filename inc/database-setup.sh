@@ -8,7 +8,7 @@
 # TODO how to auto-detect correct conf include dir?
 let Mem_1_3=$MemTotal/3
 let Mem_2_3=2*$MemTotal/3
-sed -e"s/#Mem_1_3#/$Mem_1_3/g" -e"s/#Mem_2_3#/$Mem_2_3/g" </vagrant/files/config-files/postgresql-extra.conf >/etc/postgresql/12/main/conf.d/postgresql-extra.conf
+sed -e"s/#Mem_1_3#/$Mem_1_3/g" -e"s/#Mem_2_3#/$Mem_2_3/g" < $FILEDIR/config-files/postgresql-extra.conf >/etc/postgresql/12/main/conf.d/postgresql-extra.conf
 systemctl restart postgresql
 
 # add "gis" database users

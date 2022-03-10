@@ -9,7 +9,7 @@ cd /home/maposmatic/styles
 # configure the actual stylesheet
 cd ../ocitysmap/stylesheet/maposmatic-printable
 
-/vagrant/files/tools/generate_xml.py \
+$FILEDIR/tools/generate_xml.py \
        --dbname gis \
        --host 'localhost' \
        --user maposmatic \

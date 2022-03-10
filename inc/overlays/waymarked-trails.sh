@@ -66,7 +66,7 @@ if ! test -z "$REPLICATION_BASE_URL"
 then
     echo ${REPLICATION_BASE_URL} > "${OSMOSIS_DIFFIMPORT}/baseurl.txt"
 
-    cp /vagrant/files/systemd/waymarked-update.* /etc/systemd/system
+    cp $FILEDIR/systemd/waymarked-update.* /etc/systemd/system
     chmod 644 /etc/systemd/system/waymarked-update.*
     systemctl daemon-reload
     systemctl enable waymarked-update.timer

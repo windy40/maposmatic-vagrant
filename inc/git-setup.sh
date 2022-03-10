@@ -2,7 +2,7 @@
 
 mkdir -p /vagrant/git-log
 
-git config --global init.templatedir /vagrant/files/git-templates
+git config --global init.templatedir $FILEDIR/git-templates
 
 git config --global advice.detachedHead false
 

@@ -14,7 +14,7 @@ for carto_style in *.mml
 do
 	mapnik_style=$(basename $carto_style .mml).xml
 	carto -a $(mapnik-config -v) --quiet $carto_style  > $mapnik_style
-        php /vagrant/files/tools/postprocess-style.php $mapnik_style
+        php $FILEDIR/tools/postprocess-style.php $mapnik_style
 done
 
 
