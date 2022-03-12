@@ -36,12 +36,16 @@ Vagrant.configure(2) do |config|
   end
   config.disksize.size = '150GB'
 
-  config.ssh.forward_x11=true
+  if Vagrant.has_plugin?("vagrant-env")
+    config.env.enable
+  end
+
+  config.ssh.forward_x11 = true
 
   config.vm.provision "shell",
     env: {
-      "GIT_AUTHOR_NAME":  "#{ENV['GIT_AUTHOR_NAME']}",
-      "GIT_AUTHOR_EMAIL": "#{ENV['GIT_AUTHOR_EMAIL']}"
+      "GIT_AUTHOR_NAME":  ENV['GIT_AUTHOR_NAME'],
+      "GIT_AUTHOR_EMAIL": ENV['GIT_AUTHOR_EMAIL'],
     },
     path: "provision.sh"
   
