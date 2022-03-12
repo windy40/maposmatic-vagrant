@@ -6,10 +6,12 @@ git clone --quiet https://github.com/imagico/osm-carto-alternative-colors
 
 cd osm-carto-alternative-colors
 
-for sql in line-widths-generated z
+# SQL file execution order is important
+# TODO: how to deal with indexes.sql ?
+for sql in ac-light line-widths-generated scale_factor roads z 
 do
     echo "Importing $sql"
-    sed -e 's/900913/3857/g' < $sql.sql | sudo -u maposmatic psql gis 
+    sudo -u maposmatic psql gis sql/$sql.sql
 done
 
 ln -s /home/maposmatic/shapefiles data
