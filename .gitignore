@@ -77,3 +77,6 @@ not-for-git
 
 # ignore local test setting overrides filey
 test/run-tests-local-config
+
+# ignore vagrant-env include file
+.env
