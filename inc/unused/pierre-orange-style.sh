@@ -13,7 +13,7 @@ cp ../ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
 # configure the actual stylesheet
 cd ../ocitysmap/stylesheet/pierre-orange
 
-/vagrant/files/tools/generate_xml.py \
+$FILEDIR/tools/generate_xml.py \
        --dbname gis \
        --host 'localhost' \
        --user maposmatic \

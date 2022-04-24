@@ -30,7 +30,7 @@ cd ..
 sed -ie "s/ele,'FM9999D99'/ele::float,'FM9999D99'/g" osm-de.xml
 
 # set up the actual stylesheet
-/vagrant/files/tools/generate_xml.py \
+$FILEDIR/tools/generate_xml.py \
           --host 'localhost' \
           --port 5432 \
           --dbname gis \

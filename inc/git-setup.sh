@@ -1,6 +1,6 @@
 #! /bin/bash
 
-mkdir -p /vagrant/git-log
+mkdir -p $VAGRANT/git-log
 
 git config --global init.templatedir $FILEDIR/git-templates
 
@@ -16,5 +16,5 @@ then
 	git config --global user.email "$GIT_AUTHOR_EMAIL"
 fi
 
-cp ~/.gitconfig /home/vagrant/.gitconfig
-chown vagrant /home/vagrant/.gitconfig
+cp ~/.gitconfig ~vagrant/.gitconfig
+chown vagrant ~vagrant/.gitconfig
