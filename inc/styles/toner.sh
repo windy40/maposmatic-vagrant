@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/geofabrik/toner.git
 
@@ -9,7 +9,7 @@ cd toner
 ln -s toner.mml project.mml
 
 rm -rf data
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 sed '/"name":/d' < toner.mml > osm.mml
 carto -a $(mapnik-config -v) --quiet osm.mml > toner.xml

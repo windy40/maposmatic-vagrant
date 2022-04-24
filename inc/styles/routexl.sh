@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/routexl/osm-routexl
 cd osm-routexl

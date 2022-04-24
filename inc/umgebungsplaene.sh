@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic
+cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/umgebungsplaene
 cd umgebungsplaene
 cp $FILEDIR/config-files/umgebungsplaene-config.php config.php

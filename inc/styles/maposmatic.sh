@@ -4,7 +4,7 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 # configure the actual stylesheet
 cd ../ocitysmap/stylesheet/maposmatic-printable
@@ -15,6 +15,6 @@ $FILEDIR/tools/generate_xml.py \
        --user maposmatic \
        --port 5432 \
        --password 'secret' \
-       --world_boundaries /home/maposmatic/shapefiles/world_boundaries \
-       --symbols /home/maposmatic/ocitysmap/stylesheet/maposmatic-printable/symbols \
+       --world_boundaries $SHAPEFILE_DIR/world_boundaries \
+       --symbols $INSTALLDIR/ocitysmap/stylesheet/maposmatic-printable/symbols \
        > /dev/null

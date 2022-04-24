@@ -2,7 +2,7 @@
 # OpenArdenneMap - Belgian topographic map style
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 git clone --quiet https://github.com/nobohan/OpenArdenneMap
 cd OpenArdenneMap
 

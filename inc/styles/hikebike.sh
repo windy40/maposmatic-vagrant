@@ -4,13 +4,13 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/cmarqu/hikebikemap-carto.git
 
 cd hikebikemap-carto/
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 # remove deprecated name attributes from layers to silence carto warnings
 sed -i '/"name":/d' project.mml

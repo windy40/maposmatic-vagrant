@@ -2,13 +2,15 @@
 
 INCDIR=${INCDIR:-/vagrant/inc}
 
+STYLEDIR=$INSTALLDIR/styles
+
 #----------------------------------------------------
 #
 # Set up various stylesheets 
 #
 #----------------------------------------------------
 
-mkdir -p /home/maposmatic/styles
+mkdir -p $STYLEDIR
 
 cd $INCDIR
 

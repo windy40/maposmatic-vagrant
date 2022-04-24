@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 mkdir empty
 cd empty

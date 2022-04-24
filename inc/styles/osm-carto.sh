@@ -4,12 +4,13 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
+
 git clone --quiet https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
 git checkout --quiet v5.2.0
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 sed '/\sname:/d' < project.mml > osm.mml
 carto -a $(mapnik-config -v) --quiet osm.mml > osm.xml

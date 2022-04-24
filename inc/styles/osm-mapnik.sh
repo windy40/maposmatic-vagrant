@@ -7,11 +7,11 @@
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic/styles
+    cd $STYLEDIR
 
     git clone https://github.com/openstreetmap/mapnik-stylesheets mapnik2-osm
     cd mapnik2-osm
-    ln -s /home/maposmatic/shapefiles/world_boundaries .
+    ln -s $SHAPEFILE_DIR/world_boundaries .
 
     cp $FILEDIR/styles/mapnik2-osm/* inc
 

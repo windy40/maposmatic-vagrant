@@ -1,15 +1,15 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/hholzgra/OpenTopoMap.git
 cd OpenTopoMap
 git checkout --quiet hartmut-dev
 cd mapnik
 
-ln -s /home/maposmatic/shapefiles data
-ln -s /home/maposmatic/shapefiles/world_boundaries .
-ln -s /home/maposmatic/elevation-data/dem .
+ln -s $SHAPEFILE_DIR/ data
+ln -s $SHAPEFILE_DIR/world_boundaries .
+ln -s $INSTALLDIR/elevation-data/dem .
 
 # build the bundled utility programs
 

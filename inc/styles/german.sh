@@ -4,7 +4,7 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/giggls/openstreetmap-carto-de.git
 
@@ -23,5 +23,5 @@ do
     php $FILEDIR/tools/postprocess-style.php $a
 done
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 

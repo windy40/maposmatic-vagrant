@@ -21,6 +21,8 @@ VAGRANT=/vagrant
 FILEDIR=$VAGRANT/files
 INCDIR=$VAGRANT/inc
 
+INSTALLDIR=/home/maposmatic
+
 if touch $VAGRANT/can_write_here
 then
 	CACHEDIR=$VAGRANT/cache
@@ -149,6 +151,7 @@ banner "locales"
 
 
 banner "shapefiles"
+SHAPEFILE_DIR=$INSTALLDIR/shapefiles
 # install shapefiles
 . $INCDIR/get-shapefiles.sh
 # set up shapefile update job
@@ -157,6 +160,7 @@ systemctl daemon-reload
 
 
 banner "styles"
+STYLEDIR=$INSTALLDIR/styles
 . $INCDIR/styles.sh
 
 

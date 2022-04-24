@@ -4,7 +4,7 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 # fetch current stylesheet version
 git clone --quiet https://github.com/hholzgra/MapQuest-Mapnik-Style.git
@@ -12,7 +12,7 @@ git clone --quiet https://github.com/hholzgra/MapQuest-Mapnik-Style.git
 cd MapQuest-Mapnik-Style
 
 # fetch additional files required by this style
-ln -s /home/maposmatic/shapefiles/world_boundaries/ .
+ln -s $SHAPEFILE_DIR/world_boundaries/ .
 
 # generate stylesheet XML
 $FILEDIR/tools/generate_xml.py \

@@ -1,12 +1,12 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/hholzgra/osm-bright.git
 
 cd osm-bright
 
-ln -s /home/maposmatic/shapefiles shp
+ln -s $SHAPEFILE_DIR shp
 
 cp $FILEDIR/config-files/osmbright-configure.py configure.py
 

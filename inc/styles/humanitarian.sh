@@ -4,21 +4,19 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/hotosm/HDM-CartoCSS.git
 
 cd HDM-CartoCSS
 
-sed -e's|/ybon/Data/geo/shp/|/maposmatic/shapefiles/|g' \
-    -e's|/ybon/Code/maps/hdm/|/maposmatic/styles/HDM-CartoCSS/|g' \
-    -e's|file:.*/land-polygons-split-3857.zip|file: /home/maposmatic/shapefiles/land-polygons-split-3857/land_polygons.shp|g' \
-    -e's|file:.*/simplified-land-polygons-complete-3857.zip|file: /home/maposmatic/shapefiles/simplified-land-polygons-complete-3857/simplified_land_polygons.shp|g' \
-    -e"s|layer \~|tags->'layer' \~|g" \
+sed -e"s|layer \~|tags->'layer' \~|g" \
     -e's|dbname: osm|dbname: gis|g' \
     -e'/host:/d' \
     -e'/user:/d' \
     -e'/password:/d' \
+    -e's|file:.*/land-polygons-split-3857.zip|file: '$SHAPEFILE_DIR'/land-polygons-split-3857/land_polygons.shp|g' \
+    -e's|file:.*/simplified-land-polygons-complete-3857.zip|file: '$SHAPEFILE_DIR'simplified-land-polygons-complete-3857/simplified_land_polygons.shp|g' \
     < project.yml > project.mml
 
 carto -q -a $(mapnik-config -v) project.mml > osm.xml

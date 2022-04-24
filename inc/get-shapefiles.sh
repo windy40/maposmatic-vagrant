@@ -16,7 +16,7 @@ DOWNLOAD_DIR=${CACHEDIR:-/vagrant/cache}/shapefiles
 mkdir -p $DOWNLOAD_DIR
 
 # actual shapefile directory tree
-SHAPEFILE_DIR=/home/maposmatic/shapefiles
+SHAPEFILE_DIR=${SHAPEFILE_DIR:-/home/maposmatic/shapefiles}
 mkdir -p $SHAPEFILE_DIR
 
 #

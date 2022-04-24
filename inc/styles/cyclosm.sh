@@ -1,16 +1,16 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/cyclosm/cyclosm-cartocss-style
 cd cyclosm-cartocss-style
 
 git checkout v0.3.7
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 cd dem
-for hillshade in /home/maposmatic/styles/OpenTopoMap/mapnik/dem/hillshade*
+for hillshade in $STYLEDIR/OpenTopoMap/mapnik/dem/hillshade*
 do
     ln -s $hillshade .
 done

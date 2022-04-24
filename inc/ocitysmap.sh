@@ -5,7 +5,7 @@
 #----------------------------------------------------
 
 # install latest ocitysmap from git
-cd /home/maposmatic
+cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/ocitysmap.git
 cd ocitysmap
 
