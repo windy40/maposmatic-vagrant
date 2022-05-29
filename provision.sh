@@ -115,9 +115,6 @@ useradd --create-home maposmatic
 # add host entry for gis-db
 sed -ie 's/localhost/localhost gis-db/g' /etc/hosts
 
-# no longer needed starting with yakkety
-# . $INCDIR/mapnik-from-source.sh
-
 banner "db setup"
 . $INCDIR/database-setup.sh
 
