@@ -65,6 +65,9 @@ cd ..
 
 
 echo "DEM data for OpenTopoMap"
+# see also: https://github.com/der-stefan/OpenTopoMap/blob/master/mapnik/HOWTO_DEM.md
+
+
 mkdir -p dem
 cd dem
 
