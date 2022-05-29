@@ -101,8 +101,10 @@ fi
 useradd --create-home maposmatic
 
 # installing apt, pip and npm packages
-
 . $INCDIR/install-packages.sh
+
+# install all locales in the background
+. $INCDIR/locales.sh
 
 # install local tools
 . $INCDIR/install-tools.sh
@@ -146,8 +148,6 @@ banner "DEM setup"
 banner "renderer setup"
 . $INCDIR/ocitysmap.sh
 
-banner "locales"
-. $INCDIR/locales.sh
 
 
 banner "shapefiles"
