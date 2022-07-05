@@ -17,11 +17,11 @@ cd osm2pgsql-import
 
 if ! test -f hstore-only.style
 then
-  wget https://raw.githubusercontent.com/giggls/openstreetmap-carto-de/master/hstore-only.style
+  wget https://raw.githubusercontent.com/giggls/openstreetmap-carto-de/v4.24.0-de1/hstore-only.style
 fi
 if ! test -f openstreetmap-carto.lua
 then
-  wget https://raw.githubusercontent.com/giggls/openstreetmap-carto-de/master/openstreetmap-carto.lua
+  wget https://raw.githubusercontent.com/giggls/openstreetmap-carto-de/v4.24.0-de1/openstreetmap-carto.lua
 fi
 
 let CacheSize=$MemTotal/3072
