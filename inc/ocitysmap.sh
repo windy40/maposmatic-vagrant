@@ -5,7 +5,7 @@
 #----------------------------------------------------
 
 # install latest ocitysmap from git
-cd /home/maposmatic
+cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/ocitysmap.git
 cd ocitysmap
 
@@ -20,7 +20,7 @@ git submodule update
 chmod a+x render.py
 
 # install the command line wrapper script in $PATH
-cp /vagrant/files/config-files/ocitysmap-command.sh /usr/local/bin/ocitysmap
+cp $FILEDIR/config-files/ocitysmap-command.sh /usr/local/bin/ocitysmap
 chmod a+x /usr/local/bin/ocitysmap
 
 cd ..

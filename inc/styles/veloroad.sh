@@ -1,13 +1,13 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles/
+cd $STYLEDIR
 
 git clone --quiet https://github.com/hholzgra/veloroad.git
 cd veloroad
 
 mkdir -p data
-ln -s /home/maposmatic/shapefiles/water-polygons-split-3857 data
-ln -s /home/maposmatic/shapefiles/gmted25 data/gmted
+ln -s $SHAPEFILE_DIR/water-polygons-split-3857 data
+ln -s $SHAPEFILE_DIR/gmted25 data/gmted
 
 curl -z data/ptsans.zip -L -o data/ptsans.zip https://www.fontsquirrel.com/fonts/download/pt-sans
 unzip -o data/ptsans.zip -d data/ptsans

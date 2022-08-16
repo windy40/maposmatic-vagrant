@@ -21,6 +21,7 @@ SELECT osm_id
 , tags->'admin_level' AS "admin_level"
 , tags->'aerialway' as "aerialway"
 , tags->'aeroway' as "aeroway"
+, tags->'amenity' as "amenity"
 , tags->'attraction' AS "attraction"
 , tags->'barrier' as "barrier"
 , tags->'bicycle' as "bicycle"
@@ -31,6 +32,7 @@ SELECT osm_id
 , tags->'covered' as "covered"
 , tags->'culvert' as "culvert"
 , tags->'direction' AS "direction"
+, tags->'distance' as "distance"
 , tags->'disused' as "disused"
 , tags->'embankment' as "embankment"
 , tags->'fenced' AS "fenced"
@@ -53,8 +55,10 @@ SELECT osm_id
 , tags->'name:de' as "name:de"
 , tags->'name:en' as "name:en"
 , tags->'natural' as "natural"
+, tags->'network' as "network"
 , tags->'oneway' as "oneway"
 , tags->'operator' as "operator"
+, tags->'osmc:symbol' as "osmc:symbol"
 , tags->'power' as "power"
 , tags->'proposed' as "proposed"
 , tags->'railway' as "railway"
@@ -63,6 +67,7 @@ SELECT osm_id
 , tags->'route' as "route"
 , tags->'sac_scale' AS "sac_scale"
 , tags->'service' as "service"
+, tags->'signed_direction' as "signed_direction"
 , tags->'sport' AS "sport"
 , tags->'station' AS "station"
 , tags->'surface' as "surface"
@@ -75,7 +80,6 @@ SELECT osm_id
 , tags->'voltage' AS "voltage"
 , tags->'waterway' as "waterway"
 , tags->'width' as "width"
-, tags->'amenity' as "amenity"
 -- after initial import add further columns below this line only
 FROM planet_osm_hstore_line;
 

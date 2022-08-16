@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/hholzgra/mapbox-studio-space-station.tm2.git
 cd mapbox-studio-space-station.tm2

@@ -4,11 +4,11 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 git clone --quiet https://github.com/jbelien/openstreetmap-carto-be
 cd openstreetmap-carto-be
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 git clone --quiet https://github.com/gravitystorm/openstreetmap-carto
 
@@ -35,5 +35,5 @@ sed -e '/\sname:/d' \
 < project.mml > osm.mml
 
 carto -q -a $(mapnik-config -v) --quiet osm.mml > osm.xml
-php /vagrant/files/tools/postprocess-style.php osm.xml
+php $FILEDIR/tools/postprocess-style.php osm.xml
 

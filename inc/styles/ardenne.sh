@@ -2,7 +2,7 @@
 # OpenArdenneMap - Belgian topographic map style
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 git clone --quiet https://github.com/nobohan/OpenArdenneMap
 cd OpenArdenneMap
 
@@ -24,5 +24,5 @@ sed -i -e 's/"osmpg_db"/"gis"/g' project.mml
 
 carto -a $(mapnik-config -v) --quiet project.mml > OpenArdenneMap.xml
 
-php /vagrant/files/tools/postprocess-style.php OpenArdenneMap.xml
+php $FILEDIR/tools/postprocess-style.php OpenArdenneMap.xml
 

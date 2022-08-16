@@ -38,7 +38,7 @@ cat $INCDIR/styles/*.ini $INCDIR/overlays/*.ini >> $CONF
 rm -f /root/.ocitysmap.conf
 ln -s $CONF /root/.ocitysmap.conf
 
-rm -f /vagrant/.ocitysmap.conf
-ln -s $CONF /vagrant/.ocitysmap.conf
+rm -f $VAGRANT/.ocitysmap.conf
+ln -s $CONF $VAGRANT/.ocitysmap.conf
 
 

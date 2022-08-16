@@ -1,8 +1,8 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 mkdir empty
 cd empty
-cp /vagrant/files/styles/empty.xml .
+cp $FILEDIR/styles/empty.xml .
 

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://gitlab.com/hholzgra/pistemap.git
 
@@ -8,7 +8,7 @@ cd pistemap
 git checkout --quiet maposmatic
 
 # fetch additional files required by this style
-ln -s /home/maposmatic/shapefiles/world_boundaries .
+ln -s $SHAPEFILE_DIR/world_boundaries .
 
 
 cd pistemap_symbols
@@ -17,7 +17,7 @@ ln -s ../../MapQuest-Mapnik-Style/mapquest_symbols/large-city.svg .
 ln -s ../../MapQuest-Mapnik-Style/mapquest_symbols/national-capital.svg .
 cd ..
 
-ln -s /home/maposmatic/elevation-data/srtm/ .
+ln -s $INSTALLDIR/elevation-data/srtm/ .
 
 cat <<EOF > pistemap_inc/layer-hillshade.xml.inc
 <Style name="raster">
@@ -33,7 +33,7 @@ cat <<EOF > pistemap_inc/layer-hillshade.xml.inc
 </Style>
 EOF
 
-for hillshade in /home/maposmatic/elevation-data/srtm/*hillshade.tif
+for hillshade in $INSTALLDIR/elevation-data/srtm/*hillshade.tif
 do
     cat << EOF >> pistemap_inc/layer-hillshade.xml.inc
 <Layer name="dem-${base}" status="on">

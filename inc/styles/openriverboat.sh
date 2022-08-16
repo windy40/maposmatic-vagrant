@@ -1,11 +1,12 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/yohanboniface/OpenRiverboatMap.git
+
 cd OpenRiverboatMap
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 sed -e 's/dbname: osm/dbname: gis/g' \
     -e "s/host: ''/host: gis-db/g" \

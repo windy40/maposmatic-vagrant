@@ -56,7 +56,7 @@ test/index.html
 test/thumbnails/test-*
 test/thumbnails/index.html
 
-# ignore cache directory
+# ignore cache directories
 cache
 files/shapefiles
 
@@ -67,3 +67,16 @@ files/shapefiles
 *~
 .*.swp
 \#*#
+.\#*
+
+# ignore local hidden files and directories
+/.*
+
+# include stuff that should not end up on git
+not-for-git
+
+# ignore local test setting overrides filey
+test/run-tests-local-config
+
+# ignore vagrant-env include file
+.env

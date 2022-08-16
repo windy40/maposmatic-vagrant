@@ -4,19 +4,20 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
+
 git clone --quiet https://github.com/gravitystorm/openstreetmap-carto.git
 cd openstreetmap-carto
 git checkout --quiet v5.2.0
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 sed '/\sname:/d' < project.mml > osm.mml
 carto -a $(mapnik-config -v) --quiet osm.mml > osm.xml
-php /vagrant/files/tools/postprocess-style.php osm.xml
+php $FILEDIR/tools/postprocess-style.php osm.xml
 
 # create color-reduced variant of generated style
 
-php /vagrant/files/tools/make-style-monochrome.php
+php $FILEDIR/tools/make-style-monochrome.php
 
  

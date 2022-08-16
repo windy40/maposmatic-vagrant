@@ -1,16 +1,16 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/cyclosm/cyclosm-cartocss-style
 cd cyclosm-cartocss-style
 
 git checkout v0.3.7
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 cd dem
-for hillshade in /home/maposmatic/styles/OpenTopoMap/mapnik/dem/hillshade*
+for hillshade in $STYLEDIR/OpenTopoMap/mapnik/dem/hillshade*
 do
     ln -s $hillshade .
 done
@@ -23,7 +23,7 @@ sed -e 's/dbname: "osm"/dbname: "gis"/g' \
     < project.mml > cyclosm.mml
 
 carto -a $(mapnik-config -v) --quiet cyclosm.mml > cyclosm.xml
-php /vagrant/files/tools/postprocess-style.php cyclosm.xml
+php $FILEDIR/tools/postprocess-style.php cyclosm.xml
 
 # style expects contours table under a different name, and ele column with different type
 sudo -u maposmatic psql contours -c "create view planet_osm_line as select gid, id, ele::int as ele, way from contours;"
