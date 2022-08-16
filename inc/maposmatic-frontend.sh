@@ -57,11 +57,15 @@ chgrp www-data media logs
 chmod g+w media logs
 
 # set up render daemon
-cp $FILEDIR/systemd/maposmatic-render.service /etc/systemd/system
-chmod 644 /etc/systemd/system/maposmatic-render.service
+install --mode=644 $FILEDIR/systemd/maposmatic-render.service /etc/systemd/system
+install --mode=644 $FILEDIR/systemd/maposmatic-render@.service /etc/systemd/system
 systemctl daemon-reload
-systemctl enable maposmatic-render.service
-systemctl start maposmatic-render.service
+
+for queue in default api multipage
+do
+  systemctl enable maposmatic-render@$queue
+  systemctl start maposmatic-render@$queue
+done
 
 # set up web server
 service apache2 stop
