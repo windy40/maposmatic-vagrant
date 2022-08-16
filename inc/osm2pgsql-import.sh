@@ -45,6 +45,7 @@ time sudo --user=maposmatic osm2pgsql \
      --flat-nodes=/home/maposmatic/osm-import/osm2pgsql-nodes.dat \
      --disable-parallel-indexing \
      --keep-coastlines \
+     --disable-parallel-indexing \
      $OSM_EXTRACT
 
 # install views to provide expected table layouts from hstore-only bas tables
