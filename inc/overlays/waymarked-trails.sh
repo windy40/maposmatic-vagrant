@@ -29,7 +29,7 @@ chown maposmatic symbols
 sudo -u maposmatic dropdb --if-exists $DBNAME
 
 echo "Importing main DB"
-sudo -u maposmatic wmt-makedb -f $FILE db import
+sudo -u maposmatic wmt-makedb -j $(nproc) -f $FILE db import
 
 echo "Importing countries table"
 (
@@ -50,10 +50,10 @@ do
   time sudo -u maposmatic wmt-makedb $style create
 
   echo "Importing $style DB"
-  time sudo -u maposmatic wmt-makedb $style import
+  time sudo -u maposmatic wmt-makedb -j $(nproc) $style import
 
   echo "Indexing $style DB"
-  time sudo -u maposmatic wmt-makedb $style dataview
+  time sudo -u maposmatic wmt-makedb -j $(nproc) $style dataview
 
   echo "Creating $style stylefile"
   wmt-makedb $style mapstyle > $style.xml
