@@ -44,7 +44,7 @@ python3 manage.py shell -c "from django.contrib.auth.models import User; User.ob
 banner "Dj. Translate"
 python3 manage.py compilemessages
 
-(cd documentation; make 2>/dev/null; make install)
+(cd documentation; make html 2>/dev/null; make install)
 
 # fix directory ownerships
 chown -R maposmatic /home/maposmatic
