@@ -11,6 +11,7 @@ OSM_EXTRACT="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 cd /home/maposmatic
 
 mkdir -p osm2pgsql-import
+chmod a+w osm2pgsql-import
 cd osm2pgsql-import
 
 # get style file
