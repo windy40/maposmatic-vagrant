@@ -13,8 +13,8 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb, override|
     # vb.gui = true
     vb.name = "maposmatic"
-    vb.memory = "3072"
-    vb.cpus   = "2"
+    vb.memory = "16384"
+    vb.cpus   = "6"
 
     override.vm.synced_folder ".", "/vagrant/", mount_options: ["dmode=777"]
     override.vm.synced_folder "test", "/vagrant/test", mount_options: ["dmode=777"]
@@ -39,7 +39,7 @@ Vagrant.configure(2) do |config|
   unless Vagrant.has_plugin?("vagrant-disksize")
     raise 'disksize plugin is not installed - run "vagrant plugin install vagrant-disksize" first'
   end
-  config.disksize.size = '150GB'
+  config.disksize.size = '1000GB'
 
   if Vagrant.has_plugin?("vagrant-env")
     config.env.enable
