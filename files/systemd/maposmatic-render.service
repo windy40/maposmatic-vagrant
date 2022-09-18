@@ -6,6 +6,7 @@ Wants=postgresql.service
 [Service]
 Type=idle
 User=maposmatic
+MemoryMax=@memlimit@
 LimitNOFILE=infinity
 ExecStart=/usr/bin/python3 /home/maposmatic/maposmatic/scripts/wrapper.py scripts/daemon.py
 
