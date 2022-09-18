@@ -57,8 +57,10 @@ chgrp www-data media logs
 chmod g+w media logs
 
 # set up render daemon
-install --mode=644 $FILEDIR/systemd/maposmatic-render.service /etc/systemd/system
-install --mode=644 $FILEDIR/systemd/maposmatic-render@.service /etc/systemd/system
+let MemHalf=$Mem_DB/2
+sed -e"s/@memlimit@/$MemHalf/g" < $FILEDIR/systemd/maposmatic-render.service > /etc/systemd/system/maposmatic-render.service
+sed -e"s/@memlimit@/$MemHalf/g" < $FILEDIR/systemd/maposmatic-render@.service > /etc/systemd/system/maposmatic-render@.service
+chmod 644 /etc/systemd/system/maposmatic*
 systemctl daemon-reload
 
 for queue in default api multipage
