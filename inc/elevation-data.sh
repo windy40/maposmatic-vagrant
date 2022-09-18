@@ -14,7 +14,7 @@ echo "Downloading SRTM arcive files"
 mkdir -p srtm-data
 cd srtm-data
 
-mkdir -p $CACHEDIR/srtm-data
+mkdir -p $CACHEDIR/srtm-data $CACHEDIR/srtm $CACHEDIR/dem
 
 # extract bounding box data in bash array format
 bbox=$(cat /home/maposmatic/bounds/bbox.bash)
@@ -52,11 +52,32 @@ for file in $(find /home/maposmatic/elevation-data/srtm-data/ -name "*.hgt" | so
 do
     base=$(basename $file .hgt)
     echo "  processing $base"
-    gdal_translate -q -of GTiff -co "TILED=YES" -a_srs "+proj=latlong" $file ${base}_adapted.tif
 
-    gdalwarp -q -multi -of GTiff -co "TILED=YES" -srcnodata 32767 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m" -rcs -order 3 -tr 30 30 -multi ${base}_adapted.tif ${base}_warped.tif
+    cache_base=$CACHEDIR/srtm/${base}
 
-    gdaldem hillshade -q ${base}_warped.tif ${base}_hillshade.tif
+    if test -f ${cache_base}_adapted.tif
+    then
+        cp ${cache_base}_adapted.tif .
+    else
+        gdal_translate -q -of GTiff -co "TILED=YES" -a_srs "+proj=latlong" $file ${base}_adapted.tif
+	cp ${base}_adapted.tif ${cache_base}_adapted.tif
+    fi
+
+    if test -f ${cache_base}_warped.tif
+    then
+        cp ${cache_base}_warped.tif .
+    else
+        gdalwarp -q -multi -of GTiff -co "TILED=YES" -srcnodata 32767 -t_srs "+proj=merc +ellps=sphere +R=6378137 +a=6378137 +units=m" -rcs -order 3 -tr 30 30 -multi ${base}_adapted.tif ${base}_warped.tif
+	cp ${base}_adapted.tif ${cache_base}_warped.tif
+    fi
+
+    if test -f ${cache_base}_hillshade.tif
+    then
+        cp ${cache_base}_hillshade.tif .
+    else
+        gdaldem hillshade -q ${base}_warped.tif ${base}_hillshade.tif
+	cp ${base}_hillshade.tif ${cache_base}_hillshade.tif
+    fi
 done
 
 cd ..
@@ -77,8 +98,16 @@ cp $FILEDIR/relief_color_text_file.txt .
 # fill empty spaces
 for file in $(find /home/maposmatic/elevation-data/srtm-data -name "*.hgt" | sort)
 do
-  echo "  processing "$(basename $file .hgt)
-  gdal_fillnodata.py -q $file $(basename $file).tif
+  base=$(basename $file)
+  echo "  processing $base"
+  cache_base=$CACHEDIR/dem/${base}
+  if test -f ${cache_base}.tif
+  then
+      cp ${cache_base}.tif .
+  else
+      gdal_fillnodata.py -q $file ${base}.tif
+      cp ${base}.tif ${cache_base}.tif
+  fi
 done
 
 # merge all elevation data into one single large tiled file
