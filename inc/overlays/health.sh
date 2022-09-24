@@ -11,6 +11,6 @@ cd /home/maposmatic/styles
 git clone --quiet https://github.com/hholzgra/Mapnik-health-overlay.git
 
 cd Mapnik-health-overlay
-# TODO add any extra tasks here
+cp $FILEDIR/config-files/datasource-settings.xml.inc inc
 cd ..
 
