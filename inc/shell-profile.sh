@@ -24,3 +24,9 @@ for var in $vars
 do
     echo "export $var=${!var}" >> $outfile
 done
+
+#
+# prevent "message of the day" to be shown on vagrant login
+#
+
+touch /home/vagrant/.hushlogin; chown vagrant /home/vagrant/.hushlogin
