@@ -22,5 +22,5 @@ vars+="STYLEDIR "
 
 for var in $vars
 do
-    echo "export var=$var" >> $outfile
+    echo "export $var=${!var}" >> $outfile
 done
