@@ -20,7 +20,7 @@ vars+="OSM_EXTRACT "
 vars+="SHAPEFILE_DIR "
 vars+="STYLEDIR "
 
-for var in vars
+for var in $vars
 do
-    echo "export var=$var"
+    echo "export var=$var" >> $outfile
 done
