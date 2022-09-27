@@ -38,6 +38,7 @@ SELECT osm_id
 , tags->'direction' as "direction"
 , tags->'disused' as "disused"
 , tags->'ele' as "ele"
+, tags->'emergency' as "emergency"
 , tags->'ford' as "ford"
 , tags->'generator:source' as "generator:source"
 , tags->'harbour' AS "harbour"

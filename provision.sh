@@ -35,6 +35,9 @@ fi
 
 mkdir -p $CACHEDIR
 
+SHAPEFILE_DIR=$INSTALLDIR/shapefiles
+STYLEDIR=$INSTALLDIR/styles
+
 # store memory size in KB in $MemTotal
 export $(grep MemTotal /proc/meminfo | sed -e's/kB//' -e's/ //g' -e's/:/=/')
 
@@ -57,7 +60,14 @@ else
 	exit 3
 fi
 
+#----------------------------------------------------
+#
+# Make variables used by included provision scripts
+# available to VM users to be able to easily re-run scripts
+#
+#----------------------------------------------------
 
+. $INCDIR/shell-profile.sh
 
 #----------------------------------------------------
 #
@@ -148,7 +158,6 @@ banner "renderer setup"
 
 
 banner "shapefiles"
-SHAPEFILE_DIR=$INSTALLDIR/shapefiles
 # install shapefiles
 . $INCDIR/get-shapefiles.sh
 # set up shapefile update job
@@ -157,7 +166,6 @@ systemctl daemon-reload
 
 
 banner "styles"
-STYLEDIR=$INSTALLDIR/styles
 . $INCDIR/styles.sh
 
 

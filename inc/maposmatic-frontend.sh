@@ -44,7 +44,7 @@ python3 manage.py shell -c "from django.contrib.auth.models import User; User.ob
 banner "Dj. Translate"
 python3 manage.py compilemessages
 
-(cd documentation; make 2>/dev/null; make install)
+(cd documentation; make html 2>/dev/null; make install)
 
 # fix directory ownerships
 chown -R maposmatic /home/maposmatic
@@ -57,11 +57,17 @@ chgrp www-data media logs
 chmod g+w media logs
 
 # set up render daemon
-cp $FILEDIR/systemd/maposmatic-render.service /etc/systemd/system
-chmod 644 /etc/systemd/system/maposmatic-render.service
+let MemHalf=$Mem_DB/2
+sed -e"s/@memlimit@/$MemHalf/g" < $FILEDIR/systemd/maposmatic-render.service > /etc/systemd/system/maposmatic-render.service
+sed -e"s/@memlimit@/$MemHalf/g" < $FILEDIR/systemd/maposmatic-render@.service > /etc/systemd/system/maposmatic-render@.service
+chmod 644 /etc/systemd/system/maposmatic*
 systemctl daemon-reload
-systemctl enable maposmatic-render.service
-systemctl start maposmatic-render.service
+
+for queue in default api multipage
+do
+  systemctl enable maposmatic-render@$queue
+  systemctl start maposmatic-render@$queue
+done
 
 # set up web server
 service apache2 stop

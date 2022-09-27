@@ -11,6 +11,7 @@ OSM_EXTRACT="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 cd /home/maposmatic
 
 mkdir -p osm2pgsql-import
+chmod a+w osm2pgsql-import
 cd osm2pgsql-import
 
 # get style file
@@ -46,6 +47,8 @@ time sudo --user=maposmatic osm2pgsql \
      --disable-parallel-indexing \
      --keep-coastlines \
      --disable-parallel-indexing \
+     --flat-nodes=/home/maposmatic/osm2pgsql-import/osm2pgsql-nodes.dat \
+     --keep-coastlines \
      $OSM_EXTRACT
 
 # install views to provide expected table layouts from hstore-only bas tables
