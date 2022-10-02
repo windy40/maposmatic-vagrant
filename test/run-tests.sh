@@ -40,7 +40,54 @@ then
 else
   STYLES=$(grep ^name= $CONFIG | grep -v '#' | grep -vi 'Overlay' | sed -e 's/name=//g' | sort)
   OVERLAYS=$(grep ^name= $CONFIG | grep -v '#' | grep -i 'Overlay' | sed -e 's/name=//g'  | sort)
-  rm -rf test-* thumbnails/test-*
+  rm -rf test-* thumbnails/test-* layout*
+
+  ## render
+
+  echo -n "Plain page layout preview ..."
+  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Plain' --format=png --prefix=layout-plain --language=de_DE.utf8 --layout=plain --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
+  chmod a+x $base.sh
+  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
+  convert -resize 500x355 layout-plain.png $PREVIEW_DIR/layout/plain.png
+  cat $base.time
+
+  echo -n "Side index layout preview ..."
+  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Side Index' --format=png --prefix=layout-side-index --language=de_DE.utf8 --layout=single_page_index_side --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
+  chmod a+x $base.sh
+  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
+  convert -resize 500x355 layout-side-index.png $PREVIEW_DIR/layout/single_page_index_side.png
+  cat $base.time
+
+  echo -n "Bottom index layout preview ..."
+  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Bottom Index' --format=png --prefix=layout-bottom-index --language=de_DE.utf8 --layout=single_page_index_bottom --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
+  chmod a+x $base.sh
+  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
+  convert -resize 500x355 layout-bottom-index.png $PREVIEW_DIR/layout/single_page_index_bottom.png
+  cat $base.time
+
+  echo -n "Multi page layout preview ..."
+  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Multi Page' --format=pdf --prefix=layout-multi --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='$PAPER' --style=CartoOSM" > $base.sh
+  chmod a+x $base.sh
+  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
+  convert -resize 500x355 layout-plain.png $PREVIEW_DIR/layout/single_page_index_bottom.png
+  cat $base.time
+
+  convert -density 300 layout-multi.pdf layout-multi.png
+
+  convert layout-multi-0.png  -resize 200x280 layout-multi-title.png
+  convert layout-multi-2.png  -resize 200x280 layout-multi-overview.png
+  convert layout-multi-5.png  -resize 200x280 layout-multi-detail.png
+  convert layout-multi-10.png -resize 200x280 layout-multi-index.png
+
+  convert -size 500x355 canvas:lightgray \
+            layout-multi-index.png     -geometry  +300+75  -composite \
+            layout-multi-detail.png    -geometry  +200+50  -composite \
+            layout-multi-overview.png  -geometry  +100+25  -composite \
+            layout-multi-title.png     -geometry  +0+0  -composite \
+          layout-multi-all.png
+
+
+  cp layout-multi-all.png $PREVIEW_DIR/layout/multi_page.png
 fi
 
 for style in $STYLES
