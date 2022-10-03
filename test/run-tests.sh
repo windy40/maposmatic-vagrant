@@ -79,13 +79,12 @@ else
   convert layout-multi-5.png  -resize 200x280 layout-multi-detail.png
   convert layout-multi-10.png -resize 200x280 layout-multi-index.png
 
-  convert -size 500x355 canvas:lightgray \
+  convert -size 500x355 canvas:white \
             layout-multi-index.png     -geometry  +300+75  -composite \
             layout-multi-detail.png    -geometry  +200+50  -composite \
             layout-multi-overview.png  -geometry  +100+25  -composite \
             layout-multi-title.png     -geometry  +0+0  -composite \
           layout-multi-all.png
-
 
   cp layout-multi-all.png $PREVIEW_DIR/layout/multi_page.png
 fi
