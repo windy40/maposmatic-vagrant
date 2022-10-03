@@ -12,7 +12,7 @@ else
 	REPLICATION_BASE_OPTION="-r $REPLICATION_BASE_URL"
 fi
 
-cd /home/maposmatic/styles/
+cd $STYLEDIR/
 
 pip3 install  git+https://github.com/waymarkedtrails/osgende@master \
 	      git+https://github.com/waymarkedtrails/waymarkedtrails-shields@master
