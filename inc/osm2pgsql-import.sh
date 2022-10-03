@@ -8,7 +8,7 @@ FILEDIR=${FILEDIR:-/vagrant/files}
 
 OSM_EXTRACT="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 
-cd /home/maposmatic
+cd $INSTALLDIR
 
 mkdir -p osm2pgsql-import
 chmod a+w osm2pgsql-import
@@ -41,7 +41,7 @@ sudo --user=maposmatic osm2pgsql \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
      --disable-parallel-indexing \
-     --flat-nodes=/home/maposmatic/osm2pgsql-import/osm2pgsql-nodes.dat \
+     --flat-nodes=$INSTALLDIR/osm2pgsql-import/osm2pgsql-nodes.dat \
      --keep-coastlines \
      $OSM_EXTRACT
 

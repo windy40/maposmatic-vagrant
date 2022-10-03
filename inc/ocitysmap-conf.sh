@@ -1,6 +1,6 @@
 #! /bin/sh
 
-CONF=/home/maposmatic/.ocitysmap.conf
+CONF=${INSTALLDIR:-/home/maposmatic}/.ocitysmap.conf
 INCDIR=${INCDIR:-/vagrant/inc}
 
 cat <<EOF > $CONF
@@ -33,7 +33,10 @@ grep --no-filename '\[.*\]' $INCDIR/styles/*.ini | sed -e 's/\[//g' -e 's/\]//g'
 echo -n "available_overlays= " >> $CONF
 grep --no-filename '\[.*\]' $INCDIR/overlays/*.ini | sed -e 's/\[//g' -e 's/\]//g' | paste -sd "," >> $CONF
 
-cat $INCDIR/styles/*.ini $INCDIR/overlays/*.ini >> $CONF
+for style_ini in  $INCDIR/styles/*.ini $INCDIR/overlays/*.ini 
+do
+	sed -e 's|@STYLEDIR@|'$STYLEDIR'|g' -e 's|@INSTALLDIR@|'$INSTALLDIR'|g' < $style_ini >> $CONF
+done
 
 rm -f /root/.ocitysmap.conf
 ln -s $CONF /root/.ocitysmap.conf

@@ -5,10 +5,10 @@
 #----------------------------------------------------
    
 # we share boundaries with the "classic" mapnik OSM style
-ln -s /home/maposmatic/shapefiles/world_boundaries/ .
+ln -s $SHAPEFILE_DIR/world_boundaries/ .
    
 # check out current stylesheet source
-cd /home/maposmatic/styles
+cd $STYLEDIR
 svn checkout http://svn.openstreetmap.org/applications/rendering/mapnik-german/
 cd mapnik-german
 
@@ -38,5 +38,5 @@ $FILEDIR/tools/generate_xml.py \
           --user maposmatic \
           --password 'secret' \
           --inc $(pwd)/inc-de \
-          --world_boundaries /home/maposmatic/shapefiles/world_boundaries
+          --world_boundaries $SHAPEFILE_DIR/world_boundaries
 

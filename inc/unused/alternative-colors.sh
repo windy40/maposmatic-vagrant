@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/imagico/osm-carto-alternative-colors
 
@@ -14,7 +14,7 @@ do
     sudo -u maposmatic psql gis sql/$sql.sql
 done
 
-ln -s /home/maposmatic/shapefiles data
+ln -s $SHAPEFILE_DIR data
 
 sed -e '/\sname:/d' -e 's/900913/3857/g' < project.mml > osm.mml
 carto -q -a $(mapnik-config -v) osm.mml > osm.xml

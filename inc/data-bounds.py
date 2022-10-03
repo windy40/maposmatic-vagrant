@@ -8,11 +8,13 @@ import subprocess
 
 conn = psycopg2.connect(host="127.0.0.1", database="gis", user="maposmatic", password="secret")
 
-if not os.path.exists("/home/maposmatic/bounds"):
-    os.mkdir("/home/maposmatic/bounds")
-os.chdir("/home/maposmatic/bounds")
+boundsdir = sys.argv[1]
 
-pbf_file = sys.argv[1]
+if not os.path.exists(boundsdir):
+    os.mkdir(boundsdir)
+os.chdir(boundsdir)
+
+pbf_file = sys.argv[2]
 
 result = subprocess.run(['osmium', 'fileinfo', '-j', pbf_file], stdout=subprocess.PIPE)
 

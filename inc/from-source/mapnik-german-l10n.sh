@@ -13,7 +13,7 @@ sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION unaccent"
 #
 #----------------------------------------------------------
 
-cd /home/maposmatic
+cd $INSTALLDIR
 
 mkdir -p tools
 cd tools

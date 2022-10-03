@@ -8,7 +8,7 @@
 #
 #----------------------------------------------------
 
-    cd /home/maposmatic
+    cd $INSTALLDIR
 
     # build and install Mapik 2.3.x from git
     # older Mapnik versions have a bug that leads to Cairo null pointer exceptions
