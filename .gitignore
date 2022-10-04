@@ -10,8 +10,6 @@
 /pkg/
 /spec/reports/
 /spec/examples.txt
-/test/tmp/
-/test/version_tmp/
 /tmp/
 /git-log/
 
@@ -50,11 +48,6 @@ maposmatic.box
 *.pbf
 
 # ignore test results
-test/test-*
-test/all-*
-test/index.html
-test/thumbnails/test-*
-test/thumbnails/index.html
 
 # ignore cache directories
 cache
@@ -74,9 +67,6 @@ files/shapefiles
 
 # include stuff that should not end up on git
 not-for-git
-
-# ignore local test setting overrides filey
-test/run-tests-local-config
 
 # ignore vagrant-env include file
 .env
