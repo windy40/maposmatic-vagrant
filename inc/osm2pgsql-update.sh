@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/osm2pgsql-import
+cd $INSTALLDIR/osm2pgsql-import
 
 STATEFILE=sequence_number
 DIFFFILE=pyosmium.osc
@@ -34,7 +34,7 @@ if sudo -u maposmatic osm2pgsql \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
-     --flat-nodes=/home/maposmatic/osm2pgsql-import/osm2pgsql-nodes.dat \
+     --flat-nodes=$INSTALLDIR/osm2pgsql-import/osm2pgsql-nodes.dat \
      $DIFFFILE 
 then
     timestamp=$(osmium fileinfo --extended --no-progress --get data.timestamp.last $DIFFFILE)

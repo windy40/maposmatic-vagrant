@@ -5,17 +5,21 @@
 #----------------------------------------------------
 
 # get maposmatic web frontend
-cd /home/maposmatic
+cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/maposmatic.git
 cd maposmatic
 git checkout --quiet site-osm-baustelle
+
+chown -R vagrant .
+git remote add pushme git@github.com:hholzgra/maposmatic.git
+
 
 
 # install dependencies
 (cd www/static; HOME=/root npm install)
 
 # create needed directories and tweak permissions
-mkdir -p logs rendering/results media
+mkdir -p logs rendering/results media/upload
 
 # copy config files
 cp $FILEDIR/config-files/config.py scripts/config.py
@@ -26,9 +30,9 @@ cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
 python3 manage.py collectstatic --no-input
 
 # create import bounds information
-cp /home/maposmatic/bounds/bbox.py www/settings_bounds.py
+cp $INSTALLDIR/bounds/bbox.py www/settings_bounds.py
 echo "MAX_BOUNDING_OUTER='''" >> www/settings_bounds.py
-cat /home/maposmatic/bounds/outer.json >> www/settings_bounds.py
+cat $INSTALLDIR/bounds/outer.json >> www/settings_bounds.py
 echo "'''" >> www/settings_bounds.py
 
 # init MaposMatics housekeeping database
@@ -47,14 +51,13 @@ python3 manage.py compilemessages
 (cd documentation; make html 2>/dev/null; make install)
 
 # fix directory ownerships
-chown -R maposmatic /home/maposmatic
 if test -f www/datastore.sqlite3
 then
-  chgrp www-data logs www www/datastore.sqlite3
-  chmod   g+w    logs www www/datastore.sqlite3
+  chgrp www-data www www/datastore.sqlite3
+  chmod   g+w    www www/datastore.sqlite3
 fi
-chgrp www-data media logs
-chmod g+w media logs
+chgrp -R www-data media/upload rendering/results logs
+chmod -R g+w media/upload rendering/results logs
 
 # set up render daemon
 let MemHalf=$Mem_DB/2

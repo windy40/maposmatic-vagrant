@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic
+cd $INSTALLDIR
 
 mkdir -p tools
 cd tools

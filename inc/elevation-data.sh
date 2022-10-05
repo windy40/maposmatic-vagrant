@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic
+cd $INSTALLDIR
 
 # read SRTM 90m zone name -> area mapping table
 echo "Importing SRTM zone database"
@@ -17,7 +17,7 @@ cd srtm-data
 mkdir -p $CACHEDIR/srtm-data $CACHEDIR/srtm $CACHEDIR/dem
 
 # extract bounding box data in bash array format
-bbox=$(cat /home/maposmatic/bounds/bbox.bash)
+bbox=$(cat $INSTALLDIR/bounds/bbox.bash)
 
 # create actaul bounding box bash array
 eval b=$bbox
@@ -48,7 +48,7 @@ echo "SRTM hillshading for PisteMap"
 mkdir -p srtm
 cd srtm
 
-for file in $(find /home/maposmatic/elevation-data/srtm-data/ -name "*.hgt" | sort)
+for file in $(find $INSTALLDIR/elevation-data/srtm-data/ -name "*.hgt" | sort)
 do
     base=$(basename $file .hgt)
     cache_base=$CACHEDIR/srtm/${base}
@@ -105,7 +105,7 @@ cd dem
 cp $FILEDIR/relief_color_text_file.txt .
 
 # fill empty spaces
-for file in $(find /home/maposmatic/elevation-data/srtm-data -name "*.hgt" | sort)
+for file in $(find $INSTALLDIR/elevation-data/srtm-data -name "*.hgt" | sort)
 do
   base=$(basename $file)
   echo -n "  processing $base "

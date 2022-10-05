@@ -1,7 +1,7 @@
 #! /bin/bash
 
-mkdir -p /home/maposmatic/styles/hillshade-overlay
-cd /home/maposmatic/styles/hillshade-overlay
+mkdir -p $STYLEDIR/hillshade-overlay
+cd $STYLEDIR/hillshade-overlay
 
 cp $FILEDIR/styles/hillshade.xml .
-ln -s /home/maposmatic/elevation-data/dem .
+ln -s $INSTALLDIR/elevation-data/dem .

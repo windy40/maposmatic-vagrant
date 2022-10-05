@@ -1,6 +1,9 @@
 #! /bin/bash
 
-cd /home/maposmatic/tools
+cd $INSTALLDIR
+
+mkdir -p tools
+cd tools
 
 apt-get build-dep -y osm2pgsql
 

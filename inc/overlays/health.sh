@@ -6,7 +6,7 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/hholzgra/Mapnik-health-overlay.git
 

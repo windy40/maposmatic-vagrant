@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone https://github.com/giggls/openptmap
 
