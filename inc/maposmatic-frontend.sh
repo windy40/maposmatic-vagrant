@@ -10,6 +10,10 @@ git clone --quiet https://github.com/hholzgra/maposmatic.git
 cd maposmatic
 git checkout --quiet site-osm-baustelle
 
+chown -R vagrant .
+git remote add pushme git@github.com:hholzgra/maposmatic.git
+
+
 
 # install dependencies
 (cd www/static; HOME=/root npm install)

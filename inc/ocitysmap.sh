@@ -9,6 +9,9 @@ cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/ocitysmap.git
 cd ocitysmap
 
+chown -R vagrant .
+git remote add pushme git@github.com:hholzgra/ocitysmap.git
+
 # fetch submodules so that all icon sets are actually installed
 git submodule init
 git submodule update
