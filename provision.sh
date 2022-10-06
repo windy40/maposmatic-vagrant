@@ -110,14 +110,14 @@ fi
 # add "maposmatic" system user that will own the database and all locally installed stuff
 useradd --create-home maposmatic
 
+# install local tools
+. $INCDIR/install-tools.sh
+
 # installing apt, pip and npm packages
 . $INCDIR/install-packages.sh
 
 # install all locales in the background
 . $INCDIR/locales.sh
-
-# install local tools
-. $INCDIR/install-tools.sh
 
 # initial git configuration
 . $INCDIR/git-setup.sh
