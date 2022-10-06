@@ -81,8 +81,14 @@ fi
 
 if test -z "$REPLICATION_TIMESTAMP"
 then
-    # fallback: take timestamp from actual file contents
+    # fallback: if no start date in header -> take timestamp from actual file contents
     REPLICATION_TIMESTAMP=$(osmium fileinfo -e -g data.timestamp.last $OSM_EXTRACT)
+    if [[ $REPLICATION_TIMESTAMP =~ ^19[67] ]]
+    then
+        # 2nd fallback: if the date from the file contents comes out as the unix epoche
+        # our last fallback is the files modification date	
+	REPLICATION_TIMESTAMP=$(date --iso-8601=second --reference=$OSM_EXTRACT)
+    fi
 fi
 
 sudo -u maposmatic psql gis -c "update maposmatic_admin set last_update='$REPLICATION_TIMESTAMP'"

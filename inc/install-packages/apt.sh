@@ -34,6 +34,7 @@ apt-get install --quiet=2 --assume-yes \
     curl \
     emacs \
     expat \
+    figlet \
     fonts-arkpandora \
     fonts-dejavu \
     fonts-dejavu-core \
