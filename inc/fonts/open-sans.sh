@@ -9,8 +9,8 @@ wget --timestamping https://www.opensans.com/download/open-sans.zip -O open-sans
 wget --timestamping https://www.opensans.com/download/open-sans-condensed.zip -O open-sans-condensed.zip
 
 cd $FONTDIR
-unzip $DOWNLOAD_DIR/open-sans.zip
-unzip $DOWNLOAD_DIR/open-sans-condensed.zip
+unzip -qf $DOWNLOAD_DIR/open-sans.zip 
+unzip -qf $DOWNLOAD_DIR/open-sans-condensed.zip
 
 # FIXME -> run this at end of font provisioning once only?
 fc-cache -f # not needed for Mapnik, but good practice nonetheless

@@ -8,7 +8,7 @@ cd $DOWNLOAD_DIR
 wget --timestamping https://fontlibrary.org/assets/downloads/gnu-unifont/e4006ef9811d89fcf859c28ae6321f68/gnu-unifont.zip
 
 cd $FONTDIR
-unzip $DOWNLOAD_DIR/gnu-unifont.zip
+unzip -qf $DOWNLOAD_DIR/gnu-unifont.zip
 
 fc-cache -f # not needed for Mapnik, but good practice nonetheless
 
