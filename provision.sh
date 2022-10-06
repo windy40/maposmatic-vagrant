@@ -204,6 +204,16 @@ banner "munin"
 
 #----------------------------------------------------
 #
+# some necessary security tweaks
+#
+#-----------------------------------------------------
+
+banner "security"
+
+. $INCDIR/security-quirks.sh
+
+#----------------------------------------------------
+#
 # tests
 #
 #-----------------------------------------------------
@@ -219,9 +229,6 @@ banner "running tests"
 #-----------------------------------------------------
 
 banner "cleanup"
-
-# some necessary security tweaks
-. $INCDIR/security-quirks.sh
 
 # write back compiler cache
 cp -rn /root/.ccache $CACHEDIR
