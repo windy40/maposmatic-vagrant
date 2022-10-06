@@ -4,17 +4,26 @@ PROJECT="/home/maposmatic"
 CONFIG="$PROJECT/.ocitysmap.conf"
 
 LAYOUT="plain"
-ORIENTATION="portrait"
+ORIENTATION="landscape"
 
 BBOX="52.0100,8.5122 52.0300,8.5432" # Bielefeld
 
 PAPER="Din A4"
-THUMB_WIDTH="400"
+THUMB_WIDTH=400
 
 BASE_FOR_OVERLAY="Empty"
 PREVIEW_DIR=/home/maposmatic/maposmatic/www/static/img/
 
 PYTHON="python3"
+
+make_previews () {
+    if test -n "$PREVIEW_DIR"
+    then
+	echo "convert -resize  500x355 $1 $PREVIEW_DIR/$2.png"      >> $3
+	echo "convert -resize  750x533 $1 $PREVIEW_DIR/$2-1.5x.png" >> $3
+	echo "convert -resize 1000x710 $1 $PREVIEW_DIR/$2-2x.png"   >> $3
+    fi
+}
 
 if test -f ./run-tests-local-config
 then
@@ -51,32 +60,26 @@ else
   echo -n "Plain page layout preview ..."
   base="layout-plain"
   echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Plain' --format=png --prefix=layout-plain --language=de_DE.utf8 --layout=plain --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
+  make_previews "$base.png" "layout/plain" "$base.sh"
   chmod a+x $base.sh
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-  convert -resize  500x355 layout-plain.png $PREVIEW_DIR/layout/plain.png
-  convert -resize  750x533 layout-plain.png $PREVIEW_DIR/layout/plain-1.5x.png
-  convert -resize 1000x710 layout-plain.png $PREVIEW_DIR/layout/plain-2x.png
   cat $base.time
-
+  
   echo -n "Side index layout preview ..."
   base="layout-side-index"
   echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Side Index' --format=png --prefix=layout-side-index --language=de_DE.utf8 --layout=single_page_index_side --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
+  make_previews "$base.png" "layout/single_page_index_side" "$base.sh"
   chmod a+x $base.sh
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
-  convert -resize  500x355 layout-side-index.png $PREVIEW_DIR/layout/single_page_index_side.png
-  convert -resize  755x533 layout-side-index.png $PREVIEW_DIR/layout/single_page_index_side-1.5x.png
-  convert -resize 1000x710 layout-side-index.png $PREVIEW_DIR/layout/single_page_index_side-2x.png
 
   echo -n "Bottom index layout preview ..."
   base="layout-bottom-index"
   echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Bottom Index' --format=png --prefix=layout-bottom-index --language=de_DE.utf8 --layout=single_page_index_bottom --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
+  make_previews "$base.png" "layout/single_page_index_bottom" "$base.sh"
   chmod a+x $base.sh
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
-  convert -resize  500x355 layout-bottom-index.png $PREVIEW_DIR/layout/single_page_index_bottom.png
-  convert -resize  750x533 layout-bottom-index.png $PREVIEW_DIR/layout/single_page_index_bottom-1.5x.png
-  convert -resize 1000x710 layout-bottom-index.png $PREVIEW_DIR/layout/single_page_index_bottom-2x.png
 
   echo -n "Multi page layout preview ..."
   base="layout-multi"
@@ -150,15 +153,14 @@ do
   base=test-base-$style-multi
   printf "... %-4s " mpdf
   echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $style (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style=$style" > $base.sh
+  make_previews test-base-$style-png.png "style/$style" "$base.sh"
   chmod a+x $base.sh
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
+
   convert test-base-$style-png.png test-base-$style-jpg.jpg
   convert -thumbnail $THUMB_WIDTH test-base-$style-png.png thumbnails/test-base-$style-png.jpg
-  if test -n "$PREVIEW_DIR"
-  then
-    cp thumbnails/test-base-$style-png.jpg $PREVIEW_DIR/style/$style.jpg
-  fi
+
 
   php index.php > index.html
   ( cd thumbnails && php index.php > index.html )
