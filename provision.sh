@@ -134,9 +134,6 @@ banner "places db"
 banner "db l10n"
 . $INCDIR/from-source/mapnik-german-l10n.sh
 
-banner "building osgende"
-. $INCDIR/from-source/osgende.sh
-
 banner "building osm2pgsql"
 . $INCDIR/from-source/osm2pgsql-build.sh
 
