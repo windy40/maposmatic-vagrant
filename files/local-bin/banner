@@ -2,7 +2,7 @@
 
 if test -f /usr/bin/figlet
 then
-        /usr/bin/figlet "$@"
+        /usr/bin/figlet -w 120 "$@"
 elif test -f /usr/bin/banner
 then
         /usr/bin/banner "$@"
