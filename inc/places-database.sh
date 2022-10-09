@@ -7,7 +7,7 @@ mkdir -p $DBDIR
 # create places table for replacing nominatim search
 if ! test -f $DBDIR/places.sql.gz
 then
-	wget https://www.osm-baustelle.de/downloads/places.sql.gz -O $DBDIR/places.sql.gz
+	wget https://www.get-map.org/downloads/places.sql.gz -O $DBDIR/places.sql.gz
 fi
 zcat $DBDIR/places.sql.gz | sudo -u maposmatic psql gis 
 
