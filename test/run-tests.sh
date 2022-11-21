@@ -7,9 +7,14 @@ LAYOUT="plain"
 ORIENTATION="landscape"
 
 BBOX="52.0100,8.5122 52.0300,8.5432" # Bielefeld
+# BBOX="52.48556,13.3325 52.48167,13.3375" # Berlin
+
+LANG="de_DE.utf8"
 
 PAPER="Din A4"
 THUMB_WIDTH=400
+
+INDEX="Street"
 
 BASE_FOR_OVERLAY="Empty"
 PREVIEW_DIR=/home/maposmatic/maposmatic/www/static/img/
@@ -23,6 +28,68 @@ make_previews () {
 	echo "convert -resize  750x533 $1 $PREVIEW_DIR/$2-1.5x.png" >> $3
 	echo "convert -resize 1000x710 $1 $PREVIEW_DIR/$2-2x.png"   >> $3
     fi
+}
+
+make_cmd() {
+    base="$1"
+    style="$2"
+    mode="$3"
+    format="$4"
+
+    cmd="ocitysmap"
+    cmd+=" --config=$CONFIG"
+    cmd+=" --bounding-box=$BBOX"
+    cmd+=" --title='Test $style ($format)'"
+    cmd+=" --prefix=$base"
+    cmd+=" --index=$INDEX"
+    cmd+=" --language=$LANG"
+    cmd+=" --orientation=$ORIENTATION"
+    cmd+=" --paper-format='$PAPER'"
+    if [ "$format" == "multi" ]
+    then
+	cmd+=" --format=pdf"
+	cmd+=" --layout=multi_page"
+    else
+        cmd+=" --format=$format"
+	cmd+=" --layout=$LAYOUT"
+    fi
+    if [ "$mode" == "overlay" ]
+    then
+	cmd+=" --style='$BASE_FOR_OVERLAY' --overlay=$style"
+    else
+	cmd+=" --style=$style"
+    fi
+
+    echo $cmd
+}
+
+make_map() {
+    style="$1"
+    mode="$2" # base or overlay
+
+    for format in png pdf svgz multi
+    do
+        base=test-$mode-$style-$format
+        printf "... %-4s " $format
+
+	make_cmd $base $style $mode $format >> $base.sh
+
+    if test "$format" == "png"
+    then
+	make_previews test-base-$style-png.png "style/$style" "$base.sh"
+    fi
+
+    chmod a+x $base.sh
+    /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
+    cat $base.time
+  done
+
+  convert test-$mode-$style-png.png test-$mode-$style-jpg.jpg
+  convert -thumbnail $THUMB_WIDTH test-$mode-$style-png.png thumbnails/test-$mode-$style-png.jpg
+
+  php index.php > index.html
+  ( cd thumbnails && php index.php > index.html )
+
 }
 
 if test -f ./run-tests-local-config
@@ -56,7 +123,7 @@ else
   # TODO move preview img generation to own script,
   #      enroll different sizes in loop
   #      import BBOX and PAPER from common include script
-  
+
   echo -n "Plain page layout preview ..."
   base="layout-plain"
   echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Plain' --format=png --prefix=layout-plain --language=de_DE.utf8 --layout=plain --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
@@ -64,7 +131,7 @@ else
   chmod a+x $base.sh
   /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
   cat $base.time
-  
+
   echo -n "Side index layout preview ..."
   base="layout-side-index"
   echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Side Index' --format=png --prefix=layout-side-index --language=de_DE.utf8 --layout=single_page_index_side --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
@@ -90,6 +157,9 @@ else
 
   convert -density 300 layout-multi.pdf layout-multi.png
 
+  # TODO use "pdfinfo ... | grep ^Pages:" to find actual PDF page count,
+  #      and guess good detail and index page numbers based on that
+  #      instead of hard coded pages 5 and 10
   convert layout-multi-0.png  -resize 200x280 layout-multi-title.png
   convert layout-multi-2.png  -resize 200x280 layout-multi-overview.png
   convert layout-multi-5.png  -resize 200x280 layout-multi-detail.png
@@ -136,61 +206,26 @@ fi
 for style in $STYLES
 do
   echo "Testing '$style' style"
-  for format in png pdf svgz multi
-  do
-    rm -f test-base-$style-$format.*
-  done
-  for format in png pdf svgz
-  do
-    base=test-base-$style-$format
-    printf "... %-4s " $format
-    echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $style ($format)' --format=$format --prefix=$base --language=de_DE.utf8 --layout=$LAYOUT --orientation=$ORIENTATION --paper-format='$PAPER' --style=$style" > $base.sh
-    chmod a+x $base.sh
-    /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-    cat $base.time
-  done
+  rm -f test-base-$style-*
 
-  base=test-base-$style-multi
-  printf "... %-4s " mpdf
-  echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $style (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style=$style" > $base.sh
-  make_previews test-base-$style-png.png "style/$style" "$base.sh"
-  chmod a+x $base.sh
-  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-  cat $base.time
+  make_map $style "base"
 
   convert test-base-$style-png.png test-base-$style-jpg.jpg
   convert -thumbnail $THUMB_WIDTH test-base-$style-png.png thumbnails/test-base-$style-png.jpg
-
 
   php index.php > index.html
   ( cd thumbnails && php index.php > index.html )
 done
 
-for overlay in $OVERLAYS
+for style in $OVERLAYS
 do
-  echo "Testing '$overlay' overlay"
-  rm -f test-overlay-$overlay*
-  for format in png pdf svgz
-  do
-    base=test-overlay-$overlay-$format
-    printf "... %-4s " $format
-    echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $overlay ($format)' --format=$format --prefix=$base --language=de_DE.utf8 --layout=$LAYOUT --orientation=$ORIENTATION --paper-format='$PAPER' --style='$BASE_FOR_OVERLAY' --overlay=$overlay" > $base.sh
-    chmod a+x $base.sh
-    /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-    cat $base.time
-  done
-  base=test-overlay-$overlay-multi
-  printf "... %-4s " mpdf
-  echo "ocitysmap --config=$CONFIG --bounding-box=$BBOX --title='Test $overlay (multi)' --format=pdf --prefix=$base --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='Din A4' --style='$BASE_FOR_OVERLAY' --overlay=$overlay" > $base.sh
-  chmod a+x $base.sh
-  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-  cat $base.time
-  convert test-overlay-$overlay-png.png test-overlay-$overlay-jpg.jpg
-  convert -thumbnail $THUMB_WIDTH test-overlay-$overlay-png.png thumbnails/test-overlay-$overlay-png.jpg
-  if test -n "$PREVIEW_DIR"
-  then
-    cp thumbnails/test-overlay-$overlay-png.jpg $PREVIEW_DIR/overlay/$overlay.jpg
-  fi
+  echo "Testing '$style' overlay"
+  rm -f test-overlay-$style-*
+
+  make_map $style "overlay"
+
+  convert test-overlay-$style-png.png test-overlay-$style-jpg.jpg
+  convert -thumbnail $THUMB_WIDTH test-overlay-$style-png.png thumbnails/test-overlay-$style-png.jpg
 
   php index.php > index.html
   ( cd thumbnails && php index.php > index.html )
