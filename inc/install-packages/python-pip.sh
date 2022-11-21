@@ -27,7 +27,7 @@ pip3 install \
      > /dev/null || exit 3
 
 # pip repository version of django-multiupload not compatible with Django 2.1+ yet
-pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=multiupload > /dev/null || exit 3
+pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=django-multiupload > /dev/null || exit 3
 
 # we can't uninstall the Ubuntu python3-pycairo package
 # due to too many dependencies, but we need to make sure
