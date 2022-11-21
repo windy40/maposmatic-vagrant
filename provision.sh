@@ -107,6 +107,9 @@ else
     mkdir -p ~/.ccache
 fi
 
+# sudo environment setup
+. $INCDIR/sudoers.sh
+
 # add "maposmatic" system user that will own the database and all locally installed stuff
 useradd --create-home maposmatic
 
