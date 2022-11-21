@@ -6,6 +6,7 @@ apt-get remove -y python3-apport > /dev/null
 banner "python packages"
 pip3 install \
      colour \
+     cssselect \
      django-cookie-law \
      django-maintenance-mode \
      fastnumbers \
@@ -21,6 +22,7 @@ pip3 install \
      qrcode \
      "sqlalchemy>=1.4,<2.0" \
      "sqlalchemy-utils" \
+     tinycss \
      utm \
      > /dev/null || exit 3
 
