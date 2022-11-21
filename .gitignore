@@ -70,3 +70,6 @@ not-for-git
 
 # ignore vagrant-env include file
 .env
+
+# ignore experimental stuff
+experimental/
