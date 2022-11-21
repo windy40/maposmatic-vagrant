@@ -91,6 +91,7 @@ apt-get install --quiet=2 --assume-yes \
     php7.4-xml \
     pngquant \
     poedit \
+    poppler-utils \
     postgis \
     postgresql \
     postgresql-contrib \
