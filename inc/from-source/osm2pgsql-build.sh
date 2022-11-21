@@ -13,5 +13,3 @@ mkdir _build
 cd _build
 
 cmake .. >/dev/null && make -j$(nproc) install >/dev/null
-
-exit 3
