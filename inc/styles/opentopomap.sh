@@ -15,7 +15,10 @@ ln -s $INSTALLDIR/elevation-data/dem .
 # we remove this lower limit so that highest zoom rules work for
 # even highr zoom levels, too
 
-for a in *.xml; do echo $a; sed -i -e's/&minscale_zoom17;//g' $a; done
+for file in *.xml
+do
+    sed -i -e's/&minscale_zoom17;//g' $file
+done
 
 # build the bundled utility programs
 
