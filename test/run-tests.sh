@@ -36,12 +36,23 @@ PYTHON="python3"
 
 ### create reduced size preview images in several resolutions
 make_previews () {
+    png=$1
+    name=$2
+    script=$3
+
+    jpg=$(echo $png | sed -e's/-png.png/-jpg.jpg/g')
+    thumb="thumbmails/"$(basename $png .png).jpg
+    echo "convert $png $jpg" >> $script
+    echo "convert -thumbnail $THUMB_WIDTH $png $thumb" >> $script
+
     if test -n "$PREVIEW_DIR"
     then
-	echo "convert -resize  500x355 $1 $PREVIEW_DIR/$2.png"      >> $3
-	echo "convert -resize  750x533 $1 $PREVIEW_DIR/$2-1.5x.png" >> $3
-	echo "convert -resize 1000x710 $1 $PREVIEW_DIR/$2-2x.png"   >> $3
+	echo "convert -resize  500x355 $png $PREVIEW_DIR/$name.png"      >> $script
+	echo "convert -resize  750x533 $png $PREVIEW_DIR/$name-1.5x.png" >> $script
+	echo "convert -resize 1000x710 $png $PREVIEW_DIR/$name-2x.png"   >> $script
     fi
+
+
 }
 
 make_previews_multi() {
@@ -49,9 +60,10 @@ make_previews_multi() {
     #      and guess good detail and index page numbers based on that
     #      instead of hard coded pages 5 and 10
 
-    width=$1
-    height=$2
-    factor=$3
+    script=$1
+    width=$2
+    height=$3
+    factor=$4
 
     single_size="${width}x${height}"
     full_size=$(bc <<< "$width*2.5/1")"x"$(bc <<< "$height*1.27/1")
@@ -61,19 +73,19 @@ make_previews_multi() {
     offset2="+"$(bc <<< "$dw*2")"+"$(bc <<< "$dh*2")
     offset3="+"$dw"+"$dh
 
-    convert layout-multi_page-0.png  -resize $single_size layout-multi_page-title$factor.png
-    convert layout-multi_page-2.png  -resize $single_size layout-multi_page-overview$factor.png
-    convert layout-multi_page-5.png  -resize $single_size layout-multi_page-detail$factor.png
-    convert layout-multi_page-10.png -resize $single_size layout-multi_page-index$factor.png
+    echo "convert layout-multi_page-0.png  -resize $single_size layout-multi_page-title$factor.png" >> $script
+    echo "convert layout-multi_page-2.png  -resize $single_size layout-multi_page-overview$factor.png" >> $script
+    echo "convert layout-multi_page-5.png  -resize $single_size layout-multi_page-detail$factor.png" >> $script
+    echo "convert layout-multi_page-10.png -resize $single_size layout-multi_page-index$factor.png" >> $script
 
-    convert -size $full_size canvas:none \
+    echo "convert -size $full_size canvas:none \
             layout-multi_page-index$factor.png     -geometry  $offset1 -composite \
             layout-multi_page-detail$factor.png    -geometry  $offset2 -composite \
             layout-multi_page-overview$factor.png  -geometry  $offset3 -composite \
             layout-multi_page-title$factor.png     -geometry  +0+0     -composite \
-            layout-multi_page-all$factor.png
+            layout-multi_page-all$factor.png" >> $script
 
-    cp layout-multi_page-all$factor.png $PREVIEW_DIR/layout/multi_page$factor.png
+    echo "cp layout-multi_page-all$factor.png $PREVIEW_DIR/layout/multi_page$factor.png" >> $script
 }
 
 ### make layout preview
@@ -82,7 +94,6 @@ make_layout_preview() {
     title=$2
     format=$3
 
-    echo -n "$title layout preview ..."
     base="layout-$layout"
 
     cmd="ocitysmap"
@@ -107,11 +118,16 @@ make_layout_preview() {
     if test "$format" = "png"
     then
        make_previews "$base.png" "layout/$layout" "$base.sh"
+    else
+	echo "convert -density 300 layout-multi_page.pdf layout-multi_page.png" >> $base.sh
+
+	make_previews_multi $base.sh 200 280 ""
+	make_previews_multi $base.sh 320 420 "-1.5x"
+	make_previews_multi $base.sh 400 560 "-2x"
     fi
 
     chmod a+x $base.sh
-    /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-    cat $base.time
+    echo "/usr/bin/time -q -f '%E' -o $base.time ./$base.sh > $base.log 2> $base.err; echo -n '$layout preview done in '; cat $base.time" >> test-run.sh
 }
 
 ### create actual render command line
@@ -156,28 +172,19 @@ make_map() {
     for format in png pdf svgz multi
     do
         base=test-$mode-$style-$format
-        printf "... %-4s " $format
-
 	make_cmd $base $style $mode $format >> $base.sh
 
-    if test "$format" == "png"
-    then
-	make_previews test-base-$style-png.png "style/$style" "$base.sh"
-    fi
+	if test "$format" == "png"
+	then
+	    make_previews test-base-$style-png.png "style/$style" "$base.sh"
+	fi
 
-    chmod a+x $base.sh
-    /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-    cat $base.time
-  done
-
-  convert test-$mode-$style-png.png test-$mode-$style-jpg.jpg
-  convert -thumbnail $THUMB_WIDTH test-$mode-$style-png.png thumbnails/test-$mode-$style-png.jpg
-
-  php index.php > index.html
-  ( cd thumbnails && php index.php > index.html )
-
+	chmod a+x $base.sh
+	echo "/usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err; echo -n '$style $mode $format done in '; cat $base.time " >> test-run.sh
+    done
 }
 
+rm -f test-run.sh
 
 if test $# -gt 0
 then
@@ -227,43 +234,27 @@ fi
 if ! test -f layout-multi_page.png
 then
    make_layout_preview "multi_page" "Multi page" "pdf"
-
-   # generating multi page preview image is more tricky
-
-   # generate PNG files for each pdf page
-   convert -density 300 layout-multi_page.pdf layout-multi_page.png
-
-   make_previews_multi 200 280 ""
-   make_previews_multi 320 420 "-1.5x"
-   make_previews_multi 400 560 "-2x"
 fi
 
 for style in $STYLES
 do
-  echo "Testing '$style' style"
   rm -f test-base-$style-*
 
   make_map $style "base"
 
-  convert test-base-$style-png.png test-base-$style-jpg.jpg
-  convert -thumbnail $THUMB_WIDTH test-base-$style-png.png thumbnails/test-base-$style-png.jpg
-
-  php index.php > index.html
-  ( cd thumbnails && php index.php > index.html )
 done
 
 for style in $OVERLAYS
 do
-  echo "Testing '$style' overlay"
   rm -f test-overlay-$style-*
 
   make_map $style "overlay"
-
-  convert test-overlay-$style-png.png test-overlay-$style-jpg.jpg
-  convert -thumbnail $THUMB_WIDTH test-overlay-$style-png.png thumbnails/test-overlay-$style-png.jpg
-
-  php index.php > index.html
-  ( cd thumbnails && php index.php > index.html )
 done
 
+chmod a+x test-run.sh
+parallel --eta < test-run.sh
+
+echo "all rendering done, updating index pages"
+php index.php > index.html
+( cd thumbnails && php index.php > index.html )
 
