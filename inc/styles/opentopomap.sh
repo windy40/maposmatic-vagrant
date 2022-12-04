@@ -11,6 +11,12 @@ ln -s $SHAPEFILE_DIR/ data
 ln -s $SHAPEFILE_DIR/world_boundaries .
 ln -s $INSTALLDIR/elevation-data/dem .
 
+# all OpenTopoMap rules do render to zoom level 17 max.; not beyond
+# we remove this lower limit so that highest zoom rules work for
+# even highr zoom levels, too
+
+for a in *.xml; do echo $a; sed -i -e's/&minscale_zoom17;//g' $a; done
+
 # build the bundled utility programs
 
 cd tools
