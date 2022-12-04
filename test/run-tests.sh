@@ -1,5 +1,31 @@
 #! /bin/bash
 
+###
+#
+# Test script that tries to render all configured styles
+# and overlays for testing, plus generating preview images
+# for the web gui.
+#
+# It tries to utilize all CPU cores for testing, but parallelism
+# was only added as an afterthought, so it's become a bit ugly.
+#
+# Basically for each style, overlay, and layout preview shell
+# scripts are created for each individual output file format
+# which contains the actual ocitysmap standalone renderer
+# commandline with all appropriate options, and any further
+# postprocessing tool calls.
+#
+# The paths of all such generated script files are then
+# written to a single master file, one line at a time,
+# and finally GNU parallel is used to take lines from that
+# file and execute them in parallel utilizing all available
+# CPU cores.
+#
+# Not the most beautiful code, but it does get the job done
+#
+###
+
+
 ### incude local override settings
 
 if test -f ./run-tests-local-config
