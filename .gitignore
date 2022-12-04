@@ -43,6 +43,7 @@ build/
 db_disk.vdi
 maposmatic.box
 *-console.log
+*-VBoxHeadless-*.log
 
 # ignore OSM data files
 *.pbf
