@@ -1,26 +1,40 @@
 #! /bin/bash
 
-PROJECT="/home/maposmatic"
-CONFIG="$PROJECT/.ocitysmap.conf"
+### incude local override settings
 
-LAYOUT="plain"
-ORIENTATION="landscape"
+if test -f ./run-tests-local-config
+then
+	. ./run-tests-local-config
+fi
 
-BBOX="52.0100,8.5122 52.0300,8.5432" # Bielefeld
-# BBOX="52.48556,13.3325 52.48167,13.3375" # Berlin
+### default settings
 
-LANG="de_DE.utf8"
+# do not change these here, use the
+# run-tests-local-config
+# file to set different defaults instead
 
-PAPER="Din A4"
-THUMB_WIDTH=400
+PROJECT=${PROJECT:-"/home/maposmatic"}
+CONFIG=${CONFIG:-"$PROJECT/.ocitysmap.conf"}
 
-INDEX="Street"
+LAYOUT=${LAYOUT:-"plain"}
+ORIENTATION=${ORIENTATION:-"landscape"}
 
-BASE_FOR_OVERLAY="Empty"
-PREVIEW_DIR=/home/maposmatic/maposmatic/www/static/img/
+BBOX=${BBOX:-"52.0100,8.5122 52.0300,8.5432"} # Bielefeld
+
+LANG=${LANG:-"de_DE.utf8"}
+
+PAPER=${PAPER:-"Din A4"}
+THUMB_WIDTH=${THUMB_WIDTH:-400}
+
+INDEX=${INDEX:-"Street"}
+
+BASE_FOR_OVERLAY=${BASE_FOR_OVERLAY:-"Empty"}
+PREVIEW_DIR=${PREVIEW_DIR:-"/home/maposmatic/maposmatic/www/static/img/"}
 
 PYTHON="python3"
 
+
+### create reduced size preview images in several resolutions
 make_previews () {
     if test -n "$PREVIEW_DIR"
     then
@@ -30,6 +44,77 @@ make_previews () {
     fi
 }
 
+make_previews_multi() {
+    # TODO use "pdfinfo ... | grep ^Pages:" to find actual PDF page count,
+    #      and guess good detail and index page numbers based on that
+    #      instead of hard coded pages 5 and 10
+
+    width=$1
+    height=$2
+    factor=$3
+
+    single_size="${width}x${height}"
+    full_size=$(bc <<< "$width*2.5/1")"x"$(bc <<< "$height*1.27/1")
+    dw=$(bc <<< "$width/2")
+    dh=$(bc <<< "$height/14")
+    offset1="+"$(bc <<< "$dw*3")"+"$(bc <<< "$dh*3")
+    offset2="+"$(bc <<< "$dw*2")"+"$(bc <<< "$dh*2")
+    offset3="+"$dw"+"$dh
+
+    convert layout-multi_page-0.png  -resize $single_size layout-multi_page-title$factor.png
+    convert layout-multi_page-2.png  -resize $single_size layout-multi_page-overview$factor.png
+    convert layout-multi_page-5.png  -resize $single_size layout-multi_page-detail$factor.png
+    convert layout-multi_page-10.png -resize $single_size layout-multi_page-index$factor.png
+
+    convert -size $full_size canvas:white \
+            layout-multi_page-index$factor.png     -geometry  $offset1 -composite \
+            layout-multi_page-detail$factor.png    -geometry  $offset2 -composite \
+            layout-multi_page-overview$factor.png  -geometry  $offset3 -composite \
+            layout-multi_page-title$factor.png     -geometry  +0+0     -composite \
+            layout-multi_page-all$factor.png
+
+    cp layout-multi_page-all$factor.png $PREVIEW_DIR/layout/multi_page$factor.png
+}
+
+### make layout preview
+make_layout_preview() {
+    layout=$1
+    title=$2
+    format=$3
+
+    echo -n "$title layout preview ..."
+    base="layout-$layout"
+
+    cmd="ocitysmap"
+    cmd+=" --config=$CONFIG"
+    cmd+=" --bounding-box=$BBOX"
+    cmd+=" --title='$title'"
+    cmd+=" --prefix='layout-$layout'"
+    cmd+=" --layout=$layout"
+    cmd+=" --style=CartoOSM"
+    cmd+=" --language=$LANG"
+    cmd+=" --paper-format='$PAPER'"
+    if test "$format" = "pdf"
+    then
+	cmd+=" --orientation=portrait"
+    else
+	cmd+=" --orientation=landscape"
+    fi
+    echo $cmd > $base.sh
+
+
+    # create previews for single page formats only
+    if test "$format" = "png"
+    then
+       make_previews "$base.png" "layout/$layout" "$base.sh"
+    fi
+
+    chmod a+x $base.sh
+    /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
+    cat $base.time
+}
+
+### create actual render command line
 make_cmd() {
     base="$1"
     style="$2"
@@ -63,6 +148,7 @@ make_cmd() {
     echo $cmd
 }
 
+# render map in various file formats
 make_map() {
     style="$1"
     mode="$2" # base or overlay
@@ -92,13 +178,10 @@ make_map() {
 
 }
 
-if test -f ./run-tests-local-config
-then
-	. ./run-tests-local-config
-fi
 
 if test $# -gt 0
 then
+  # get styles to re-render from command line
   STYLES=""
   OVERLAYS=""
   while [ $1 ] ; do
@@ -114,93 +197,45 @@ then
     shift
   done
 else
+  # with no explicit styles requested we remove and re-render everything
   STYLES=$(grep ^name= $CONFIG | grep -v '#' | grep -vi 'Overlay' | sed -e 's/name=//g' | sort)
   OVERLAYS=$(grep ^name= $CONFIG | grep -v '#' | grep -i 'Overlay' | sed -e 's/name=//g'  | sort)
-  rm -rf test-* thumbnails/test-* layout*
+  rm -rf test-* thumbnails/test-* layout-*
+fi
 
-  ## render
+## render
 
-  # TODO move preview img generation to own script,
-  #      enroll different sizes in loop
-  #      import BBOX and PAPER from common include script
+# TODO move preview img generation to own script,
+#      enroll different sizes in loop
+#      import BBOX and PAPER from common include script
 
-  echo -n "Plain page layout preview ..."
-  base="layout-plain"
-  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Plain' --format=png --prefix=layout-plain --language=de_DE.utf8 --layout=plain --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
-  make_previews "$base.png" "layout/plain" "$base.sh"
-  chmod a+x $base.sh
-  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-  cat $base.time
+if ! test -f layout-plain.png
+then
+   make_layout_preview "plain" "Plain" "png"
+fi
 
-  echo -n "Side index layout preview ..."
-  base="layout-side-index"
-  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Side Index' --format=png --prefix=layout-side-index --language=de_DE.utf8 --layout=single_page_index_side --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
-  make_previews "$base.png" "layout/single_page_index_side" "$base.sh"
-  chmod a+x $base.sh
-  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-  cat $base.time
+if ! test -f layout-side-index.png
+then
+   make_layout_preview "single_page_index_side" "Side index" "png"
+fi
 
-  echo -n "Bottom index layout preview ..."
-  base="layout-bottom-index"
-  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Bottom Index' --format=png --prefix=layout-bottom-index --language=de_DE.utf8 --layout=single_page_index_bottom --orientation=landscape --paper-format='$PAPER' --style=CartoOSM" > $base.sh
-  make_previews "$base.png" "layout/single_page_index_bottom" "$base.sh"
-  chmod a+x $base.sh
-  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-  cat $base.time
+if ! test -f layout-bottom-index.png
+then
+   make_layout_preview "single_page_index_bottom" "Bottom index" "png"
+fi
 
-  echo -n "Multi page layout preview ..."
-  base="layout-multi"
-  echo "ocitysmap --config=/home/maposmatic/.ocitysmap.conf --bounding-box=$BBOX --title='Multi Page' --format=pdf --prefix=layout-multi --language=de_DE.utf8 --layout=multi_page --orientation=portrait --paper-format='$PAPER' --style=CartoOSM" > $base.sh
-  chmod a+x $base.sh
-  /usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err
-  cat $base.time
+if ! test -f layout-multi_page.png
+then
+   make_layout_preview "multi_page" "Multi page" "pdf"
 
-  convert -density 300 layout-multi.pdf layout-multi.png
+   # generating multi page preview image is more tricky
 
-  # TODO use "pdfinfo ... | grep ^Pages:" to find actual PDF page count,
-  #      and guess good detail and index page numbers based on that
-  #      instead of hard coded pages 5 and 10
-  convert layout-multi-0.png  -resize 200x280 layout-multi-title.png
-  convert layout-multi-2.png  -resize 200x280 layout-multi-overview.png
-  convert layout-multi-5.png  -resize 200x280 layout-multi-detail.png
-  convert layout-multi-10.png -resize 200x280 layout-multi-index.png
+   # generate PNG files for each pdf page
+   convert -density 300 layout-multi_page.pdf layout-multi_page.png
 
-  convert -size 500x355 canvas:white \
-            layout-multi-index.png     -geometry  +300+75  -composite \
-            layout-multi-detail.png    -geometry  +200+50  -composite \
-            layout-multi-overview.png  -geometry  +100+25  -composite \
-            layout-multi-title.png     -geometry  +0+0     -composite \
-          layout-multi-all.png
-
-  cp layout-multi-all.png $PREVIEW_DIR/layout/multi_page.png
-
-  convert layout-multi-0.png  -resize 300x420 layout-multi-title-1.5x.png
-  convert layout-multi-2.png  -resize 300x420 layout-multi-overview-1.5x.png
-  convert layout-multi-5.png  -resize 300x420 layout-multi-detail-1.5x.png
-  convert layout-multi-10.png -resize 300x420 layout-multi-index-1.5x.png
-
-  convert -size 750x533 canvas:white \
-            layout-multi-index-1.5x.png     -geometry  +450+113 -composite \
-            layout-multi-detail-1.5x.png    -geometry  +300+75  -composite \
-            layout-multi-overview-1.5x.png  -geometry  +150+37  -composite \
-            layout-multi-title-1.5x.png     -geometry  +0+0     -composite \
-          layout-multi-all-1.5x.png
-
-  cp layout-multi-all-1.5x.png $PREVIEW_DIR/layout/multi_page-1.5x.png
-
-  convert layout-multi-0.png  -resize 400x560 layout-multi-title-2x.png
-  convert layout-multi-2.png  -resize 400x560 layout-multi-overview-2x.png
-  convert layout-multi-5.png  -resize 400x560 layout-multi-detail-2x.png
-  convert layout-multi-10.png -resize 400x560 layout-multi-index-2x.png
-
-  convert -size 1000x710 canvas:white \
-            layout-multi-index-2x.png     -geometry  +600+150  -composite \
-            layout-multi-detail-2x.png    -geometry  +400+100  -composite \
-            layout-multi-overview-2x.png  -geometry  +200+50  -composite \
-            layout-multi-title-2x.png     -geometry  +0+0     -composite \
-          layout-multi-all-2x.png
-
-  cp layout-multi-all-2x.png $PREVIEW_DIR/layout/multi_page-2x.png
+   make_previews_multi 200 280 ""
+   make_previews_multi 320 420 "-1.5x"
+   make_previews_multi 400 560 "-2x"
 fi
 
 for style in $STYLES
