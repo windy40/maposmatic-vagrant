@@ -66,7 +66,7 @@ make_previews_multi() {
     convert layout-multi_page-5.png  -resize $single_size layout-multi_page-detail$factor.png
     convert layout-multi_page-10.png -resize $single_size layout-multi_page-index$factor.png
 
-    convert -size $full_size canvas:white \
+    convert -size $full_size canvas:none \
             layout-multi_page-index$factor.png     -geometry  $offset1 -composite \
             layout-multi_page-detail$factor.png    -geometry  $offset2 -composite \
             layout-multi_page-overview$factor.png  -geometry  $offset3 -composite \
