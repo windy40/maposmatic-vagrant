@@ -5,6 +5,7 @@ apt-get remove -y python3-apport > /dev/null
 
 banner "python packages"
 pip3 install \
+     babel \
      colour \
      cssselect \
      django-cookie-law \
