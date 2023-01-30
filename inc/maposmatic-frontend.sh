@@ -10,7 +10,6 @@ git clone --quiet https://github.com/hholzgra/maposmatic.git
 cd maposmatic
 git checkout --quiet site-osm-baustelle
 
-chown -R vagrant .
 git remote add pushme git@github.com:hholzgra/maposmatic.git
 
 
@@ -51,13 +50,16 @@ python3 manage.py compilemessages
 (cd documentation; make html 2>/dev/null; make install)
 
 # fix directory ownerships
+chown -R vagrant .
 if test -f www/datastore.sqlite3
 then
   chgrp www-data www www/datastore.sqlite3
   chmod   g+w    www www/datastore.sqlite3
 fi
-chgrp -R www-data media/upload rendering/results logs
-chmod -R g+w media/upload rendering/results logs
+chgrp -R www-data media/upload logs
+chmod -R g+w media/upload logs
+chgrp maposmatic rendering/results
+chmod a+w rendering/results
 
 # set up render daemon
 let MemHalf=$Mem_DB/2
