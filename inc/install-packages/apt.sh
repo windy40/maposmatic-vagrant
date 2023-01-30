@@ -88,7 +88,9 @@ apt-get install --quiet=2 --assume-yes \
     parallel \
     php-cli \
     php-http-request2 \
+    php7.4-pgsql \
     php7.4-xml \
+    pigz \
     pngquant \
     poedit \
     poppler-utils \
