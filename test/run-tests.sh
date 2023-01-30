@@ -73,9 +73,9 @@ make_previews () {
 
     if test -n "$PREVIEW_DIR"
     then
-	echo "convert -resize  500x355 $png $PREVIEW_DIR/$name.png"      >> $script
-	echo "convert -resize  750x533 $png $PREVIEW_DIR/$name-1.5x.png" >> $script
-	echo "convert -resize 1000x710 $png $PREVIEW_DIR/$name-2x.png"   >> $script
+	echo "convert -resize  500x355 $png $PREVIEW_DIR/$name.jpg"      >> $script
+	echo "convert -resize  750x533 $png $PREVIEW_DIR/$name-1.5x.jpg" >> $script
+	echo "convert -resize 1000x710 $png $PREVIEW_DIR/$name-2x.jpg"   >> $script
     fi
 
 
