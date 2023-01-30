@@ -4,6 +4,8 @@ cd $STYLEDIR
 
 git clone --quiet https://github.com/hholzgra/OpenTopoMap.git
 cd OpenTopoMap
+git remote add pushme git@github.com:hholzgra/OpenTopoMap.git
+git remote add upstream https://github.com/der-stefan/OpenTopoMap
 git checkout --quiet hartmut-dev
 cd mapnik
 
