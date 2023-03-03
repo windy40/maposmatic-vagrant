@@ -12,7 +12,8 @@ echo " #    #  #          #            #       #    #   ####   #    #  #    #   
 export DEBIAN_FRONTEND=noninteractive
 
 # enable deb-src entries in apt sources list, needed for "apt build-dep"
-sed -i -e 's/^# deb-src/deb-src/g' /etc/apt/sources.list
+# and add "contrib" repos for stuff like ttf-mscorefonts-installer
+sed -i -e 's/^# deb-src/deb-src/g' -e's/main/main contrib/g' /etc/apt/sources.list
 
 # bring apt package database up to date
 #
