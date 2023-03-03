@@ -13,6 +13,15 @@ fi
 
 #----------------------------------------------------
 #
+# the vagrant disksize plugin does not always manage 
+# to resize the root file system so we do it here
+# once more just in case
+#
+#----------------------------------------------------
+resize2fs $(mount | grep "on / " | egrep -o "^[^ ]+")
+
+#----------------------------------------------------
+#
 # putting some often used constants into variables
 #
 #----------------------------------------------------

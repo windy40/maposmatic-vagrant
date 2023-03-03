@@ -24,10 +24,11 @@ do
 done
 
 # install needed extra deb pacakges
-apt-get install --quiet=2 --assume-yes \
+apt-get install --assume-yes \
     apache2 \
     apt-src \
     asciidoctor \
+    bc \
     cabextract \
     cmake \
     coderay \
@@ -68,7 +69,7 @@ apt-get install --quiet=2 --assume-yes \
     libgirepository1.0-dev \
     libkakasi2-dev \
     liblua5.3-dev \
-    libmapnik3.0 \
+    libmapnik3.1 \
     libmapnik-dev \
     libosmium2-dev \
     libpython3-dev \
@@ -87,9 +88,7 @@ apt-get install --quiet=2 --assume-yes \
     pandoc \
     parallel \
     php-cli \
-    php-http-request2 \
-    php7.4-pgsql \
-    php7.4-xml \
+    php-xml \
     pigz \
     pngquant \
     poedit \
@@ -135,5 +134,5 @@ apt-get install --quiet=2 --assume-yes \
     unzip \
     virtualenv \
     wkhtmltopdf \
-    > /dev/null || exit 3
+    || exit 3
 
