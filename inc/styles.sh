@@ -4,6 +4,8 @@ INCDIR=${INCDIR:-/vagrant/inc}
 
 STYLEDIR=$INSTALLDIR/styles
 
+MAPNIK_VERSION_FOR_CARTO=3.0.32
+
 #----------------------------------------------------
 #
 # Set up various stylesheets 

@@ -18,5 +18,5 @@ sed -e 's/dbname: osm/dbname: gis/g' \
     -e '/"name":/d' \
     < project.yml > processed.mml
 
-carto -q -a $(mapnik-config -v) processed.mml > openriverboatmap.xml
+carto --quiet --api $MAPNIK_VERSION_FOR_CARTO processed.mml > openriverboatmap.xml
 
