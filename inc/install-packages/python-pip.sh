@@ -15,6 +15,8 @@ pip3 install \
      geoalchemy2 \
      geopy \
      gpxpy \
+     jinja2 \
+     jsonpath_ng \
      natsort \
      osmium \
      pillow \
