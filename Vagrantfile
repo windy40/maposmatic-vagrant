@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb, override|
     # vb.gui = true
-    vb.name = "maposmatic-debian"
+    vb.name = "maposmatic"
     vb.memory = "8192"
     vb.cpus   = "2"
 
