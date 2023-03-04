@@ -67,7 +67,7 @@ make_previews () {
     script=$3
 
     jpg=$(echo $png | sed -e's/-png.png/-jpg.jpg/g')
-    thumb="thumbmails/"$(basename $png .png).jpg
+    thumb="thumbnails/"$(basename $png .png).jpg
     echo "convert $png $jpg" >> $script
     echo "convert -thumbnail $THUMB_WIDTH $png $thumb" >> $script
 
@@ -202,7 +202,7 @@ make_map() {
 
 	if test "$format" == "png"
 	then
-	    make_previews test-base-$style-png.png "style/$style" "$base.sh"
+	    make_previews $base.png "style/$style" "$base.sh"
 	fi
 
 	chmod a+x $base.sh

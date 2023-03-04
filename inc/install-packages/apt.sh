@@ -12,7 +12,8 @@ echo " #    #  #          #            #       #    #   ####   #    #  #    #   
 export DEBIAN_FRONTEND=noninteractive
 
 # enable deb-src entries in apt sources list, needed for "apt build-dep"
-sed -i -e 's/^# deb-src/deb-src/g' /etc/apt/sources.list
+# and add "contrib" repos for stuff like ttf-mscorefonts-installer
+sed -i -e 's/^# deb-src/deb-src/g' -e's/main/main contrib/g' /etc/apt/sources.list
 
 # bring apt package database up to date
 #
@@ -24,10 +25,11 @@ do
 done
 
 # install needed extra deb pacakges
-apt-get install --quiet=2 --assume-yes \
+apt-get --quiet install --assume-yes \
     apache2 \
     apt-src \
     asciidoctor \
+    bc \
     cabextract \
     cmake \
     coderay \
@@ -44,6 +46,7 @@ apt-get install --quiet=2 --assume-yes \
     fonts-sil-padauk \
     fonts-sipa-arundina \
     fonts-taml-tscu \
+    fonts-unifont \
     g++ \
     ghostscript \
     gir1.2-pango-1.0 \
@@ -68,7 +71,7 @@ apt-get install --quiet=2 --assume-yes \
     libgirepository1.0-dev \
     libkakasi2-dev \
     liblua5.3-dev \
-    libmapnik3.0 \
+    libmapnik3.1 \
     libmapnik-dev \
     libosmium2-dev \
     libpython3-dev \
@@ -87,9 +90,7 @@ apt-get install --quiet=2 --assume-yes \
     pandoc \
     parallel \
     php-cli \
-    php-http-request2 \
-    php7.4-pgsql \
-    php7.4-xml \
+    php-xml \
     pigz \
     pngquant \
     poedit \
