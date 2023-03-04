@@ -25,7 +25,7 @@ do
 done
 
 # install needed extra deb pacakges
-apt-get install --assume-yes \
+apt-get --quiet install --assume-yes \
     apache2 \
     apt-src \
     asciidoctor \
@@ -136,5 +136,5 @@ apt-get install --assume-yes \
     unzip \
     virtualenv \
     wkhtmltopdf \
-    || exit 3
+    > /dev/null || exit 3
 
