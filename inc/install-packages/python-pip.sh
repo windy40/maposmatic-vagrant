@@ -28,7 +28,7 @@ pip3 install \
      "sqlalchemy-utils" \
      tinycss \
      utm \
-     || exit 3
+     >/dev/null || exit 3
 
 # pip repository version of django-multiupload not compatible with Django 2.1+ yet
 # pip3 install -e git+https://github.com/Chive/django-multiupload.git#egg=django-multiupload > /dev/null || exit 3
