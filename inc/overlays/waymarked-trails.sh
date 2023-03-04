@@ -26,10 +26,13 @@ pip3 install .
 mkdir symbols
 chown maposmatic symbols
 
+# try to silence warnings about features not going to be in SqlAlchemy 2 for now
+nowarn="SQLALCHEMY_SILENCE_UBER_WARNING=1"
+
 sudo -u maposmatic dropdb --if-exists $DBNAME
 
 echo "Importing main DB"
-sudo -u maposmatic wmt-makedb -j $(nproc) -f $FILE db import
+sudo -u maposmatic $nowarn wmt-makedb -j $(nproc) -f $FILE db import
 
 echo "Importing countries table"
 (
@@ -42,18 +45,18 @@ zcat $CACHEDIR/postgres/country_grid.sql.gz | sudo -u maposmatic psql -d $DBNAME
 sudo -u maposmatic psql -d $DBNAME -c "ALTER TABLE country_osm_grid ADD COLUMN geom geometry(Geometry,3857); UPDATE country_osm_grid SET geom=ST_Transform(geometry, 3857); ALTER TABLE country_osm_grid DROP COLUMN geometry"
 
 echo "Indexing main DB"
-sudo -u maposmatic wmt-makedb db prepare
+sudo -u maposmatic $nowarn wmt-makedb db prepare
 
 for style in $STYLES
 do
   echo "Creating $style DB"
-  time sudo -u maposmatic wmt-makedb $style create
+  time sudo -u maposmatic $nowarn wmt-makedb $style create
 
   echo "Importing $style DB"
-  time sudo -u maposmatic wmt-makedb -j $(nproc) $style import
+  time sudo -u maposmatic $nowarn wmt-makedb -j $(nproc) $style import
 
   echo "Indexing $style DB"
-  time sudo -u maposmatic wmt-makedb -j $(nproc) $style dataview
+  time sudo -u maposmatic $nowarn wmt-makedb -j $(nproc) $style dataview
 
   echo "Creating $style stylefile"
   wmt-makedb $style mapstyle > $style.xml
