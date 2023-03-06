@@ -4,7 +4,7 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "debian/bullseye64"
 
-  config.vm.network "forwarded_port", guest: 80, host: 8002
+  config.vm.network "forwarded_port", guest: 80, host: 8000
 
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
