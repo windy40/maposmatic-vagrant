@@ -21,9 +21,10 @@ git remote add pushme git@github.com:hholzgra/maposmatic.git
 mkdir -p logs rendering/results media/upload
 
 # copy config files
-cp $FILEDIR/config-files/config.py scripts/config.py
-cp $FILEDIR/config-files/settings_local.py www/settings_local.py
-cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
+sed_opts="-e s|@INSTALLDIR@|$INSTALLDIR|g -e s|@INCDIR@|$INCDIR|g -e s|@LOGDIR@|$LOGDIR|g"
+sed $sed_opts < $FILEDIR/config-files/config.py > scripts/config.py
+sed $sed_opts < $FILEDIR/config-files/settings_local.py > www/settings_local.py
+sed $sed_opts < $FILEDIR/config-files/maposmatic.wsgi > www/maposmatic.wsgi
 
 # copy static files from django applications
 python3 manage.py collectstatic --no-input
@@ -63,8 +64,9 @@ chmod a+w rendering/results
 
 # set up render daemon
 let MemHalf=$Mem_DB/2
-sed -e"s/@memlimit@/$MemHalf/g" < $FILEDIR/systemd/maposmatic-render.service > /etc/systemd/system/maposmatic-render.service
-sed -e"s/@memlimit@/$MemHalf/g" < $FILEDIR/systemd/maposmatic-render@.service > /etc/systemd/system/maposmatic-render@.service
+sed_opts="$sed_opts -e s|@memlimit@|$MemHalf|g"
+sed $sed_opts < $FILEDIR/systemd/maposmatic-render.service > /etc/systemd/system/maposmatic-render.service
+sed $sed_opts < $FILEDIR/systemd/maposmatic-render@.service > /etc/systemd/system/maposmatic-render@.service
 chmod 644 /etc/systemd/system/maposmatic*
 systemctl daemon-reload
 
@@ -76,6 +78,6 @@ done
 
 # set up web server
 service apache2 stop
-cp $FILEDIR/config-files/000-default.conf /etc/apache2/sites-available
+sed $sed_opts < $FILEDIR/config-files/000-default.conf > /etc/apache2/sites-available/000-default.conf
 service apache2 start
     

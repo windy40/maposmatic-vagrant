@@ -32,6 +32,11 @@ INCDIR=$VAGRANT/inc
 
 INSTALLDIR=/home/maposmatic
 
+LOGDIR=$INSTALLDIR/logs
+
+mkdir -p $LOGDIR
+chmod a+rwx $LOGDIR
+
 if touch $VAGRANT/can_write_here
 then
 	CACHEDIR=$VAGRANT/cache

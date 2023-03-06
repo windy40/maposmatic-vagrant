@@ -14,7 +14,7 @@ let Mem_1_10=$Mem_DB/10
 
 pg_confdir=/etc/postgresql/$(pg_conftool --short show cluster_name)/conf.d
 
-sed -e"s/#Mem_1_5#/$Mem_1_5/g" -e"s/#Mem_1_10#/$Mem_1_10/g" < $FILEDIR/config-files/postgresql-extra.conf > $pg_confdir/postgresql-extra.conf
+sed -e"s/@Mem_1_5@/$Mem_1_5/g" -e"s/@Mem_1_10@/$Mem_1_10/g" < $FILEDIR/config-files/postgresql-extra.conf > $pg_confdir/postgresql-extra.conf
 
 systemctl restart postgresql
 

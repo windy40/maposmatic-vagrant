@@ -23,11 +23,11 @@
 
 import os, sys
 
-sys.path.append("/home/maposmatic/maposmatic")
-sys.path.append("/home/maposmatic/ocitysmap")
+sys.path.append("@INSTALLDIR@/maposmatic")
+sys.path.append("@INSTALLDIR@/ocitysmap")
 
 os.environ["DJANGO_SETTINGS_MODULE"] = 'www.settings'
-os.environ["MAPOSMATIC_LOG_FILE"] = "/home/maposmatic/maposmatic/logs/maposmatic-www.log"
+os.environ["MAPOSMATIC_LOG_FILE"] = "@LOGDIR@/maposmatic-www.log"
 os.environ["PGCONNECT_TIMEOUT"] = "1"
 
 import django.core.handlers.wsgi

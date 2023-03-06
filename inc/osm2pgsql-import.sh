@@ -72,7 +72,12 @@ then
     echo -n $REPLICATION_BASE_URL > replication_url
     echo -n $REPLICATION_SEQUENCE_NUMBER > sequence_number
 
-    cp $FILEDIR/systemd/osm2pgsql-update.* /etc/systemd/system
+    sed_opts="-e s|@INSTALLDIR@|$INSTALLDIR|g"
+    sed_opts="$sed_opts -e s|@INCDIR@|$INCDIR|g"
+    for file in $FILEDIR/systemd/osm2pgsql-update.*
+    do
+	sed $sed_opts < $file > /etc/systemd/system/$(basename $file)
+    done
     chmod 644 /etc/systemd/system/osm2pgsql-update.*
     systemctl daemon-reload
     systemctl enable osm2pgsql-update.timer

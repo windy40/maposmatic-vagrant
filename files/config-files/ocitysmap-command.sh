@@ -1,4 +1,4 @@
 #! /bin/bash
 
-/home/maposmatic/ocitysmap/render.py "$@"
+@INSTALLDIR@/ocitysmap/render.py "$@"
 

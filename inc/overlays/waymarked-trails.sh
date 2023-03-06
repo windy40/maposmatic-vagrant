@@ -69,7 +69,13 @@ if ! test -z "$REPLICATION_BASE_URL"
 then
     echo ${REPLICATION_BASE_URL} > "${OSMOSIS_DIFFIMPORT}/baseurl.txt"
 
-    cp $FILEDIR/systemd/waymarked-update.* /etc/systemd/system
+    sed_opts="-e s|@INSTALLDIR@|$INSTALLDIR|g"
+    sed_opts="$sed_opts -e s|@INCDIR@|$INCDIR|g"
+    for file in $FILEDIR/systemd/waymarked-update.*
+    do
+	sed $sed_opts < $file > /etc/systemd/system/$(basename $file)
+    done
+
     chmod 644 /etc/systemd/system/waymarked-update.*
     systemctl daemon-reload
     systemctl enable waymarked-update.timer

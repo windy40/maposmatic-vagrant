@@ -4,7 +4,8 @@ Wants=postgresql.service
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/maposmatic/osm2pgsql-import
-ExecStart=/vagrant/inc/osm2pgsql-update.sh
+WorkingDirectory=@INSTALLDIR@/osm2pgsql-import
+ExecStart=@INCDIR@/osm2pgsql-update.sh
+
 
 

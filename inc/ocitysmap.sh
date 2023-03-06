@@ -23,7 +23,7 @@ git submodule update
 chmod a+x render.py
 
 # install the command line wrapper script in $PATH
-cp $FILEDIR/config-files/ocitysmap-command.sh /usr/local/bin/ocitysmap
+sed -e "s|@INSTALLDIR@|$INSTALLDIR|g" <  $FILEDIR/config-files/ocitysmap-command.sh > /usr/local/bin/ocitysmap
 chmod a+x /usr/local/bin/ocitysmap
 
 cd ..

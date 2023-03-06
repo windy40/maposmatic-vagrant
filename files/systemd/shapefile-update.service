@@ -3,7 +3,7 @@ Description=Fetch and process Shapefile archives that have changed since last do
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/maposmatic/shapefiles
-ExecStart=/vagrant/inc/get-shapefiles.sh
+WorkingDirectory=@INSTALLDIR@/shapefiles
+ExecStart=@INCDIR@/get-shapefiles.sh
 
 

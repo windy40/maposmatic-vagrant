@@ -41,7 +41,7 @@ SECRET_KEY = 'tm+wb)lp5q%br=p0d2toz&km_-w)cmcelv!7inons&^v9(q!d2'
 # EXTRA_FOOTER = ""
 
 import sys
-sys.path.append('/home/maposmatic/ocitysmap')
+sys.path.append('@INSTALLDIR@/ocitysmap')
 
 # # Debug mode. Set to False on a production environnement
 DEBUG = True
@@ -96,16 +96,16 @@ DATABASES = {
 
 # # Path to ocitysmap's config file to use, or None for the default
 # # (~/.ocitysmap.conf)
-OCITYSMAP_CFG_PATH = '/home/maposmatic/.ocitysmap.conf'
+OCITYSMAP_CFG_PATH = '@INSTALLDIR@/.ocitysmap.conf'
 
-RENDERING_RESULT_PATH = '/home/maposmatic/maposmatic/rendering/results/'
+RENDERING_RESULT_PATH = '@INSTALLDIR@/maposmatic/rendering/results/'
 RENDERING_RESULT_URL = '/results/' # Either a relative URL or an absolute URL
 RENDERING_RESULT_FORMATS = ['png', 'svgz', 'pdf', 'csv']
 RENDERING_RESULT_MAX_SIZE_GB = 10
 RENDERING_RESULT_MAX_PURGE_ITERATIONS = 10
 
 # # Default output log file when env variable MAPOSMATIC_LOG_FILE is not set
-DEFAULT_MAPOSMATIC_LOG_FILE = '/home/maposmatic/maposmatic/logs/maposmatic.log'
+DEFAULT_MAPOSMATIC_LOG_FILE = '@LOGDIR@/maposmatic.log'
 
 # # Default log level when the env variable DEFAULT_MAPOSMATIC_LOG_LEVEL
 # # is not set
@@ -174,7 +174,7 @@ MAPOSMATIC_FORK_URL = "https://github.com/hholzgra/maposmatic"
 OCITYSMAP_FORK_URL = "https://githib.com/hholzgra/ocitysmap"
 
 # root directory for uploaded files etc.
-MEDIA_ROOT = '/home/maposmatic/maposmatic/media'
+MEDIA_ROOT = '@INSTALLDIR@/maposmatic/media'
 
 # we changed encoding of map titles in file names at some point, this is the
 # last ID using the old scheme so that links to old files still work

@@ -10,7 +10,7 @@ import os
 #      os.environ.get('PYTHONPATH', '')))
 
 # Path to your OCitySMap installation
-OCITYSMAP_PATH = '/home/maposmatic/ocitysmap'
+OCITYSMAP_PATH = '@INSTALLDIR@/ocitysmap'
 
 # Log file for MapOSMatic. Leave empty for stderr.
 MAPOSMATIC_LOG = None
