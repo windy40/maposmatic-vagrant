@@ -8,7 +8,7 @@ cd osm-bright
 
 ln -s $SHAPEFILE_DIR shp
 
-cp $FILEDIR/config-files/osmbright-configure.py configure.py
+sed -e "s/@SHAPEFILE_DIR@/$SHAPEFILEDIR/g" < $FILEDIR/config-files/osmbright-configure.py > configure.py
 
 ./make.py
 

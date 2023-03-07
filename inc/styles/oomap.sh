@@ -10,7 +10,10 @@ git checkout maposmatic
 
 cd maptiler/
 
-cp $FILEDIR/styles/oomap/* styles/inc/
+for file in $FILEDIR/styles/oomap/*
+do
+	sed -e "s/@STYLEDIR@/$STYLEDIR/g" < $file > styles/inc/$(basename $file)
+done
 
 ln -s $SHAPEFILE_DIR .
 

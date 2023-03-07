@@ -28,8 +28,9 @@ fi
 let CacheSize=$MemTotal/3072
 echo "osm2pgsql cache size: $CacheSize"
 
-mkdir -p /home/maposmatic/osm-import/
-chown maposmatic /home/maposmatic/osm-import/
+OSM_IMPORTDIR=$INSTALLDIR/osm-import
+mkdir -p $OSM_IMPORTDIR
+chown maposmatic $OSM_IMPORTDIR
 
 # import data
 time sudo --user=maposmatic osm2pgsql \
@@ -43,11 +44,10 @@ time sudo --user=maposmatic osm2pgsql \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
-     --flat-nodes=/home/maposmatic/osm-import/osm2pgsql-nodes.dat \
+     --flat-nodes=$OSM_IMPORTDIR/osm2pgsql-nodes.dat \
      --disable-parallel-indexing \
      --keep-coastlines \
      --disable-parallel-indexing \
-     --flat-nodes=$INSTALLDIR/osm2pgsql-import/osm2pgsql-nodes.dat \
      --keep-coastlines \
      $OSM_EXTRACT
 
