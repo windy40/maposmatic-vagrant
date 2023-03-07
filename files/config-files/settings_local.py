@@ -174,7 +174,7 @@ MAPOSMATIC_FORK_URL = "https://github.com/hholzgra/maposmatic"
 OCITYSMAP_FORK_URL = "https://githib.com/hholzgra/ocitysmap"
 
 # root directory for uploaded files etc.
-MEDIA_ROOT = '@INSTALLDIR@/maposmatic/media'
+MEDIA_ROOT = '@DATADIR@'
 
 # we changed encoding of map titles in file names at some point, this is the
 # last ID using the old scheme so that links to old files still work

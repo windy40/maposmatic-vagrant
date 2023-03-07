@@ -33,9 +33,12 @@ INCDIR=$VAGRANT/inc
 INSTALLDIR=/home/maposmatic
 
 LOGDIR=$INSTALLDIR/logs
-
 mkdir -p $LOGDIR
 chmod a+rwx $LOGDIR
+
+DATADIR=$INSTALLDIR/data
+mkdir -p $DATADIR
+chmod a+rwx $DATADIR
 
 if touch $VAGRANT/can_write_here
 then
