@@ -98,7 +98,7 @@ DATABASES = {
 # # (~/.ocitysmap.conf)
 OCITYSMAP_CFG_PATH = '@INSTALLDIR@/.ocitysmap.conf'
 
-RENDERING_RESULT_PATH = '@INSTALLDIR@/maposmatic/rendering/results/'
+RENDERING_RESULT_PATH = '@DATADIR@/rendered_maps/'
 RENDERING_RESULT_URL = '/results/' # Either a relative URL or an absolute URL
 RENDERING_RESULT_FORMATS = ['png', 'svgz', 'pdf', 'csv']
 RENDERING_RESULT_MAX_SIZE_GB = 10

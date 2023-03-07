@@ -37,8 +37,8 @@ mkdir -p $LOGDIR
 chmod a+rwx $LOGDIR
 
 DATADIR=$INSTALLDIR/data
-mkdir -p $DATADIR
-chmod a+rwx $DATADIR
+mkdir -p $DATADIR/rendered_maps $DATADIR/upload
+chmod -R a+rwx $DATADIR
 
 if touch $VAGRANT/can_write_here
 then
