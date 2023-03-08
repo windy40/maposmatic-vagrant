@@ -21,7 +21,7 @@ git remote add pushme git@github.com:hholzgra/maposmatic.git
 mkdir -p logs rendering/results media/upload
 
 # copy config files
-sed_opts="-e s|@INSTALLDIR@|$INSTALLDIR|g -e s|@INCDIR@|$INCDIR|g -e s|@LOGDIR@|$LOGDIR|g"
+sed_opts="-e s|@INSTALLDIR@|$INSTALLDIR|g -e s|@INCDIR@|$INCDIR|g -e s|@LOGDIR@|$LOGDIR|g -e s|@DATADIR@|$DATADIR|g"
 sed $sed_opts < $FILEDIR/config-files/config.py > scripts/config.py
 sed $sed_opts < $FILEDIR/config-files/settings_local.py > www/settings_local.py
 sed $sed_opts < $FILEDIR/config-files/maposmatic.wsgi > www/maposmatic.wsgi
