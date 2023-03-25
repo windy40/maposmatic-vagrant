@@ -1,4 +1,8 @@
 <?php
+
+PAPER_SIZE='{841mm,594mm}' # DinA1 landscape
+PAGE_COUNT=6
+
 $ini = parse_ini_file("../.ocitysmap.conf", true, INI_SCANNER_RAW);
 
 $styles = explode(",", $ini["rendering"]["available_stylesheets"]);
@@ -49,7 +53,7 @@ ob_start();
 
 foreach ($style_groups as $name => $group) {
   foreach ($group as $style) {
-    $pdf = "/vagrant/test/test-base-".$style["name"]."-pdf.pdf";
+    $pdf = "test-base-".$style["name"]."-pdf.pdf";
     if (file_exists($pdf)) {
       echo "\\includepdf{".$pdf."}\n";
     }
@@ -58,7 +62,7 @@ foreach ($style_groups as $name => $group) {
 
 foreach ($overlay_groups as $name => $group) {
   foreach ($group as $style) {
-    $pdf = "/vagrant/test/test-overlay-".str_replace('_','-',$style["name"])."-pdf.pdf";
+    $pdf = "test-overlay-".str_replace('_','-',$style["name"])."-pdf.pdf";
     if (file_exists($pdf)) {
       echo "\\includepdf{".$pdf."}\n";
     }
@@ -68,37 +72,37 @@ foreach ($overlay_groups as $name => $group) {
 ?>
 \end{document}
 <?php
-file_put_contents("/vagrant/test/all-styles.tex", ob_get_clean());
+file_put_contents("all-styles.tex", ob_get_clean());
 
 $style_files = [];
 foreach ($style_groups as $name => $group) {
   foreach ($group as $style) {
-    $name = "/vagrant/test/test-base-".str_replace('_','-',$style["name"])."-pdf.pdf";
+    $name = "test-base-".str_replace('_','-',$style["name"])."-pdf.pdf";
     if (file_exists($name)) {
       $style_files[] = $name;
     }
   }
 }
 
-$cmd = "pdfjam --suffix nup --quiet --nup 6x6 --papersize '{594mm,841mm}' --outfile all-styles-poster.pdf " . join(" ", $style_files);
+$cmd = "pdfjam --suffix nup --quiet --nup ${PAGE_COUNT}x${PAGE_COUNT} --papersize '$PAPSER_SIZE' --outfile all-styles-poster.pdf " . join(" ", $style_files);
 
 system($cmd);
 
 $style_files = [];
 foreach ($overlay_groups as $name => $group) {
   foreach ($group as $style) {
-    $name = "/vagrant/test/test-overlay-".str_replace('_','-',$style["name"])."-pdf.pdf";
+    $name = "test-overlay-".str_replace('_','-',$style["name"])."-pdf.pdf";
     if (file_exists($name)) {
       $overlay_files[] = $name;
     }
   }
 }
 
-$cmd = "pdfjam --suffix nup --quiet --nup 5x5 --papersize '{594mm,841mm}' --outfile all-overlays-poster.pdf " . join(" ", $overlay_files);
+$cmd = "pdfjam --suffix nup --quiet --nup ${PAGE_COUNT}x${PAGE_COUNT} --papersize '$PAPER_SIZE' --outfile all-overlays-poster.pdf " . join(" ", $overlay_files);
 
 system($cmd);
 
-$cmd = "pdfjam --suffix nup --quiet --nup 5x5 --papersize '{594mm,841mm}' --outfile all-styles-and-overlays-poster.pdf " . join(" ", $style_files) . " " . join(" ", $overlay_files);
+$cmd = "pdfjam --suffix nup --quiet --nup ${PAGE_COUNT}x${PAGE_COUNT} --papersize '$PAPER_SIZE' --outfile all-styles-and-overlays-poster.pdf " . join(" ", $style_files) . " " . join(" ", $overlay_files);
 
 
 
