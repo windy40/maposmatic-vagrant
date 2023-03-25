@@ -39,7 +39,7 @@ config["postgis"]["extent"] = "-20037508.34,-20037508.34,20037508.34,20037508.34
 # - http://data.openstreetmapdata.com/land-polygons-split-3857.zip
 
 config["land-high"] = "@SHAPEFILE_DIR@/land-polygons-split-3857/land_polygons.shp"
-config["land-low"] = "@SHAPEFILE_DIR@/maposmatic/shapefiles/simplified-land-polygons-complete-3857/simplified_land_polygons.shp"
+config["land-low"] = "@SHAPEFILE_DIR@/simplified-land-polygons-complete-3857/simplified_land_polygons.shp"
 
 # Places shapefile required for the osm2pgsql style
 # - http://mapbox-geodata.s3.amazonaws.com/natural-earth-1.4.0/cultural/10m-populated-places-simple.zip
