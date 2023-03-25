@@ -12,6 +12,3 @@ cp Baumsorten_Erweiterung/my_mms-files.mml Baumsorten_Erweiterung/my_mms-files_c
 ( cd ../openstreetmap-carto/; ln -s ../baumkarte/Baumsorten_Erweiterung . )
 
 ./mymapnik.bash $STYLEDIR/openstreetmap-carto
-
-sudo -u maposmatic psql gis < $INCDIR/styles/zz-baumkarte.sql
-

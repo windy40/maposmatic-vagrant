@@ -19,15 +19,28 @@ cd $INCDIR
 # process all base styles
 for style in ./styles/*.sh
 do
-  banner $(basename $style .sh)" style"
+  base=$(basename $style .sh)
+  banner $base" style"
   ( . $style )
+  if test -f ./styles/$base.db
+  then
+    echo "running $base.db"
+    ( . ./styles/$base.db )
+  else
+    echo "no $base.db script"
+  fi
 done
 
 # process all overlay styles
 for overlay in ./overlays/*.sh
 do
-  banner $(basename $overlay .sh)" overlay"
+  base=$(basename $overlay .sh)
+  banner $base" overlay"
   ( . $overlay )
+  if test -f ./overlays/$base.db
+  then
+    ( . ./overlays/$base.db )
+  fi
 done
 
 #----------------------------------------------------
