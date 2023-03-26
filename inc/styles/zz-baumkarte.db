@@ -1,0 +1,3 @@
+#! /bin/bash
+
+sudo -u maposmatic psql gis < $INCDIR/styles/zz-baumkarte.sql
