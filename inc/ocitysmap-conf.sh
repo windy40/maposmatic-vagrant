@@ -6,12 +6,26 @@ INCDIR=${INCDIR:-/vagrant/inc}
 # header part is constant
 # TODO: read from /vagrant/files/... instead?
 cat <<EOF > $CONF
+#
+# MapOSMatic OCitysMap renderer configuration
+#
+EOF
+
+echo >> $CONF
+figlet "db settings" | sed -e 's/^/# /g' >> $CONF
+echo >> $CONF
+cat <<EOF >> $CONF
 [datasource]
 host=localhost
 user=maposmatic
 password=secret
 dbname=gis
+EOF
 
+echo >> $CONF
+figlet "paper sizes" | sed -e 's/^/# /g' >> $CONF
+echo >> $CONF
+cat <<EOF >> $CONF
 [paper_sizes]
 Din A4= 210x297
 Din A3= 297x420
@@ -24,26 +38,55 @@ US letter= 216x279
 [multipage_paper_sizes]
 Din A4= 210x297
 US letter= 216x279
+EOF
 
+echo >> $CONF
+figlet "render settings" | sed -e 's/^/# /g' >> $CONF
+echo >> $CONF
+
+cat <<EOF >> $CONF
 [rendering]
 font-path=/usr/share/fonts/:/usr/local/share/fonts/
 EOF
 
 
 # extract list of available base style names
-echo -n "available_stylesheets= " >> $CONF
-grep --no-filename '\[.*\]' $INCDIR/styles/*.ini | sed -e 's/\[//g' -e 's/\]//g' | sort | paste -sd "," >> $CONF
-
-# extract list of available overlay style names
-echo -n "available_overlays= " >> $CONF
-grep --no-filename '\[.*\]' $INCDIR/overlays/*.ini | sed -e 's/\[//g' -e 's/\]//g' | sort | paste -sd "," >> $CONF
-
-# separator
+echo "available_stylesheets=" >> $CONF
+for name in $(grep --no-filename '\[.*\]' $INCDIR/styles/*.ini | sed -e 's/\[//g' -e 's/\]//g' | sort )
+do
+  echo "  $name," >> $CONF
+done
 echo >> $CONF
 
-# copy all prepared style .ini sections
-for style_ini in  $INCDIR/styles/*.ini $INCDIR/overlays/*.ini 
+# extract list of available overlay style names
+echo "available_overlays=" >> $CONF
+for name in $(grep --no-filename '\[.*\]' $INCDIR/overlays/*.ini | sed -e 's/\[//g' -e 's/\]//g' | sort )
 do
+  echo "  $name," >> $CONF
+done
+echo >> $CONF
+
+
+# copy all prepared style .ini sections
+echo >> $CONF
+figlet "base styles" | sed -e 's/^/# /g' >> $CONF
+echo >> $CONF
+
+# copy actual style definitions
+for style_ini in  $INCDIR/styles/*.ini
+do
+	echo >> $CONF
+	sed -e 's|@STYLEDIR@|'$STYLEDIR'|g' -e 's|@INSTALLDIR@|'$INSTALLDIR'|g' < $style_ini >> $CONF
+done
+
+# copy all prepared overlay .ini sections
+echo >> $CONF
+figlet "overlays" | sed -e 's/^/# /g' >> $CONF
+echo >> $CONF
+
+for style_ini in  $INCDIR/overlays/*.ini
+do
+	echo >> $CONF
 	sed -e 's|@STYLEDIR@|'$STYLEDIR'|g' -e 's|@INSTALLDIR@|'$INSTALLDIR'|g' < $style_ini >> $CONF
 done
 
