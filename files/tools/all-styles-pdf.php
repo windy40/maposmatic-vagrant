@@ -1,7 +1,7 @@
 <?php
 
-PAPER_SIZE='{841mm,594mm}' # DinA1 landscape
-PAGE_COUNT=6
+$PAPER_SIZE='{841mm,594mm}' # DinA1 landscape
+$PAGE_COUNT=6
 
 $ini = parse_ini_file("../.ocitysmap.conf", true, INI_SCANNER_RAW);
 
