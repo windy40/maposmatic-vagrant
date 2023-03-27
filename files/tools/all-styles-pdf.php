@@ -1,15 +1,24 @@
 <?php
 
-$PAPER_SIZE='{841mm,594mm}' # DinA1 landscape
-$PAGE_COUNT=6
+$PAPER_SIZE='{841mm,594mm}'; # DinA1 landscape
+$PAGE_COUNT=6;
 
-$ini = parse_ini_file("../.ocitysmap.conf", true, INI_SCANNER_RAW);
+$text = "";
+foreach (file("../.ocitysmap.conf") as $line) {
+  if (preg_match('|^#|', $line)) continue;
+
+  if (!preg_match('|^\s+\S|', $line)) $text.="\n";
+  $text.= trim($line);
+}
+
+$ini = parse_ini_string($text, true, INI_SCANNER_RAW);
 
 $styles = explode(",", $ini["rendering"]["available_stylesheets"]);
 
 $style_groups = ["default" => []];
 
 foreach ($styles as $style) {
+  if (! isset($ini[$style])) continue;
   $attr = $ini[$style];
 
   $group = $attr['group'] ?? "default";
@@ -28,6 +37,7 @@ $overlays = explode(",", $ini["rendering"]["available_overlays"]);
 $overlay_groups = ["default" => []];
 
 foreach ($overlays as $style) {
+  if (! isset($ini[$style])) continue;
   $attr = $ini[$style];
 
   $group = $attr['group'] ?? "default";
@@ -84,7 +94,7 @@ foreach ($style_groups as $name => $group) {
   }
 }
 
-$cmd = "pdfjam --suffix nup --quiet --nup ${PAGE_COUNT}x${PAGE_COUNT} --papersize '$PAPSER_SIZE' --outfile all-styles-poster.pdf " . join(" ", $style_files);
+$cmd = "pdfjam --suffix nup --quiet --nup ${PAGE_COUNT}x${PAGE_COUNT} --papersize '$PAPER_SIZE' --outfile all-styles-poster.pdf " . join(" ", $style_files);
 
 system($cmd);
 
