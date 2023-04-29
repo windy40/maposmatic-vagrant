@@ -19,6 +19,7 @@ vars+="CACHEDIR "
 vars+="OSM_EXTRACT "
 vars+="SHAPEFILE_DIR "
 vars+="STYLEDIR "
+vars+="MemTotal "
 
 for var in $vars
 do
