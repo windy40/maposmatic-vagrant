@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS ocean;
+DROP TABLE IF EXISTS water;
+
 CREATE TABLE ocean (id serial);
 
 SELECT AddGeometryColumn ('ocean', 'way', 3857, 'POLYGON',2);
