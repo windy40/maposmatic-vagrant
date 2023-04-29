@@ -1,13 +1,13 @@
 #! /bin/bash
 
+cd $STYLEDIR/waymarkedtrails-backend
+
 DBNAME=planet
 FILE="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 STYLES="hiking cycling mtb riding skating slopes"
 
 # try to silence warnings about features not going to be in SqlAlchemy 2 for now
 nowarn="SQLALCHEMY_SILENCE_UBER_WARNING=1"
-
-cd $STYLEDIR/waymarkedtrails-backend
 
 sudo -u maposmatic dropdb --if-exists $DBNAME
 
