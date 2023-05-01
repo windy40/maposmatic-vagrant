@@ -229,6 +229,18 @@ banner "security"
 
 . $INCDIR/security-quirks.sh
 
+
+#----------------------------------------------------
+#
+# add simple tile server for offline operations
+#
+#----------------------------------------------------
+
+banner "tileserver"
+
+. $INCDIR/tileserver
+
+
 #----------------------------------------------------
 #
 # tests

@@ -60,6 +60,7 @@ apt-get --quiet install --assume-yes \
     libacl1-dev \
     libapache2-mod-fcgid \
     libapache2-mod-php \
+    libapache2-mod-tile \
     libapache2-mod-wsgi-py3 \
     libattr1-dev \
     libboost-python-dev \
@@ -79,6 +80,7 @@ apt-get --quiet install --assume-yes \
     libxml2-utils \
     libxslt1-dev \
     libyaml-dev \
+    lua-5.3 \
     mapnik-utils \
     mc \
     mmv \
@@ -122,6 +124,7 @@ apt-get --quiet install --assume-yes \
     python3-urllib3 \
     python3-virtualenv \
     redis \
+    renderd \
     subversion \
     sysvbanner \
     texlive-extra-utils \
