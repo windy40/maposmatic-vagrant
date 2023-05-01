@@ -1,3 +1,4 @@
+#! /bin/env php
 <?php
 
 /**
@@ -5,8 +6,10 @@
  */
 
 $conf_file = "/home/maposmatic/.ocitysmap.conf";
+$max_styles = 10;
 
 $section = false;
+$count   = 0;
 foreach (file($conf_file) as $line) {
     if (preg_match('|^\s*\[(\w+)\]\s*$|', $line, $m)) {
         $section = $m[1];
@@ -20,7 +23,13 @@ foreach (file($conf_file) as $line) {
         echo "HOST=localhost\n";
         echo "TILESIZE=256\n";
         echo "MAXZOOM=18\n";
-        echo "\n";
+	echo "\n";
+
+        if (++$count >= $max_styles) {
+            fprintf(STDERR, "# Max. style limit of $max_styles reached, aborting\n");
+            exit(3);
+        }
     }
+
 }
 
