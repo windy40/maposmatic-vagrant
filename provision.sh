@@ -15,6 +15,15 @@ fi
 
 #----------------------------------------------------
 #
+# the vagrant disksize plugin does not always manage 
+# to resize the root file system so we do it here
+# once more just in case
+#
+#----------------------------------------------------
+resize2fs $(mount | grep "on / " | egrep -o "^[^ ]+")
+
+#----------------------------------------------------
+#
 # putting some often used constants into variables
 #
 #----------------------------------------------------
@@ -24,6 +33,14 @@ FILEDIR=$VAGRANT/files
 INCDIR=$VAGRANT/inc
 
 INSTALLDIR=/home/maposmatic
+
+LOGDIR=$INSTALLDIR/logs
+mkdir -p $LOGDIR
+chmod a+rwx $LOGDIR
+
+DATADIR=$INSTALLDIR/data
+mkdir -p $DATADIR/rendered_maps $DATADIR/upload
+chmod -R a+rwx $DATADIR
 
 if touch $VAGRANT/can_write_here
 then
@@ -36,6 +53,9 @@ else
 fi
 
 mkdir -p $CACHEDIR
+
+SHAPEFILE_DIR=$INSTALLDIR/shapefiles
+STYLEDIR=$INSTALLDIR/styles
 
 # store memory size in KB in $MemTotal
 export $(grep MemTotal /proc/meminfo | sed -e's/kB//' -e's/ //g' -e's/:/=/')
@@ -59,7 +79,14 @@ else
 	exit 3
 fi
 
+#----------------------------------------------------
+#
+# Make variables used by included provision scripts
+# available to VM users to be able to easily re-run scripts
+#
+#----------------------------------------------------
 
+. $INCDIR/shell-profile.sh
 
 #----------------------------------------------------
 #
@@ -99,17 +126,20 @@ else
     mkdir -p ~/.ccache
 fi
 
+# sudo environment setup
+. $INCDIR/sudoers.sh
+
 # add "maposmatic" system user that will own the database and all locally installed stuff
 useradd --create-home maposmatic
+
+# install local tools
+. $INCDIR/install-tools.sh
 
 # installing apt, pip and npm packages
 . $INCDIR/install-packages.sh
 
 # install all locales in the background
 . $INCDIR/locales.sh
-
-# install local tools
-. $INCDIR/install-tools.sh
 
 # initial git configuration
 . $INCDIR/git-setup.sh
@@ -126,9 +156,6 @@ banner "places db"
 banner "db l10n"
 . $INCDIR/from-source/mapnik-german-l10n.sh
 
-banner "building osgende"
-. $INCDIR/from-source/osgende.sh
-
 banner "building osm2pgsql"
 . $INCDIR/from-source/osm2pgsql-build.sh
 
@@ -139,7 +166,7 @@ banner "db import"
 . $INCDIR/osm2pgsql-import.sh
 
 banner "get bounds"
-python3 $INCDIR/data-bounds.py $OSM_EXTRACT
+python3 $INCDIR/data-bounds.py $INSTALLDIR/bounds $OSM_EXTRACT
 
 banner "DEM setup"
 . $INCDIR/elevation-data.sh
@@ -150,7 +177,6 @@ banner "renderer setup"
 
 
 banner "shapefiles"
-SHAPEFILE_DIR=$INSTALLDIR/shapefiles
 # install shapefiles
 . $INCDIR/get-shapefiles.sh
 # set up shapefile update job
@@ -159,7 +185,6 @@ systemctl daemon-reload
 
 
 banner "styles"
-STYLEDIR=$INSTALLDIR/styles
 . $INCDIR/styles.sh
 
 
@@ -198,6 +223,16 @@ banner "munin"
 
 #----------------------------------------------------
 #
+# some necessary security tweaks
+#
+#-----------------------------------------------------
+
+banner "security"
+
+. $INCDIR/security-quirks.sh
+
+#----------------------------------------------------
+#
 # tests
 #
 #-----------------------------------------------------
@@ -213,9 +248,6 @@ banner "running tests"
 #-----------------------------------------------------
 
 banner "cleanup"
-
-# some necessary security tweaks
-. $INCDIR/security-quirks.sh
 
 # write back compiler cache
 cp -rn /root/.ccache $CACHEDIR

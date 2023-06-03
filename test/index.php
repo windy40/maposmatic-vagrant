@@ -1,7 +1,14 @@
 <html>
 <head><title>Test Results</title></head>
 <body>
-<a href="thumbnails/">Thumbnails</a> - <a href="all-styles.pdf">all styles in a PDF book</a> - <a href="all-styles-poster.pdf">all styles on poster size pages</a><hr/>
+<a href="thumbnails/">Thumbnails</a>
+-
+<a href="all-styles.pdf">all styles in a PDF book</a>
+-
+<a href="all-styles-poster.pdf">all styles on poster size pages</a>
+-
+<a href="all-overlays-poster.pdf">all overlays on poster size pages</a>
+<hr/>
 <?php
 
 $results = [];

@@ -5,30 +5,34 @@
 #----------------------------------------------------
 
 # get maposmatic web frontend
-cd /home/maposmatic
+cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/maposmatic.git
 cd maposmatic
-git checkout --quiet site-osm-baustelle
+git checkout --quiet django-3.2
+
+git remote add pushme git@github.com:hholzgra/maposmatic.git
+
 
 
 # install dependencies
 (cd www/static; HOME=/root npm install)
 
 # create needed directories and tweak permissions
-mkdir -p logs rendering/results media
+mkdir -p logs rendering/results media/upload
 
 # copy config files
-cp $FILEDIR/config-files/config.py scripts/config.py
-cp $FILEDIR/config-files/settings_local.py www/settings_local.py
-cp $FILEDIR/config-files/maposmatic.wsgi www/maposmatic.wsgi
+sed_opts="-e s|@INSTALLDIR@|$INSTALLDIR|g -e s|@INCDIR@|$INCDIR|g -e s|@LOGDIR@|$LOGDIR|g -e s|@DATADIR@|$DATADIR|g"
+sed $sed_opts < $FILEDIR/config-files/config.py > scripts/config.py
+sed $sed_opts < $FILEDIR/config-files/settings_local.py > www/settings_local.py
+sed $sed_opts < $FILEDIR/config-files/maposmatic.wsgi > www/maposmatic.wsgi
 
 # copy static files from django applications
 python3 manage.py collectstatic --no-input
 
 # create import bounds information
-cp /home/maposmatic/bounds/bbox.py www/settings_bounds.py
+cp $INSTALLDIR/bounds/bbox.py www/settings_bounds.py
 echo "MAX_BOUNDING_OUTER='''" >> www/settings_bounds.py
-cat /home/maposmatic/bounds/outer.json >> www/settings_bounds.py
+cat $INSTALLDIR/bounds/outer.json >> www/settings_bounds.py
 echo "'''" >> www/settings_bounds.py
 
 # init MaposMatics housekeeping database
@@ -47,18 +51,23 @@ python3 manage.py compilemessages
 (cd documentation; make html 2>/dev/null; make install)
 
 # fix directory ownerships
-chown -R maposmatic /home/maposmatic
+chown -R vagrant .
 if test -f www/datastore.sqlite3
 then
-  chgrp www-data logs www www/datastore.sqlite3
-  chmod   g+w    logs www www/datastore.sqlite3
+  chgrp www-data www www/datastore.sqlite3
+  chmod   g+w    www www/datastore.sqlite3
 fi
-chgrp www-data media logs
-chmod g+w media logs
+chgrp -R www-data media/upload logs
+chmod -R g+w media/upload logs
+chgrp maposmatic rendering/results
+chmod a+w rendering/results
 
 # set up render daemon
-install --mode=644 $FILEDIR/systemd/maposmatic-render.service /etc/systemd/system
-install --mode=644 $FILEDIR/systemd/maposmatic-render@.service /etc/systemd/system
+let MemHalf=$Mem_DB/2
+sed_opts="$sed_opts -e s|@memlimit@|$MemHalf|g"
+sed $sed_opts < $FILEDIR/systemd/maposmatic-render.service > /etc/systemd/system/maposmatic-render.service
+sed $sed_opts < $FILEDIR/systemd/maposmatic-render@.service > /etc/systemd/system/maposmatic-render@.service
+chmod 644 /etc/systemd/system/maposmatic*
 systemctl daemon-reload
 
 for queue in default api multipage
@@ -69,6 +78,6 @@ done
 
 # set up web server
 service apache2 stop
-cp $FILEDIR/config-files/000-default.conf /etc/apache2/sites-available
+sed $sed_opts < $FILEDIR/config-files/000-default.conf > /etc/apache2/sites-available/000-default.conf
 service apache2 start
     

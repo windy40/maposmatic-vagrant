@@ -9,6 +9,9 @@ cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/ocitysmap.git
 cd ocitysmap
 
+chown -R vagrant .
+git remote add pushme git@github.com:hholzgra/ocitysmap.git
+
 # fetch submodules so that all icon sets are actually installed
 git submodule init
 git submodule update
@@ -20,7 +23,7 @@ git submodule update
 chmod a+x render.py
 
 # install the command line wrapper script in $PATH
-cp $FILEDIR/config-files/ocitysmap-command.sh /usr/local/bin/ocitysmap
+sed -e "s|@INSTALLDIR@|$INSTALLDIR|g" <  $FILEDIR/config-files/ocitysmap-command.sh > /usr/local/bin/ocitysmap
 chmod a+x /usr/local/bin/ocitysmap
 
 cd ..

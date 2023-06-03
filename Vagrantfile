@@ -2,9 +2,15 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/focal64"
+  config.vm.box = "debian/bullseye64"
 
   config.vm.network "forwarded_port", guest: 80, host: 8000
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  config.vbguest.auto_update = false
 
   config.vm.boot_timeout = 600
   config.ssh.forward_agent = true

@@ -5,3 +5,7 @@ TODO
  * test API
  * test Umgebnugsplaene
 
+* use "cartocc" npm for modifying styles instead of sed
+
+* create OpenRiverboatMap indexes
+

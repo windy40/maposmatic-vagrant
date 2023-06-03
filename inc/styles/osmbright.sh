@@ -8,11 +8,11 @@ cd osm-bright
 
 ln -s $SHAPEFILE_DIR shp
 
-cp $FILEDIR/config-files/osmbright-configure.py configure.py
+sed -e "s|@SHAPEFILE_DIR@|$SHAPEFILE_DIR|g" < $FILEDIR/config-files/osmbright-configure.py > configure.py
 
 ./make.py
 
 cd OSMBright
 sed '/"name":/d' < project.mml > osm.mml
-carto -q -a $(mapnik-config -v) osm.mml  > osm.xml
+carto --quiet --api $MAPNIK_VERSION_FOR_CARTO osm.mml  > osm.xml
 

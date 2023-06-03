@@ -1,16 +1,16 @@
 #----------------------------------------------------
 #
-# Fire/Emergency overlay
+# Health Overlay style
 #
-# Original on https://github.com/rweait/Mapnik-golf-overlay
+# Original on https://github.com/rweait/Mapnik-health-overlay
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 git clone --quiet https://github.com/hholzgra/Mapnik-health-overlay.git
 
 cd Mapnik-health-overlay
-# TODO add any extra tasks here
+cp $FILEDIR/config-files/datasource-settings.xml.inc inc
 cd ..
 

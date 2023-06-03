@@ -15,7 +15,7 @@ latest_tag=$(php $FILEDIR/tools/get-latest-tag.php 'v.*-de\d+')
 git checkout --quiet v4.24.0-de1
 
 sed -i -e's/dbname: "osm"/dbname: "gis"/' project.mml
-sed -i -e's/carto /carto -q /g' Makefile
+sed -i -e's/carto /carto -q /g' -e's/MAPNIK_API = .*/MAPNIK_API = '$MAPNIK_VERSION_FOR_CARTO'/g' Makefile
 make
 
 for a in *.xml

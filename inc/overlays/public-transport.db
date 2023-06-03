@@ -1,0 +1,8 @@
+#! /bin/bash
+
+cd $STYLEDIR/openptmap
+
+for sql in views/*.sql
+do
+	psql gis < $sql
+done

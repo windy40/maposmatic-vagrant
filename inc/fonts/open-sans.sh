@@ -5,11 +5,14 @@ FONTDIR=/usr/local/share/fonts/truetype/open-sans
 mkdir -p $FONTDIR
 
 cd $DOWNLOAD_DIR
-wget --timestamping https://www.cufonfonts.com/download/font/open-sans -O open-sans.zip
+wget --timestamping https://www.opensans.com/download/open-sans.zip -O open-sans.zip
+wget --timestamping https://www.opensans.com/download/open-sans-condensed.zip -O open-sans-condensed.zip
 
 cd $FONTDIR
-unzip $DOWNLOAD_DIR/open-sans.zip
+unzip -qf $DOWNLOAD_DIR/open-sans.zip 
+unzip -qf $DOWNLOAD_DIR/open-sans-condensed.zip
 
+# FIXME -> run this at end of font provisioning once only?
 fc-cache -f # not needed for Mapnik, but good practice nonetheless
 
 

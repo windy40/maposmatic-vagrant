@@ -4,14 +4,14 @@
 #
 #----------------------------------------------------
 
-cd /home/maposmatic/styles
+cd $STYLEDIR
 
 # we need to add the MapOSMatic specific
 # symbols to the "old" MapnikOSM symbol set
-cp ../ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
+cp $INSTALLDIR/ocitysmap/stylesheet/maposmatic-printable/symbols/* mapnik2-osm/symbols/
 
 # configure the actual stylesheet
-cd ../ocitysmap/stylesheet/pierre-orange
+cd $INSTALLDIR/ocitysmap/stylesheet/pierre-orange
 
 $FILEDIR/tools/generate_xml.py \
        --dbname gis \
@@ -19,6 +19,6 @@ $FILEDIR/tools/generate_xml.py \
        --user maposmatic \
        --port 5432 \
        --password 'secret' \
-       --world_boundaries /home/maposmatic/shapefiles/world_boundaries \
-       --symbols /home/maposmatic/ocitysmap/stylesheet/maposmatic-printable/symbols
+       --world_boundaries $SHAPEFILE_DIR/world_boundaries \
+       --symbols $INSTALLDIR/ocitysmap/stylesheet/maposmatic-printable/symbols
 

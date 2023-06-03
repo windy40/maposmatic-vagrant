@@ -4,7 +4,7 @@ Wants=postgresql.service
 
 [Service]
 Type=oneshot
-WorkingDirectory=/home/maposmatic/styles/waymarked-trails-site
-ExecStart=/vagrant/inc/waymarked-update.sh
+WorkingDirectory=@STYLEDIR@/waymarked-trails-site
+ExecStart=@INCDIR@/waymarked-update.sh
 
 

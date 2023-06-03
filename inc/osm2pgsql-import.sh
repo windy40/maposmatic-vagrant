@@ -8,7 +8,7 @@ FILEDIR=${FILEDIR:-/vagrant/files}
 
 OSM_EXTRACT="${OSM_EXTRACT:-/vagrant/data.osm.pbf}"
 
-cd /home/maposmatic
+cd $INSTALLDIR
 
 mkdir -p osm2pgsql-import
 chmod a+w osm2pgsql-import
@@ -28,8 +28,12 @@ fi
 let CacheSize=$MemTotal/3072
 echo "osm2pgsql cache size: $CacheSize"
 
+OSM_IMPORTDIR=$INSTALLDIR/osm-import
+mkdir -p $OSM_IMPORTDIR
+chown maposmatic $OSM_IMPORTDIR
+
 # import data
-sudo --user=maposmatic osm2pgsql \
+time sudo --user=maposmatic osm2pgsql \
      --create \
      --slim \
      --database=gis \
@@ -40,8 +44,10 @@ sudo --user=maposmatic osm2pgsql \
      --style=hstore-only.style \
      --tag-transform-script=openstreetmap-carto.lua \
      --prefix=planet_osm_hstore \
+     --flat-nodes=$OSM_IMPORTDIR/osm2pgsql-nodes.dat \
      --disable-parallel-indexing \
-     --flat-nodes=/home/maposmatic/osm2pgsql-import/osm2pgsql-nodes.dat \
+     --keep-coastlines \
+     --disable-parallel-indexing \
      --keep-coastlines \
      $OSM_EXTRACT
 
@@ -66,7 +72,12 @@ then
     echo -n $REPLICATION_BASE_URL > replication_url
     echo -n $REPLICATION_SEQUENCE_NUMBER > sequence_number
 
-    cp $FILEDIR/systemd/osm2pgsql-update.* /etc/systemd/system
+    sed_opts="-e s|@INSTALLDIR@|$INSTALLDIR|g"
+    sed_opts="$sed_opts -e s|@INCDIR@|$INCDIR|g"
+    for file in $FILEDIR/systemd/osm2pgsql-update.*
+    do
+	sed $sed_opts < $file > /etc/systemd/system/$(basename $file)
+    done
     chmod 644 /etc/systemd/system/osm2pgsql-update.*
     systemctl daemon-reload
     systemctl enable osm2pgsql-update.timer
@@ -75,8 +86,14 @@ fi
 
 if test -z "$REPLICATION_TIMESTAMP"
 then
-    # fallback: take timestamp from actual file contents
+    # fallback: if no start date in header -> take timestamp from actual file contents
     REPLICATION_TIMESTAMP=$(osmium fileinfo -e -g data.timestamp.last $OSM_EXTRACT)
+    if [[ $REPLICATION_TIMESTAMP =~ ^19[67] ]]
+    then
+        # 2nd fallback: if the date from the file contents comes out as the unix epoche
+        # our last fallback is the files modification date	
+	REPLICATION_TIMESTAMP=$(date --iso-8601=second --reference=$OSM_EXTRACT)
+    fi
 fi
 
 sudo -u maposmatic psql gis -c "update maposmatic_admin set last_update='$REPLICATION_TIMESTAMP'"

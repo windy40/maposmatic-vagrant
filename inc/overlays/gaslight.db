@@ -1,0 +1,7 @@
+#! /bin/bash
+
+cd $STYLEDIR/Mapnik-fire-overlay
+for f in sql-functions/*.sql
+do
+    sudo -u maposmatic psql gis < $f
+done

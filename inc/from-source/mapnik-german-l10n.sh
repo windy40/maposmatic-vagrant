@@ -13,12 +13,12 @@ sudo --user=maposmatic psql --dbname=gis --command="CREATE EXTENSION unaccent"
 #
 #----------------------------------------------------------
 
-cd /home/maposmatic
+cd $INSTALLDIR
 
 mkdir -p tools
 cd tools
 
-git clone --quiet https://github.com/giggls/mapnik-german-l10n.git
+git clone --quiet https://github.com/hholzgra/mapnik-german-l10n.git
 cd mapnik-german-l10n
 for target in README INSTALL TODO
 do
