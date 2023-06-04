@@ -10,6 +10,7 @@ cp ../blossom/project.mml .
 
 sed '/"name":/d' < project.mml > osm.mml
 sed -ie 's/"dbname": "osm"/"dbname": "gis"/g' osm.mml
+sed -ie 's/"type": "postgis"/"type": "postgis", "host": "gis-db", "user": "maposmatic", "password": "secret"/g' osm.mml
 sed -ie 's/http.*10m-land.zip"/\/home\/maposmatic\/shapefiles\/ne_10m_land\/ne_10m_land.shp", "type": "shape"/' osm.mml
 sed -ie 's/http.*coastline-good.zip"/\/home\/maposmatic\/shapefiles\/land-polygons-split-3857\/land_polygons.shp", "type": "shape"/' osm.mml
 sed -ie 's/http.*shoreline_300.zip"/\/home\/maposmatic\/shapefiles\/shoreline_300\/shoreline_300.shp", "type": "shape"/' osm.mml

@@ -1,0 +1,13 @@
+--- old/osm.mml	2023-06-03 16:09:31.126772589 +0000
++++ new/osm.mml	2023-06-03 16:12:30.767549260 +0000
+@@ -31,6 +31,9 @@
+   osm2pgsql: &osm2pgsql
+     type: "postgis"
+     dbname: "gis"
++    host: "gis-db"
++    user: "maposmatic"
++    password: "secret"
+     key_field: ""
+     geometry_field: "way"
+     extent: "-20037508,-20037508,20037508,20037508"
+

@@ -20,7 +20,10 @@ mmv 'beautiful-contour-belgium.*' 'beautiful_contour_belgium.#1'
 
 cd ../osm2pgsql
 
-sed -i -e 's/"osmpg_db"/"gis"/g' project.mml
+sed -i \
+    -e 's/"dbname": "osmpg_db"/"dbname": "gis"/g' \
+    -e 's/"type": "postgis"/"type": "postgis", "host": "gis-db", "user": "maposmatic", "password": "secret"/g' \
+    project.mml
 
 carto --quiet --api $MAPNIK_VERSION_FOR_CARTO project.mml > OpenArdenneMap.xml
 

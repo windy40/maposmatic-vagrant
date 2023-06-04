@@ -14,6 +14,8 @@ unzip -o data/ptsans.zip -d data/ptsans
 
 curl -z data/ptsans/DroidSansFallback.ttf -L -o data/ptsans/DroidSansFallback.ttf https://github.com/android/platform_frameworks_base/raw/master/data/fonts/DroidSansFallback.ttf
 
-sed '/"name":/d' < project.mml > osm.mml
+sed -e '/"name":/d' \
+    -e 's/"type": "postgis"/"type": "postgis", "host": "gis-db", "user": "maposmatic", "password": "secret"/g' \
+    < project.mml > osm.mml
 carto --quiet --api $MAPNIK_VERSION_FOR_CARTO osm.mml > veloroad.xml
 

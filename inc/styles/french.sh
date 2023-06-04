@@ -8,6 +8,9 @@ git checkout --quiet v2.8.0
 
 ln -s $SHAPEFILE_DIR data
 
-sed '/"name":/d' < project.mml > osm.mml
+sed -e '/\sname:/d' \
+    -e 's/        "type": "postgis",/        "type": "postgis",\n        "host": "gis-db",\n        "user": "maposmatic",\n        "password": "secret",/g' \
+    -e 's/dbname:.*/dbname: "gis"/' \
+    < project.mml > osm.mml
 carto --quiet --api $MAPNIK_VERSION_FOR_CARTO osm.mml > osm.xml
 

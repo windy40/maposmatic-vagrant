@@ -16,7 +16,8 @@ do
 done
 cd ..
 		 
-sed -e 's/dbname: "osm"/dbname: "gis"/g' \
+sed -e 's/"type": "postgis"/"type": "postgis", "host": "gis-db", "user": "maposmatic", "password": "secret"/g' \
+    -e 's/dbname: "osm"/dbname: "gis"/g' \
     -e 's/http:\/\/osmdata.openstreetmap.de\/download\/simplified-land-polygons-complete-3857.zip/.\/data\/simplified-land-polygons-complete-3857\/simplified_land_polygons.shp/g' \
     -e 's/http:\/\/osmdata.openstreetmap.de\/download\/land-polygons-split-3857.zip/.\/data\/land-polygons-split-3857\/land_polygons.shp/g' \
     -e 's/layer~/layer::text~/g' \
