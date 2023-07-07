@@ -29,8 +29,7 @@ rm -rf openstreetmap-carto
 
 
 sed -e '/\sname:/d' \
-    -e 's/host:.*/host: "gis-db"/' \
-    -e 's/user:.*/user: "maposmatic"\n    password: "secret"/' \
+    -e 's/    type: "postgis"/    type: "postgis"\n    host: "gis-db"\n    user: "maposmatic"\n    password: "secret"/g' \
     -e 's/dbname:.*/dbname: "gis"/' \
 < project.mml > osm.mml
 

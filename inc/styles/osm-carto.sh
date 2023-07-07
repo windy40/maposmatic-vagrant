@@ -13,6 +13,7 @@ git checkout --quiet v5.2.0
 ln -s $SHAPEFILE_DIR data
 
 sed '/\sname:/d' < project.mml > osm.mml
+patch -p1 < $INCDIR/styles/osm-carto.patch
 carto --quiet --api $MAPNIK_VERSION_FOR_CARTO osm.mml > osm.xml
 php $FILEDIR/tools/postprocess-style.php osm.xml
 
