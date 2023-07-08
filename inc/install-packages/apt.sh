@@ -80,7 +80,7 @@ apt-get --quiet install --assume-yes \
     libxml2-utils \
     libxslt1-dev \
     libyaml-dev \
-    lua-5.3 \
+    lua5.3 \
     mapnik-utils \
     mc \
     mmv \
