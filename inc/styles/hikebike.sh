@@ -18,6 +18,7 @@ mv hikebikemap-carto-0.9 hikebikemap-carto
 
 cd hikebikemap-carto/
 
+rm -rf data
 ln -s $SHAPEFILE_DIR data
 
 # remove deprecated name attributes from layers to silence carto warnings
