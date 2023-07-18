@@ -66,8 +66,8 @@ make_previews () {
     name=$2
     script=$3
 
-    jpg=$(echo $png | sed -e's/-png.png/-jpg.jpg/g')
-    thumb="thumbnails/"$(basename $png .png).jpg
+    jpg=$(basename $png .png).jpg
+    thumb=thumbnails/$jpg
     echo "convert $png $jpg" >> $script
     echo "convert -thumbnail $THUMB_WIDTH $png $thumb" >> $script
 
@@ -130,6 +130,7 @@ make_layout_preview() {
     cmd+=" --layout=$layout"
     cmd+=" --style=CartoOSM"
     cmd+=" --language=$LANG"
+    cmd+=" --format=$format"
     cmd+=" --paper-format='$PAPER'"
     if test "$format" = "pdf"
     then
@@ -247,17 +248,17 @@ then
    make_layout_preview "plain" "Plain" "png"
 fi
 
-if ! test -f layout-side-index.png
+if ! test -f layout-single_page_index_side.png
 then
    make_layout_preview "single_page_index_side" "Side index" "png"
 fi
 
-if ! test -f layout-bottom-index.png
+if ! test -f layout-single_page_index_bottom.png
 then
    make_layout_preview "single_page_index_bottom" "Bottom index" "png"
 fi
 
-if ! test -f layout-multi_page.png
+if ! test -f layout-multi_page-all.png
 then
    make_layout_preview "multi_page" "Multi page" "pdf"
 fi
@@ -267,7 +268,6 @@ do
   rm -f test-base-$style-*
 
   make_map $style "base"
-
 done
 
 for style in $OVERLAYS
