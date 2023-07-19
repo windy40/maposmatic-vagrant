@@ -78,6 +78,7 @@ apt-get --quiet install --assume-yes \
     munin \
     munin-node \
     munin-plugins-extra \
+    nlohmann-json3-dev \
     osmctools \
     osmium-tool \
     pandoc \
