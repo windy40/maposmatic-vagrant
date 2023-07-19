@@ -37,16 +37,7 @@ apt-get --quiet install --assume-yes \
     emacs \
     expat \
     figlet \
-    fonts-arkpandora \
-    fonts-dejavu \
-    fonts-dejavu-core \
-    fonts-dejavu-extra \
-    fonts-droid-fallback \
-    fonts-khmeros \
-    fonts-sil-padauk \
-    fonts-sipa-arundina \
-    fonts-taml-tscu \
-    fonts-unifont \
+    fonts-* \
     g++ \
     ghostscript \
     gir1.2-pango-1.0 \
