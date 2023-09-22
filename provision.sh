@@ -131,6 +131,7 @@ fi
 
 # add "maposmatic" system user that will own the database and all locally installed stuff
 useradd --create-home maposmatic
+usermod -a -G www-data maposmatic
 
 # install local tools
 . $INCDIR/install-tools.sh
