@@ -83,7 +83,7 @@ do
         cp ${cache_base}_hillshade.tif .
         echo "cached"
     else
-        echo "gdaldem hillshade -q ${base}_warped.tif ${base}_hillshade.tif" >> jobs-hillshade.txt
+        echo "gdaldem hillshade -co "COMPRESS=LZW" -q ${base}_warped.tif ${base}_hillshade.tif" >> jobs-hillshade.txt
         echo "planned"
     fi
 done
