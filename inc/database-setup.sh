@@ -37,6 +37,9 @@ sudo --user=postgres psql --dbname=gis --command="CREATE EXTENSION postgis_sfcga
 # enable hstore extension
 sudo --user=postgres psql --dbname=gis --command="CREATE EXTENSION hstore"
 
+# enable dblink extension
+sudo --user=maposmatic psql --dbname=maposmatic --command="CREATE EXTENSION dblink"
+
 # set up maposmatic admin table
 sudo --user=maposmatic psql --dbname=gis --command="CREATE TABLE maposmatic_admin (last_update timestamp)"
 sudo --user=maposmatic psql --dbname=gis --command="INSERT INTO maposmatic_admin VALUES ('1970-01-01 00:00:00')"
