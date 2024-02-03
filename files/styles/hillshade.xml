@@ -48,7 +48,7 @@
     <Rule>
       &maxscale_zoom1;
       &minscale_zoom4;
-      <RasterSymbolizer comp-op="grain-merge" opacity="0.9" scaling="bilinear" />
+      <RasterSymbolizer comp-op="grain-merge" opacity="0.5" scaling="bilinear" />
     </Rule>
   </Style>
   
@@ -65,7 +65,7 @@
     <Rule>
       &maxscale_zoom5;
       &minscale_zoom7;
-      <RasterSymbolizer comp-op="grain-merge" opacity="0.9" scaling="bilinear" />
+      <RasterSymbolizer comp-op="grain-merge" opacity="0.5" scaling="bilinear" />
     </Rule>
   </Style>
 
@@ -82,7 +82,7 @@
     <Rule>
       &maxscale_zoom8;
       &minscale_zoom8;
-      <RasterSymbolizer comp-op="grain-merge" opacity="0.9" scaling="bilinear" />
+      <RasterSymbolizer comp-op="grain-merge" opacity="0.5" scaling="bilinear" />
     </Rule>
   </Style>
 
@@ -99,7 +99,7 @@
     <Rule>
       &maxscale_zoom9;
       &minscale_zoom17;
-      <RasterSymbolizer comp-op="grain-merge" opacity="0.83" scaling="bilinear" />
+      <RasterSymbolizer comp-op="grain-merge" opacity="0.5" scaling="bilinear" />
     </Rule>
   </Style>
   
