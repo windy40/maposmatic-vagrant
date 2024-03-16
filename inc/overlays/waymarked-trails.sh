@@ -19,6 +19,11 @@ git clone  https://github.com/waymarkedtrails/waymarkedtrails-backend
 
 cd waymarkedtrails-backend
 
+# the commit after this changed the projection specification in stylesheets
+# and leads to "failed to initialize projection with: 'epsg:3857'" errors
+# on this setup right now
+git checkout 2967e229124f6a18a9dd6f5089c2ae7ca90948a1
+
 pip3 install .
 
 mkdir symbols
