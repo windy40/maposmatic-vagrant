@@ -23,6 +23,16 @@ fi
 growpart /dev/sda 1
 resize2fs $(mount | grep "on / " | egrep -o "^[^ ]+")
 
+
+#----------------------------------------------------
+#
+# add "maposmatic" system user
+#
+#----------------------------------------------------
+useradd --create-home maposmatic
+usermod -a -G www-data maposmatic
+
+
 #----------------------------------------------------
 #
 # putting some often used constants into variables
@@ -129,10 +139,6 @@ fi
 
 # sudo environment setup
 . $INCDIR/sudoers.sh
-
-# add "maposmatic" system user that will own the database and all locally installed stuff
-useradd --create-home maposmatic
-usermod -a -G www-data maposmatic
 
 # install local tools
 . $INCDIR/install-tools.sh
