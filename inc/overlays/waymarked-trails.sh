@@ -12,8 +12,9 @@ fi
 
 cd $STYLEDIR/
 
-pip3 install  git+https://github.com/waymarkedtrails/osgende@master \
-	      git+https://github.com/waymarkedtrails/waymarkedtrails-shields@master
+pip3 install  --break-system-packages \
+  git+https://github.com/waymarkedtrails/osgende@master \
+  git+https://github.com/waymarkedtrails/waymarkedtrails-shields@master
 
 git clone  https://github.com/waymarkedtrails/waymarkedtrails-backend
 
@@ -24,7 +25,7 @@ cd waymarkedtrails-backend
 # on this setup right now
 git checkout 2967e229124f6a18a9dd6f5089c2ae7ca90948a1
 
-pip3 install .
+pip3 install --break-system-packages .
 
 mkdir symbols
 chown maposmatic symbols

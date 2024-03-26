@@ -4,7 +4,7 @@
 # apt-get remove -y python3-apport > /dev/null
 
 banner "python packages"
-pip3 install \
+pip3 install --break-system-packages \
      babel \
      colour \
      cssselect \
@@ -39,6 +39,6 @@ pip3 install \
 # that we actually use the current pip pacakge to get
 # support for PDF set_page_label() which the version
 # of pycairo that comes with Ubuntu does not have yet
-pip3 install --ignore-installed pycairo > /dev/null || exit 3
+pip3 install --ignore-installed --break-system-packages pycairo > /dev/null || exit 3
 
 
