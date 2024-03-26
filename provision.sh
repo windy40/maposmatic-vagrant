@@ -84,7 +84,13 @@ export OSM_EXTRACT=$(ls $VAGRANT/*.pbf | head -1)
 
 if test -f "$OSM_EXTRACT"
 then
-	echo "Using $OSM_EXTRACT for OSM data import"
+	if test -r "$OSM_EXTRACT"
+	then
+		echo "Using $OSM_EXTRACT for OSM data import"
+	else
+		echo "$OSM_EXTRACT is not readable!"
+		exit 3
+	fi
 else
 	echo "No OSM .pbf data file found for import!"
 	exit 3
