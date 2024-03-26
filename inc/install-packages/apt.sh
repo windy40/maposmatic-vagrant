@@ -123,9 +123,8 @@ apt-get --quiet install --assume-yes \
     texlive-latex-base \
     texlive-latex-recommended \
     time \
-    transifex-client \
     tree \
-    ttf-unifont \
+    fonts-unifont \
     unifont \
     unifont-bin \
     unzip \
