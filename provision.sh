@@ -115,20 +115,23 @@ fi
 # override language settings
 locale-gen en_US.UTF-8
 localedef --force --inputfile=en_US --charmap=UTF-8 en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-export LC_ADDRESS=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LC_IDENTIFICATION=en_US.UTF-8
-export LC_MEASUREMENT=en_US.UTF-8
-export LC_MESSAGE=en_US.UTF-8
-export LC_MONETARY=en_US.UTF-8
-export LC_NAME=en_US.UTF-8
-export LC_NUMERIC=en_US.UTF-8
-export LC_PAPER=en_US.UTF-8
-export LC_TELEPHONE=en_US.UTF-8
-export LC_TIME=en_US.UTF-8
+
+# but keep "C" locale for now as locale changes only seem
+# to have an effect on future login shells
+export LANG=C.UTF-8
+export LANGUAGE=C.UTF-8
+export LC_ADDRESS=C.UTF-8
+export LC_ALL=C.UTF-8
+export LC_CTYPE=C.UTF-8
+export LC_IDENTIFICATION=C.UTF-8
+export LC_MEASUREMENT=C.UTF-8
+export LC_MESSAGE=C.UTF-8
+export LC_MONETARY=C.UTF-8
+export LC_NAME=C.UTF-8
+export LC_NUMERIC=C.UTF-8
+export LC_PAPER=C.UTF-8
+export LC_TELEPHONE=C.UTF-8
+export LC_TIME=C.UTF-8
 
 # silence curl and wget progress reports
 # as these just flood the vagrant output in an unreadable way
