@@ -8,8 +8,10 @@
 cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/maposmatic.git
 cd maposmatic
-git checkout --quiet django-3.2
-
+if test -n " $MAPOSMATIC_BRANCH"
+then
+    git checkout --quiet $MAPOSMATIC_BRANCH || exit 3
+fi
 git remote add pushme git@github.com:hholzgra/maposmatic.git
 
 

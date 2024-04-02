@@ -8,6 +8,10 @@
 cd $INSTALLDIR
 git clone --quiet https://github.com/hholzgra/ocitysmap.git
 cd ocitysmap
+if test -n "$OCITYSMAP_BRANCH"
+then
+  git checkout --quiet $OCITYSMAP_BRANCH || exit 3
+fi
 
 chown -R vagrant .
 git remote add pushme git@github.com:hholzgra/ocitysmap.git

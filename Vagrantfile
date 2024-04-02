@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+OCITYSMAP_BRANCH='dev-debian-12'
+MAPOSMATIC_BRANCH='dev-reedit-2'
+
 Vagrant.configure(2) do |config|
   config.vm.box = "debian/bookworm64"
 
@@ -55,8 +58,10 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell",
     env: {
-      "GIT_AUTHOR_NAME":  ENV['GIT_AUTHOR_NAME'],
-      "GIT_AUTHOR_EMAIL": ENV['GIT_AUTHOR_EMAIL'],
+      "GIT_AUTHOR_NAME":   ENV['GIT_AUTHOR_NAME'],
+      "GIT_AUTHOR_EMAIL":  ENV['GIT_AUTHOR_EMAIL'],
+      "MAPOSMATIC_BRANCH": MAPOSMATIC_BRANCH,
+      "OCITYSMAP_BRANCH":  OCITYSMAP_BRANCH,
     },
     path: "provision.sh"
 
