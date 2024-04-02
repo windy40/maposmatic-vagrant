@@ -9,10 +9,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "forwarded_port", guest: 80, host: 8000
 
-  if Vagrant.has_plugin?("vagrant-cachier")
-    config.cache.scope = :box
-  end
-
   config.vbguest.auto_update = false
 
   config.vm.boot_timeout = 600
