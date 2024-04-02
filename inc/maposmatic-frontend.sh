@@ -36,7 +36,7 @@ python3 manage.py collectstatic --no-input
 # script file under a known whitelisted name
 #
 # see also https://github.com/hholzgra/maposmatic-vagrant/issues/64
-cp cookielaw/js/cookielaw.js cookielaw/js/eu_cookie_compliance.min.js
+(cd www/static/cookielaw/js; ln -s cookielaw.js eu_cookie_compliance.min.js)
 
 # create import bounds information
 cp $INSTALLDIR/bounds/bbox.py www/settings_bounds.py
