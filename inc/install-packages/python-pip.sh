@@ -9,9 +9,12 @@ pip3 install --break-system-packages \
      colour \
      cssselect \
      django-cookie-law \
+     django-ipware \
      django-maintenance-mode \
      django-multiupload \
+     django-settings-export \
      fastnumbers \
+     GitPython \
      geoalchemy2 \
      geopy \
      gpxpy \
@@ -28,6 +31,7 @@ pip3 install --break-system-packages \
      "sqlalchemy-utils" \
      tinycss \
      utm \
+     validators \
      >/dev/null || exit 3
 
 # pip repository version of django-multiupload not compatible with Django 2.1+ yet
