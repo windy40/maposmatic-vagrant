@@ -51,5 +51,13 @@ done
 
 banner "postprocessing styles"
 
+# with new Proj version in Debian 12 old style
+# projection strings are no longer supported
+for file in $(find $STYLEDIR -name '*.xml*')
+do
+  sed -i -e 's/+init=//g' $file
+done
+
+# generate the ocitysmap config file covering all styles
 . ocitysmap-conf.sh
 
