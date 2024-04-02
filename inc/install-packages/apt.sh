@@ -94,6 +94,7 @@ apt-get --quiet install --assume-yes \
     postgresql-contrib \
     postgresql-server-dev-all \
     pv \
+    python-is-python3 \
     python3-appdirs \
     python3-distlib \
     python3-django \
