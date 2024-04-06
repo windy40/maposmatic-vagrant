@@ -53,7 +53,7 @@ banner "postprocessing styles"
 
 # with new Proj version in Debian 12 old style
 # projection strings are no longer supported
-for file in $(find $STYLEDIR -name '*.xml*')
+for file in $(find $STYLEDIR -name '*.xml*') $(find $INSTALLDIR/ocitysmap/stylesheet/ -name '*.xml*')
 do
   sed -i -e 's/+init=//g' $file
 done
