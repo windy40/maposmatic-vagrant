@@ -41,7 +41,10 @@ SECRET_KEY = 'tm+wb)lp5q%br=p0d2toz&km_-w)cmcelv!7inons&^v9(q!d2'
 # EXTRA_FOOTER = ""
 
 import sys
-sys.path.append('@INSTALLDIR@/ocitysmap')
+
+OCITYSMAP_PATH= '@INSTALLDIR@/ocitysmap'
+sys.path.append(OCITYSMAP_PATH)
+
 
 # # Debug mode. Set to False on a production environnement
 DEBUG = True
