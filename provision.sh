@@ -256,7 +256,7 @@ banner "security"
 
 banner "tileserver"
 
-. $INCDIR/tileserver
+. $INCDIR/tileserver.sh
 
 
 #----------------------------------------------------
