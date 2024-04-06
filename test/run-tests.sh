@@ -177,9 +177,13 @@ make_cmd() {
     then
 	cmd+=" --format=pdf"
 	cmd+=" --layout=multi_page"
+        cmd+=" --orientation=portrait"
+        cmd+=" --paper-format='Din A4'"
     else
         cmd+=" --format=$format"
 	cmd+=" --layout=$LAYOUT"
+        cmd+=" --orientation=$ORIENTATION"
+        cmd+=" --paper-format='$PAPER'"
     fi
     if [ "$mode" == "overlay" ]
     then
