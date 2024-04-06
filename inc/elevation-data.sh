@@ -30,7 +30,7 @@ for zone in $(psql gis --tuples-only --command="select zone from srtm_zones wher
 do
     CACHEFILE=$CACHEDIR/srtm-data/$zone.zip
     SRTM_URL=http://viewfinderpanoramas.org/dem3/$zone.zip
-    if ! test -f $CACHEFILE
+    if ! test -s $CACHEFILE  # exists and is not empty
     then
         echo "  downloading zone $zone"
         wget -q -O $CACHEFILE $SRTM_URL
@@ -58,7 +58,7 @@ do
     echo -n "  processing $base "
 
     echo -n "adapt "
-    if test -f ${cache_base}_adapted.tif
+    if test -s ${cache_base}_adapted.tif
     then
         cp ${cache_base}_adapted.tif .
         echo -n "cached, "
@@ -68,7 +68,7 @@ do
     fi
 
     echo -n "warp "
-    if test -f ${cache_base}_warped.tif
+    if test -s ${cache_base}_warped.tif
     then
         cp ${cache_base}_warped.tif .
         echo -n "cached, "
@@ -78,7 +78,7 @@ do
     fi
 
     echo -n "hillshade "
-    if test -f ${cache_base}_hillshade.tif
+    if test -s ${cache_base}_hillshade.tif
     then
         cp ${cache_base}_hillshade.tif .
         echo "cached"
@@ -91,7 +91,7 @@ done
 for job in adapted warped hillshade
 do
     jobfile=jobs-$job.txt
-    test -f $jobfile && parallel < $jobfile
+    test -s $jobfile && parallel < $jobfile
 done
 
 rm -f jobs-*.txt
