@@ -7,7 +7,8 @@ MAPOSMATIC_BRANCH='dev-reedit-2'
 Vagrant.configure(2) do |config|
   config.vm.box = "debian/bookworm64"
 
-  config.vm.network "forwarded_port", guest: 80, host: 8000
+  config.vm.network "forwarded_port", guest: 80, host: 8001
+  config.vm.network "forwarded_port", guest: 8080, host: 8081
 
   config.vbguest.auto_update = false
 
