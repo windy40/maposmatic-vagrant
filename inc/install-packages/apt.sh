@@ -30,6 +30,7 @@ apt-get --quiet install --assume-yes \
     apt-src \
     asciidoctor \
     bc \
+    build-essential \
     cabextract \
     cmake \
     coderay \
@@ -46,7 +47,9 @@ apt-get --quiet install --assume-yes \
     ccache \
     gdal-bin \
     gettext \
+    gir1.2-pango-1.0 \
     git \
+    git-svn \
     imagemagick \
     libacl1-dev \
     libapache2-mod-fcgid \
@@ -59,18 +62,29 @@ apt-get --quiet install --assume-yes \
     libcairo2-dev \
     libcgi-fast-perl \
     libexpat1-dev \
+    libffi-dev \
+    libfreetype6-dev \
+    libjpeg-dev \
     libgdal-dev \
     libgirepository1.0-dev \
     libkakasi2-dev \
+    libldap-common \
+    libldap2-dev \
     liblua5.3-dev \
     libmapnik3.1 \
     libmapnik-dev \
     libosmium2-dev \
+    libpq-dev \
     libpython3-dev \
+    libsasl2-dev \
+    libssl-dev \
     libutf8proc-dev \
+    libxml2-dev \
     libxml2-utils \
+    libxmlsec1-dev \
     libxslt1-dev \
     libyaml-dev \
+    libz-dev \
     lua5.3 \
     mapnik-utils \
     mc \
@@ -96,6 +110,7 @@ apt-get --quiet install --assume-yes \
     pv \
     python-is-python3 \
     python3-appdirs \
+    python3-dev \
     python3-distlib \
     python3-django \
     python3-filelock \
