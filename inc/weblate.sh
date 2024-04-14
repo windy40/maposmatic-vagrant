@@ -21,27 +21,15 @@ PYTHON_DIR="$PWD/lib/$PYTHON_VERSION"
 PYTHON_PKG_DIR="$PYTHON_DIR/site-packages"
 WEBLATE_PKG_DIR="$PYTHON_PKG_DIR/weblate"
 
-echo "PYTHON_VERSION: $PYTHON_VERSION"
-echo "PYTHON_DIR: $PYTHON_DIR"
-echo "PYTHON_PKG_DIR: $PYTHON_PKG_DIR"
-echo "WEBLATE_PKG_DIR: $WEBLATE_PKG_DIR"
-
-ls -l "$FILEDIR/config-files/weblate_settings.py"
-ls -l "$WEBLATE_PKG_DIR/settings.py"
-
 sed -e"s|@INSTALLDIR@|$INSTALLDIR|g" \
   < $FILEDIR/config-files/weblate_settings.py \
   > $WEBLATE_PKG_DIR/settings.py
-
-ls -l "$FILEDIR/config-files/weblate_settings.py"
-ls -l "$WEBLATE_PKG_DIR/settings.py"
 
 weblate migrate
 weblate createadmin --username admin --password secret --email webmaster@get-map.org 
 weblate collectstatic
 # weblate compress
 
-$WEBLATE_PKG_DIR/examples/celery start # TODO make a service
 
 chown -R weblate .
 
@@ -52,6 +40,20 @@ chmod -R ug+rwx data
 mkdir -p logs
 chown weblate:www-data logs
 chmod ug+rwx logs
+
+# set up celery systemD service
+# see also: https://docs.weblate.org/en/latest/admin/install.html#running-celery-as-system-service
+sed -e"s|/home/weblate/|$INSTALLDIR/weblate/|g" \
+    < $WEBLATE_PKG_DIR/examples/celery-weblate.service \
+    > /etc/systemd/system/celery-weblate.service
+
+sed -e"s|/home/weblate/weblate-env/|/home/maposmatic/weblate/|g" \
+    -e"s|/var/log/celery/weblate-|/home/maposmatic/weblate/logs/celery-weblate-|g" \
+    < $WEBLATE_PKG_DIR/examples/celery-weblate.conf \
+    > /etc/default/celery-weblate
+
+systemctl enable celery-weblate
+systemctl start celery-weblate
 
 sed -e"s|@INSTALLDIR@|$INSTALLDIR|g" \
     -e"s|@WEBLATE_PKG_DIR@|$WEBLATE_PKG_DIR|g" \

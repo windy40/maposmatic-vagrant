@@ -1,6 +1,8 @@
 TODO
 ====
 
+* create and use python virtual environment for maposmatic frontend and render backend
+
 * more integration tests:
  * test API
  * test Umgebnugsplaene
@@ -9,3 +11,6 @@ TODO
 
 * create OpenRiverboatMap indexes
 
+* populate the weblate instance
+
+* make weblate run as a subdir of main apache instead of on separate port
