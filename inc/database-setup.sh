@@ -5,7 +5,7 @@
 #----------------------------------------------------
 
 # config tweaks
-# TODO how to auto-detect correct conf include dir?
+
 # Keep for OS some free memory to prevent killing PostgreSQL by Out-Of-Memory Killer
 let Mem_OS=100000
 let Mem_DB=$MemTotal-$Mem_OS
