@@ -11,6 +11,7 @@
 /spec/reports/
 /spec/examples.txt
 /tmp/
+/git/
 /git-log/
 
 ## Specific to RubyMotion:
@@ -41,7 +42,7 @@ build/
 # ignore Vagrant / Virtualbox related stuff
 .vagrant/
 db_disk.vdi
-maposmatic.box
+*.box
 *-console.log
 *-VBoxHeadless-*.log
 
