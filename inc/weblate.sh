@@ -41,7 +41,7 @@ weblate createadmin --username admin --password secret --email webmaster@get-map
 weblate collectstatic
 # weblate compress
 
-$WEBLATE_PKG_DIR/examples/celery start
+$WEBLATE_PKG_DIR/examples/celery start # TODO make a service
 
 chown -R weblate .
 
