@@ -92,7 +92,9 @@ apt-get --quiet install --assume-yes \
     munin \
     munin-node \
     munin-plugins-extra \
+    net-tools \
     nlohmann-json3-dev \
+    ntp \
     osmctools \
     osmium-tool \
     pandoc \
@@ -145,6 +147,7 @@ apt-get --quiet install --assume-yes \
     unifont-bin \
     unzip \
     virtualenv \
+    w3m \
     wkhtmltopdf \
     > /dev/null || exit 3
 
