@@ -27,6 +27,11 @@ do
 done
 
 #
+# enable the maposmatic/ocitysmap virtual environment
+#
+echo ". $INSTALLDIR/bin/activate" >> $outfile
+
+#
 # prevent "message of the day" to be shown on vagrant login
 #
 

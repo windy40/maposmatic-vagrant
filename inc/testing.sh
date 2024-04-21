@@ -1,5 +1,8 @@
 #! /bin/bash
 
+deactivate
+. $INSTALLDIR/bin/activate
+
 cd $VAGRANT/test
 chmod a+w .
 rm -f test-* thumbnails/test-*

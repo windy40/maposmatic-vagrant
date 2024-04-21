@@ -4,6 +4,11 @@
 # apt-get remove -y python3-apport > /dev/null
 
 banner "python packages"
+
+deactivate 2>/dev/null
+virtualenv --system-site-package $INSTALLDIR
+. $INSTALLDIR/bin/activate
+
 pip3 install --break-system-packages \
      babel \
      colour \
@@ -25,6 +30,7 @@ pip3 install --break-system-packages \
      pillow \
      pluginbase \
      psutil \
+     psycopg2 \
      pyproj \
      qrcode \
      "sqlalchemy>=1.4,<2.0" \

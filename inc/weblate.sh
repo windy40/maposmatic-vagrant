@@ -10,12 +10,11 @@ sudo --user=postgres psql --dbname=postgres --command="ALTER USER weblate WITH P
 
 cd $INSTALLDIR/weblate
 
+deactivate 2>/dev/null
 virtualenv .
-. bin/activate 
+. bin/activate
 
-pip install "Weblate[all]"
-
-PYTHON_VERSION=python$(python3 -c 'import sys; print("%d.%d" % (sys.version_info.major, sys.version_info.minor))')
+pip install "Weblate[all]"==4.14.1
 
 PYTHON_DIR="$PWD/lib/$PYTHON_VERSION"
 PYTHON_PKG_DIR="$PYTHON_DIR/site-packages"

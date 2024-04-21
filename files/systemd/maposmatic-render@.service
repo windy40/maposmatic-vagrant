@@ -8,7 +8,9 @@ Type=idle
 User=maposmatic
 MemoryMax=@memlimit@K
 LimitNOFILE=infinity
-ExecStart=/usr/bin/python3 @INSTALLDIR@/maposmatic/scripts/wrapper.py scripts/daemon.py %i
+WorkingDirectory=@INSTALLDIR@/maposmatic/
+Environment=PYTHONPATH=@INSTALLDIR@/lib/@PYTHON_VERSION@/site-packages/:/usr/lib/python3/dist-packages/
+ExecStart=@INSTALLDIR@/bin/python3 scripts/wrapper.py scripts/daemon.py %i
 
 [Install]
 WantedBy=multi-user.target

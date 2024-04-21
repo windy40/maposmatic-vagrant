@@ -73,7 +73,7 @@ chmod a+w rendering/results
 
 # set up render daemon
 let MemHalf=$Mem_DB/2
-sed_opts="$sed_opts -e s|@memlimit@|$MemHalf|g"
+sed_opts="$sed_opts -e s|@memlimit@|$MemHalf|g -e s|@INSTALLDIR@|$INSTALLDIR|g -e s|@PYTHON_VERSION@|$PYTHON_VERSION|g"
 sed $sed_opts < $FILEDIR/systemd/maposmatic-render.service > /etc/systemd/system/maposmatic-render.service
 sed $sed_opts < $FILEDIR/systemd/maposmatic-render@.service > /etc/systemd/system/maposmatic-render@.service
 chmod 644 /etc/systemd/system/maposmatic*

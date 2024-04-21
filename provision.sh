@@ -154,6 +154,8 @@ fi
 # installing apt, pip and npm packages
 . $INCDIR/install-packages.sh
 
+PYTHON_VERSION=python$(python3 -c 'import sys; print("%d.%d" % (sys.version_info.major, sys.version_info.minor))')
+
 # install all locales in the background
 . $INCDIR/locales.sh
 
