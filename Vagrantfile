@@ -1,8 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-OCITYSMAP_BRANCH='dev-debian-12'
-MAPOSMATIC_BRANCH='dev-reedit-2'
+OCITYSMAP_BRANCH='master'
+MAPOSMATIC_BRANCH='main'
 
 Vagrant.configure(2) do |config|
   config.vm.box = "debian/bookworm64"
