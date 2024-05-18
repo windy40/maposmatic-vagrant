@@ -9,7 +9,7 @@ deactivate 2>/dev/null
 virtualenv --system-site-packages $INSTALLDIR
 . $INSTALLDIR/bin/activate
 
-pip3 install \
+pip3 install --ignore-installed \
      appdirs \
      attrs \
      babel \
