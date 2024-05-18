@@ -20,9 +20,9 @@ PYTHON_DIR="$PWD/lib/$PYTHON_VERSION"
 PYTHON_PKG_DIR="$PYTHON_DIR/site-packages"
 WEBLATE_PKG_DIR="$PYTHON_PKG_DIR/weblate"
 
-sed -e"s|@INSTALLDIR@|$INSTALLDIR|g" \
-  < $FILEDIR/config-files/weblate_settings.py \
-  > $WEBLATE_PKG_DIR/settings.py
+(cd $WEBLATE_PKG_DIR; cp settings_example.py settings.py; patch -p0 < /vagrant/files/config-files/weblate-settings.patch)
+
+sudo -u weblate psql weblate < /vagrant/weblate/weblate.sql
 
 weblate migrate
 weblate createadmin --username admin --password secret --email webmaster@get-map.org 
