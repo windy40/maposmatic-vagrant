@@ -6,36 +6,59 @@
 banner "python packages"
 
 deactivate 2>/dev/null
-virtualenv --system-site-package $INSTALLDIR
+virtualenv --system-site-packages $INSTALLDIR
 . $INSTALLDIR/bin/activate
 
-pip3 install --break-system-packages \
+pip3 install \
+     appdirs \
+     attrs \
      babel \
+     certifi \
+     charset_normalizer \
+     click \
+     click-plugins \
+     cligj \
      colour \
      cssselect \
+     distlib \
+     "Django==3.2.19" \
      django-cookie-law \
      django-ipware \
      django-maintenance-mode \
      django-multiupload \
      django-settings-export \
      fastnumbers \
+     feedparser \
+     filelock \
+     fiona \
+     "gdal==3.6.4" \
      GitPython \
      geoalchemy2 \
      geopy \
      gpxpy \
+     idna \
      jinja2 \
      jsonpath_ng \
+     lxml \
+     mako \
      natsort \
+     numpy \
      osmium \
      pillow \
      pluginbase \
      psutil \
      psycopg2 \
      pyproj \
+     python-slugify \
+     requests \
      qrcode \
+     shapely \
+     six \
      "sqlalchemy>=1.4,<2.0" \
      "sqlalchemy-utils" \
      tinycss \
+     unicode \
+     urllib3 \
      utm \
      validators \
      >/dev/null || exit 3

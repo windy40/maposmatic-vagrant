@@ -111,27 +111,13 @@ apt-get --quiet install --assume-yes \
     postgresql-server-dev-all \
     pv \
     python-is-python3 \
-    python3-appdirs \
     python3-dev \
-    python3-distlib \
-    python3-django \
-    python3-filelock \
     python3-future \
-    python3-feedparser \
-    python3-fiona \
-    python3-gdal \
     python3-gdbm \
     python3-gi-cairo \
-    python3-lxml \
-    python3-mako \
     python3-mapnik \
-    python3-markdown \
     python3-pip \
     python3-pil \
-    python3-psycopg2 \
-    python3-shapely \
-    python3-slugify \
-    python3-urllib3 \
     python3-virtualenv \
     redis \
     renderd \
