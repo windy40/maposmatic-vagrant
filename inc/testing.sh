@@ -1,6 +1,6 @@
 #! /bin/bash
 
-deactivate
+deactivate 2>/dev/null
 . $INSTALLDIR/bin/activate
 
 cd $VAGRANT/test
