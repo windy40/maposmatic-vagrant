@@ -5,7 +5,9 @@ cd $STYLEDIR
 git clone --quiet https://github.com/cyclosm/cyclosm-cartocss-style
 cd cyclosm-cartocss-style
 
-git checkout v0.3.7
+git checkout v0.6.0
+
+patch -p1 < $STYLEDIR/cyclosm.patch
 
 ln -s $SHAPEFILE_DIR data
 
@@ -15,6 +17,7 @@ do
     ln -s $hillshade .
 done
 cd ..
+
 		 
 sed -e 's/"type": "postgis"/"type": "postgis", "host": "gis-db", "user": "maposmatic", "password": "secret"/g' \
     -e 's/dbname: "osm"/dbname: "gis"/g' \
