@@ -65,7 +65,8 @@ foreach ($types as $type) {
         echo "</a>&nbsp;";
       } else if (file_exists("$base.running")) {
         echo "bgcolor='yellow' align='center'>";
-        echo "* running *";
+        $since = time() -filemtime("$base.running");
+        echo strftime("%T", $since);
       } else {
         echo "bgcolor='orangered' align='center'>";
         echo "<a href='$base.err'>FAIL</a>";
