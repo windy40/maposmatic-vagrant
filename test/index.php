@@ -1,3 +1,74 @@
+<?php
+
+function timecomp($d1, $d2)
+{
+    if (empty($d1["time"]) || empty($d2["time"])) return 0;
+
+    return strcmp($d2["time"], $d1["time"]);
+}
+
+$results=[];
+$formats=[];
+$runlist=[];
+
+foreach (glob("test-*.sh") as $file) {
+    if (preg_match('|^test-(\w+)-([-\w]+)-(\w+)\.sh$|', $file, $m)) {
+        list($name, $type, $style, $format) = $m;
+
+        $formats[$format] = $format;
+        
+        $base = "test-$type-$style-$format";
+        $ext  = ($format === "multi") ? "pdf" : $format;
+
+        $running = file_exists( $base.".running");
+
+        $result  = $base.".".$ext;
+        $log     = $base.($running ? ".log" : ".err");
+                 
+        $time = NULL;
+        $status = "unknown";
+        if ($running) {
+            $status = "running";
+            $time = strftime("%T", time() - filemtime("$base.running"));
+        } else if(file_exists($base.".time")) {
+            $status = file_exists($base.".".$ext) ? "success" : "failed";
+            $time = trim(file_get_contents($base.".time"));
+        }
+
+        $data = [
+            "base"    => $base,
+            "type"    => $type,
+            "style"   => $style,
+            "format"  => $format,
+            "ext"     >= $ext,
+            "running" => $running,
+            "time"    => $time,
+            "result"  => $result,
+            "log"     => "read.php?name=".urlencode($log),
+            "status"  => $status,
+        ];
+
+        if (!isset($results[$type])) {
+            $results[$type] = array();
+        }
+        if (!isset($results[$type][$style])) {
+            $results[$type][$style] = array();
+        }
+        if (!isset($results[$type][$style][$format])) {
+            $results[$type][$style][$format] = array();
+        }
+
+        $results[$type][$style][$format] = $data;
+        if ($status == "running") {
+            $runlist[$base] = $data;
+        }
+    }
+}
+
+if (count($runlist)) {
+    header("Refresh: 10\n");
+}
+?>
 <html>
 <head><title>Test Results</title></head>
 <body>
@@ -9,78 +80,48 @@
 -
 <a href="all-overlays-poster.pdf">all overlays on poster size pages</a>
 <hr/>
+<h3>Running:</h3>
+<table>
+  <tr><th>Test</th><th>Time</th></tr>
 <?php
-
-$results = [];
-$types   = [];
-
-$format_names = ["multi", "pdf", "png", "svgz"];
-
-$time_files = glob("test*.time");
-sort($time_files);
-foreach ($time_files as $test) {
-    if (preg_match('|test-(\w+)-([-\w]+)-(\w+)\.time|', $test, $m)) {
-        $type   = $m[1];
-        $style  = $m[2];
-        $format = $m[3];
-
-        if (!isset($results[$type])) {
-	    $results[$type] = array();
-        }
-
-        if (!isset($results[$type][$style])) {
-            $results[$type][$style] = array();
-        }
-
-	$results[$type][$style][$format] = basename($test, ".time");
-
-	$types[$type] = $type;
-    } else {
-        error_log("unmatch: $test\n");
-    }
-}
-
-foreach ($types as $type) {
-  echo "<h1>$type</h1>\n";
-
-  echo "<table>\n";
-
-  echo "<tr><th>$type</th>";
-  foreach($format_names as $format) {
-    echo "<th>$format</th>";
-  }
-  echo "</tr>\n";
-
-  foreach($results[$type] as $style => $formats) {
-    $style = str_ireplace("-$type", "", $style);
-    echo "<tr><td>$style</td>";
-
-    foreach($formats as $format => $base) {
-      if ($format === "multi") $format="pdf";
-      echo "<td ";
-      if(file_exists("$base.$format")) {
-        echo "bgcolor='lightgreen' align='right'>";
-        echo "&nbsp;<a href='$base.$format'>";
-        readfile("$base.time");
-        echo "</a>&nbsp;";
-      } else if (file_exists("$base.running")) {
-        echo "bgcolor='yellow' align='center'>";
-        $since = time() -filemtime("$base.running");
-        echo strftime("%T", $since);
-      } else {
-        echo "bgcolor='orangered' align='center'>";
-        echo "<a href='$base.err'>FAIL</a>";
-      }
-      echo "</td>";
-    }
-
-    echo "</tr>\n";
-  }
-
-  echo "</table>\n";
+uasort($runlist, "timecomp");
+foreach ($runlist as $name => $data) {
+echo
+    "<tr><td>".$data["style"]." - ".$data["format"]."</td><td><a target='_blank' href='".$data["log"]."'>".$data["time"]."</a></td></tr>\n";
 }
 ?>
-
+</table>
+<hr/>
+<?php
+foreach ($results as $type => $styles) {
+  echo "<h3>$type</h3>\n";
+  echo "<table>\n";
+  echo "  <tr><th>Test</th>";
+  foreach ($formats as $format) {
+      echo "<th>$format</th>";
+  }
+  echo "</tr>\n";
+  foreach ($styles as $name => $style) {
+      echo "  <tr><td>$name</td>";
+      foreach ($formats as $format) {
+         if (isset($style[$format])) {
+           $data = $style[$format];
+           switch($data["status"]) {
+             case "running": $color = "yellow"; break;
+             case "success": $color = "lightgreen"; break;
+             case "failed" : $color = "orangered"; break;
+             default: $color = "white"; break;
+           }
+           echo "<td align='right' bgcolor='$color'><a target='_blank' href=".$data["log"].">".$data["time"]."</a></td>";
+         } else {
+             echo "<td>&nbsp;</td>";
+         }
+      }
+      echo "</tr>\n";
+  }
+  echo "</table>\n";
+  echo "<hr/>\n";
+}
+?>
 </body>
 </html>
-
