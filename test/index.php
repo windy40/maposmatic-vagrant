@@ -80,6 +80,8 @@ if (count($runlist)) {
 -
 <a href="all-overlays-poster.pdf">all overlays on poster size pages</a>
 <hr/>
+    <table border='1'>
+    <tr valign='top'><td style='padding: 15px; spacing:15px'>
 <h3>Running:</h3>
 <table>
   <tr><th>Test</th><th>Time</th></tr>
@@ -91,9 +93,10 @@ echo
 }
 ?>
 </table>
-<hr/>
 <?php
 foreach ($results as $type => $styles) {
+  echo "</td><td style='padding: 15px; spacing:15px'>\n";
+
   echo "<h3>$type</h3>\n";
   echo "<table>\n";
   echo "  <tr><th>Test</th>";
@@ -120,8 +123,8 @@ foreach ($results as $type => $styles) {
       echo "</tr>\n";
   }
   echo "</table>\n";
-  echo "<hr/>\n";
 }
 ?>
+    </td></tr></table>
 </body>
 </html>
