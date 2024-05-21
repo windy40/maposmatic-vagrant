@@ -63,6 +63,9 @@ foreach ($types as $type) {
         echo "&nbsp;<a href='$base.$format'>";
         readfile("$base.time");
         echo "</a>&nbsp;";
+      } else if (file_exists("$base.running")) {
+        echo "bgcolor='yellow' align='center'>";
+        echo "* running *";
       } else {
         echo "bgcolor='orangered' align='center'>";
         echo "<a href='$base.err'>FAIL</a>";

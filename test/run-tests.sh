@@ -203,6 +203,9 @@ make_map() {
     for format in png pdf svgz multi
     do
         base=test-$mode-$style-$format
+
+	echo "touch $base.running" >> $base.sh
+
 	make_cmd $base $style $mode $format >> $base.sh
 
 	if test "$format" == "png"
@@ -212,6 +215,8 @@ make_map() {
 
 	chmod a+x $base.sh
 	echo "/usr/bin/time -q -f "%E" -o $base.time ./$base.sh > $base.log 2> $base.err; echo -n '$style $mode $format done in '; cat $base.time " >> test-run.sh
+
+	echo "rm -f $base.running" >> $base.sh
     done
 }
 
