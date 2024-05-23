@@ -21,7 +21,7 @@ pip3 install --ignore-installed \
      colour \
      cssselect \
      distlib \
-     "Django==3.2.19" \
+     "Django<5" \
      django-cookie-law \
      django-ipware \
      django-maintenance-mode \
