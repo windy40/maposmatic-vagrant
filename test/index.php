@@ -81,8 +81,10 @@ if (count($runlist)) {
 <a href="all-overlays-poster.pdf">all overlays on poster size pages</a>
 <hr/>
     <table border='1'>
-    <tr valign='top'><td style='padding: 15px; spacing:15px'>
-<h3>Running:</h3>
+    <tr valign='top'>
+<?php if (count($runlist)) { ?>
+<td style='padding: 15px; spacing:15px'>
+<h3>Running:</h2>
 <table>
   <tr><th>Test</th><th>Time</th></tr>
 <?php
@@ -90,9 +92,10 @@ uasort($runlist, "timecomp");
 foreach ($runlist as $name => $data) {
 echo
     "<tr><td>".$data["style"]." - ".$data["format"]."</td><td><a target='_blank' href='".$data["log"]."'>".$data["time"]."</a></td></tr>\n";
-}
+} 
 ?>
 </table>
+<?php } ?>
 <?php
 foreach ($results as $type => $styles) {
   echo "</td><td style='padding: 15px; spacing:15px'>\n";
