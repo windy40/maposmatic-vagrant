@@ -145,7 +145,7 @@ ITEMS_PER_PAGE = 25
 MAPOSMATIC_PID_FILE = '/var/run/maposmaticd.pid'
 
 # Feed URL for the RRS feed on the front page
-MAPOSMATIC_RSS_FEED = 'http://blog.osm-baustelle.de/index.php/feed/?cat=2'
+MAPOSMATIC_RSS_FEED = 'http://blog.get-map.org/index.php/feed/?cat=2'
 
 # # Settings for exception emails: the from email address, and the list of
 # # receipient email addresses. No emails are sent if the SMTP host is not
@@ -165,7 +165,7 @@ MAPOSMATIC_DONATION = False
 # # Displayed on the top menu
 BRAND_NAME = "MyOSMatic"
 # # Front page feed
-FRONT_PAGE_FEED = "https://blog.osm-baustelle.de/index.php/feed/"
+FRONT_PAGE_FEED = "https://blog.get-map.org/index.php/feed/"
 
 
 # # Alert message (for instance for maintenance announce)
