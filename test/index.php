@@ -23,16 +23,16 @@ foreach (glob("test-*.sh") as $file) {
         $running = file_exists( $base.".running");
 
         $result  = $base.".".$ext;
-	$log     = $base.($running ? ".log" : ".err");
-	$log_url = "read.php?name=".urlencode($log);
+        $log     = $base.($running ? ".log" : ".err");
+        $log_url = "read.php?name=".urlencode($log);
                  
         $time = NULL;
         $status = "unknown";
         if ($running) {
             $status = "running";
             $time = strftime("%T", time() - filemtime("$base.running"));
-	} else if(file_exists($base.".time")) {
-	    $status = file_exists($result) ? "success" : "failed";
+        } else if(file_exists($base.".time")) {
+            $status = file_exists($result) ? "success" : "failed";
             $time = trim(file_get_contents($base.".time"));
         }
         $result_url = ($status == "success") ? $result : $log_url;
