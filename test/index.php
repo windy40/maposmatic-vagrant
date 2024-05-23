@@ -23,17 +23,19 @@ foreach (glob("test-*.sh") as $file) {
         $running = file_exists( $base.".running");
 
         $result  = $base.".".$ext;
-        $log     = $base.($running ? ".log" : ".err");
+	$log     = $base.($running ? ".log" : ".err");
+	$log_url = "read.php?name=".urlencode($log);
                  
         $time = NULL;
         $status = "unknown";
         if ($running) {
             $status = "running";
             $time = strftime("%T", time() - filemtime("$base.running"));
-        } else if(file_exists($base.".time")) {
-            $status = file_exists($base.".".$ext) ? "success" : "failed";
+	} else if(file_exists($base.".time")) {
+	    $status = file_exists($result) ? "success" : "failed";
             $time = trim(file_get_contents($base.".time"));
         }
+        $result_url = ($status == "success") ? $result : $log_url;
 
         $data = [
             "base"    => $base,
@@ -44,7 +46,7 @@ foreach (glob("test-*.sh") as $file) {
             "running" => $running,
             "time"    => $time,
             "result"  => $result,
-            "log"     => "read.php?name=".urlencode($log),
+            "url"     => $result_url,
             "status"  => $status,
         ];
 
@@ -91,7 +93,7 @@ if (count($runlist)) {
 uasort($runlist, "timecomp");
 foreach ($runlist as $name => $data) {
 echo
-    "<tr><td>".$data["style"]." - ".$data["format"]."</td><td><a target='_blank' href='".$data["log"]."'>".$data["time"]."</a></td></tr>\n";
+    "<tr><td>".$data["style"]." - ".$data["format"]."</td><td><a target='_blank' href='".$data["url"]."'>".$data["time"]."</a></td></tr>\n";
 } 
 ?>
 </table>
@@ -118,7 +120,7 @@ foreach ($results as $type => $styles) {
              case "failed" : $color = "orangered"; break;
              default: $color = "white"; break;
            }
-           echo "<td align='right' bgcolor='$color'><a target='_blank' href=".$data["log"].">".$data["time"]."</a></td>";
+           echo "<td align='right' bgcolor='$color'><a target='_blank' href=".$data["url"].">".$data["time"]."</a></td>";
          } else {
              echo "<td>&nbsp;</td>";
          }
