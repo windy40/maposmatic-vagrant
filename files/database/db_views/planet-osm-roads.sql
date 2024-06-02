@@ -11,6 +11,7 @@ SELECT osm_id
 , osml10n_get_placename_from_tags(tags,false,false,' - ','de',way)  as localized_name_first
 , osml10n_get_name_without_brackets_from_tags(tags,'de',way)        as localized_name_without_brackets
 , osml10n_get_streetname_from_tags(tags,true,false,' - ','de', way) as localized_streetname
+, osml10n_get_name_without_brackets_from_tags(tags,'oc',way) as name_fr_oc
 , COALESCE(tags->'name:hsb',tags->'name:dsb',tags->'name')          as name_hrb
 -- hstore tag 'columns' (sorted)
 , tags->'access' as "access"
@@ -34,6 +35,7 @@ SELECT osm_id
 , tags->'name' as "name"
 , tags->'name:de' as "name:de"
 , tags->'name:en' as "name:en"
+, tags->'name:oc' as "name:oc"
 , tags->'power' as "power"
 , tags->'railway' as "railway"
 , tags->'ref' as "ref"
